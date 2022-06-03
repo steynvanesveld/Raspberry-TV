@@ -1,0 +1,4 @@
+<article *ngIf="generalNews" class="news">
+    <h1 [innerText]="generalNews[currentNewsItemIndex].title"></h1>
+    <div [innerHTML]="generalNews[currentNewsItemIndex].description"></div>
+</article>

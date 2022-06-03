@@ -27,9 +27,11 @@ export abstract class HttpService<T extends AbstractModel> {
         this.http = http;
     }
 
-    public read(): Observable<T> {
+    public read(id?: string): Observable<T> {
+        const identifier = id ? `/${id}` : '';
+
         return this.http
-            .get(`${this.baseUrl}${this.resource}`, {
+            .get(`${this.baseUrl}${this.resource}${identifier}`, {
                 headers: this.headers,
                 params: this.params,
             })

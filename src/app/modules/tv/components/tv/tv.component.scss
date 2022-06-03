@@ -6,8 +6,13 @@
     justify-content: space-between;
     padding: 40px;
 
+    &-main {
+        overflow: hidden;
+    }
+
     &-footer {
         display: flex;
         justify-content: space-between;
+        padding-top: 40px;
     }
 }

@@ -3,29 +3,29 @@
 .home {
     width: 100%;
     max-width: 752px;
-    padding: 0 16px;
+    padding: 0 $global-spacing;
     margin: 0 auto;
-}
 
-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: $global-spacing 0;
-    text-align: center;
-    color: #75a928;
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: $global-spacing 0;
+        text-align: center;
+        color: #75a928;
 
-    img {
-        width: 240px;
-        padding: 40px;
-    }
+        img {
+            width: 240px;
+            padding: $global-spacing * 2.5;
+        }
 
-    nav {
-        padding: 40px 0;
-        width: 100%;
-        text-align: left;
-        list-style-position: inside;
-        color: #bc1142;
+        nav {
+            padding: $global-spacing * 2.5 0;
+            width: 100%;
+            text-align: left;
+            list-style-position: inside;
+            color: #bc1142;
+        }
     }
 }
