@@ -12,6 +12,13 @@ export class TvWeatherComponent implements OnInit {
 
     constructor(private openWeatherService: OpenWeatherService) {}
 
+    get icon(): string {
+        return `http://openweathermap.org/img/wn/${this.weather?.weather[0].icon}@2x.png`;
+    }
+    get temperature(): string {
+        return `${Math.round(Number(this.weather?.main.temp))}°C`;
+    }
+
     public ngOnInit(): void {
         this.getWeather();
     }
@@ -24,9 +31,5 @@ export class TvWeatherComponent implements OnInit {
         setTimeout(() => {
             this.getWeather();
         }, 1000 * 60 * 30); // 30 minutes
-    }
-
-    public round(decimal: string): number {
-        return Math.round(Number(decimal));
     }
 }
