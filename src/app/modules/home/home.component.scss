@@ -1,0 +1,31 @@
+@import "variables";
+
+.home {
+    width: 100%;
+    max-width: 752px;
+    padding: 0 16px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $global-spacing 0;
+    text-align: center;
+    color: #75a928;
+
+    img {
+        width: 240px;
+        padding: 40px;
+    }
+
+    nav {
+        padding: 40px 0;
+        width: 100%;
+        text-align: left;
+        list-style-position: inside;
+        color: #bc1142;
+    }
+}
