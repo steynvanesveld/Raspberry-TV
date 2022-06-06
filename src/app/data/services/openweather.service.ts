@@ -12,6 +12,7 @@ export class OpenWeatherService extends HttpService<Weather> {
     constructor(httpClient: HttpClient) {
         super(httpClient);
 
+        this.setSerializer(new WeatherSerializer());
         this.setBaseUrl('https://api.openweathermap.org/data/2.5');
     }
 
@@ -26,7 +27,6 @@ export class OpenWeatherService extends HttpService<Weather> {
         };
 
         this.setParams(httpParams);
-        this.setSerializer(new WeatherSerializer());
 
         return this.read();
     }

@@ -1,9 +1,13 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Serializer } from '../serializers/serializer';
 import { AbstractModel } from '../models/abstract.model';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpHeaders,
+} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root',
@@ -35,7 +39,14 @@ export abstract class HttpService<T extends AbstractModel> {
                 headers: this.headers,
                 params: this.params,
             })
-            .pipe(map((data: object) => this.serializer?.fromJson(data) as T));
+            .pipe(
+                map((data: object) => this.serializer?.fromJson(data) as T),
+                catchError((error) => this.catchError(error))
+            );
+    }
+
+    public catchError(error: HttpErrorResponse) {
+        return throwError(() => error);
     }
 
     public setBaseUrl(baseUrl: string): void {

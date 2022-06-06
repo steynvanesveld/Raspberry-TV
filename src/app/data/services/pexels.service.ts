@@ -17,6 +17,7 @@ export class PexelsService extends HttpService<Photos> {
         };
 
         this.setHeaders(new HttpHeaders(headers));
+        this.setSerializer(new PhotosSerializer());
         this.setBaseUrl('https://api.pexels.com/v1');
     }
 
@@ -31,7 +32,6 @@ export class PexelsService extends HttpService<Photos> {
         };
 
         this.setParams(httpParams);
-        this.setSerializer(new PhotosSerializer());
 
         return this.read();
     }

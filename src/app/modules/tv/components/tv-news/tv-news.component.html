@@ -1,4 +1,4 @@
-<article *ngIf="generalNews" class="news">
-    <h1 [innerText]="generalNews[currentNewsItemIndex].title"></h1>
-    <div [innerHTML]="generalNews[currentNewsItemIndex].description"></div>
+<article *ngIf="rss" class="news">
+    <h1 [innerText]="rss.items[currentNewsItemIndex].title"></h1>
+    <div [innerHTML]="rss.items[currentNewsItemIndex].description"></div>
 </article>

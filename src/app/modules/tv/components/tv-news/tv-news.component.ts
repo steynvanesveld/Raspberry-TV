@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Rss } from 'src/app/data/models/rss.model';
 import { NosService } from 'src/app/data/services/nos.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { NosService } from 'src/app/data/services/nos.service';
     styleUrls: ['./tv-news.component.scss'],
 })
 export class TvNewsComponent implements OnInit {
-    public generalNews: any;
+    public rss: Rss | undefined;
     public currentNewsItemIndex = 0;
     private newsItemInterval: any;
 
@@ -19,33 +19,9 @@ export class TvNewsComponent implements OnInit {
     }
 
     public getGeneralNews(): void {
-        this.nosService.getGeneralNews().subscribe({
-            error: (error: HttpErrorResponse) => {
-                const text = error.error.text;
-                const xml = new window.DOMParser().parseFromString(
-                    text,
-                    'text/xml'
-                );
-                const response = Array.from(xml.querySelectorAll('item')).map(
-                    (item) => {
-                        return {
-                            title:
-                                item
-                                    .querySelector('title')
-                                    ?.innerHTML.replace('<![CDATA[', '')
-                                    .replace(']]>', '') ?? '',
-                            description:
-                                item
-                                    .querySelector('description')
-                                    ?.innerHTML.replace('<![CDATA[', '')
-                                    .replace(']]>', '') ?? '',
-                        };
-                    }
-                );
-
-                this.generalNews = response;
-                this.newsInterval();
-            },
+        this.nosService.getGeneralNews().subscribe((response) => {
+            this.rss = response;
+            this.newsInterval();
         });
     }
 
@@ -55,7 +31,7 @@ export class TvNewsComponent implements OnInit {
         clearTimeout(this.newsItemInterval);
 
         this.newsItemInterval = setInterval(() => {
-            if (this.currentNewsItemIndex + 1 === this.generalNews?.length) {
+            if (this.currentNewsItemIndex + 1 === this.rss?.items.length) {
                 this.currentNewsItemIndex = 0;
             } else {
                 this.currentNewsItemIndex = this.currentNewsItemIndex + 1;

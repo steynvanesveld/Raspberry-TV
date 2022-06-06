@@ -1,4 +1,3 @@
-import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { environment } from 'src/environments/environment';

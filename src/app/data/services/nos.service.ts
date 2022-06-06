@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { RssService } from './rss.service';
 import { HttpClient } from '@angular/common/http';
-import { CorsProxyService } from './cors-proxy.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class NosService extends CorsProxyService {
+export class NosService extends RssService {
     constructor(httpClient: HttpClient) {
         super(httpClient);
 
@@ -18,7 +18,6 @@ export class NosService extends CorsProxyService {
         };
 
         this.setParams(httpParams);
-        // this.setSerializer(new PhotosSerializer());
 
         return this.read('/nosnieuwsalgemeen');
     }
