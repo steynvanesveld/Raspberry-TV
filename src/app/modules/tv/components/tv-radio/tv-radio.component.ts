@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app-tv-radio',
@@ -6,6 +6,18 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./tv-radio.component.scss'],
 })
 export class TvRadioComponent implements OnInit {
-    public radio_url = 'http://22593.live.streamtheworld.com/KINK.mp3';
-    public ngOnInit(): void {}
+    @ViewChild('audio') audio: ElementRef<HTMLAudioElement> | undefined;
+
+    public audioSrc =
+        'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK.mp3';
+
+    public ngOnInit(): void {
+        this.autoPlayAudio();
+    }
+
+    public autoPlayAudio(): void {
+        setTimeout(() => {
+            this.audio?.nativeElement.play();
+        });
+    }
 }
