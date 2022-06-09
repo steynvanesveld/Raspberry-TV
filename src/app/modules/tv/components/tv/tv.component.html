@@ -1,20 +1,11 @@
-<app-tv-wallpaper
-    [fetchDataSubject]="fetchDataSubject"
-    [showDataSubject]="showDataSubject"
->
+<app-tv-wallpaper>
     <section class="tv">
         <main class="tv-main">
-            <app-tv-news
-                [fetchDataSubject]="fetchDataSubject"
-                [showDataSubject]="showDataSubject"
-            ></app-tv-news>
+            <app-tv-news></app-tv-news>
             <app-tv-radio></app-tv-radio>
         </main>
         <footer class="tv-footer">
-            <app-tv-weather
-                [fetchDataSubject]="fetchDataSubject"
-                [showDataSubject]="showDataSubject"
-            ></app-tv-weather>
+            <app-tv-weather></app-tv-weather>
             <app-tv-clock></app-tv-clock>
         </footer>
     </section>

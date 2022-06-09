@@ -1,20 +1,3 @@
-<section class="tv-wallpaper">
-    <section class="tv-wallpaper-wrapper" *ngIf="photos">
-        <img
-            class="current-photo"
-            [src]="
-                photos.photos[this.currentPhotoIndex].src.original +
-                photoUrlParams
-            "
-            *changes="currentPhotoIndex"
-            [@wallpaperChange]
-        />
-        <img
-            class="next-photo"
-            [src]="
-                photos.photos[this.nextPhotoIndex].src.original + photoUrlParams
-            "
-        />
-    </section>
+<section class="tv-wallpaper" [style.background-image]="currentBackgroundImage">
     <ng-content></ng-content>
 </section>
