@@ -5,7 +5,10 @@ html {
     font-size: 16px;
     line-height: 26px;
     font-weight: 400;
-    color: #ffffff;
+    color: #999999;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 }
 
 h1 {
