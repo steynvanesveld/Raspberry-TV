@@ -1,15 +1,24 @@
+@import "variables";
+
 .news {
     width: 100%;
-    max-width: 960px;
+    max-width: $global-px * 60;
     display: -webkit-box;
-    -webkit-line-clamp: 15;
+    -webkit-line-clamp: 16;
     -webkit-box-orient: vertical;
     overflow: hidden;
 
     h1 {
-        font-size: 40px;
-        line-height: 65px;
-        padding-bottom: 16px;
+        font-size: $global-px * 2.5;
+        line-height: $global-px * 2.5 * $golden-ratio;
+        padding-bottom: $global-px;
+
+        @media (orientation: portrait) and (max-width: 767px),
+            (orientation: landscape) and (max-width: 1023px) {
+            font-size: $global-px * 1.5;
+            line-height: $global-px * 1.5 * $golden-ratio;
+            padding-bottom: $global-px;
+        }
     }
 
     ::ng-deep {
@@ -19,10 +28,16 @@
         h5,
         h6,
         p {
-            font-size: 30px;
-            line-height: 49px;
-            padding-bottom: 8px;
+            font-size: $global-px * 2;
+            line-height: $global-px * 2 * $golden-ratio;
+            padding-bottom: $global-px * 0.5;
             font-weight: 600;
+
+            @media (orientation: portrait) and (max-width: 767px),
+                (orientation: landscape) and (max-width: 1023px) {
+                font-size: $global-px;
+                line-height: $global-px * $golden-ratio;
+            }
         }
 
         p {

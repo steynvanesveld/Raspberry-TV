@@ -2,30 +2,44 @@
 
 .home {
     width: 100%;
-    max-width: 752px;
-    padding: 0 $global-spacing;
+    max-width: $global-px * 40;
+    padding: 0 $global-px;
     margin: 0 auto;
 
     header {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
-        padding: $global-spacing 0;
-        text-align: center;
-        color: #75a928;
+        align-items: flex-start;
+        padding: $global-px 0;
 
-        img {
-            width: 240px;
-            padding: $global-spacing * 2.5;
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: $global-px * 0.5;
+
+            img {
+                width: $global-px * 2.5;
+                height: $global-px * 2.5;
+                object-fit: contain;
+            }
+        }
+
+        h1 {
+            font-size: $global-px * 2;
+            line-height: $global-px * 2 * $golden-ratio;
         }
 
         nav {
-            padding: $global-spacing * 2.5 0;
+            padding: $global-px * 2.5 0;
             width: 100%;
-            text-align: left;
             list-style-position: inside;
-            color: #bc1142;
+
+            a {
+                padding: $global-px * 0.25 0;
+                font-weight: 600;
+            }
         }
     }
 }

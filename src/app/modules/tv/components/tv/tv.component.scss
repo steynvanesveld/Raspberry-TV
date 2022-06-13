@@ -1,10 +1,17 @@
+@import "variables";
+
 .tv {
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 40px;
+    padding: $global-px * 2.5;
+
+    @media (orientation: portrait) and (max-width: 767px),
+        (orientation: landscape) and (max-width: 1023px) {
+        padding: $global-px;
+    }
 
     &-main {
         overflow: hidden;
@@ -15,6 +22,6 @@
     &-footer {
         display: flex;
         justify-content: space-between;
-        padding-top: 40px;
+        padding-top: $global-px * 2.5;
     }
 }

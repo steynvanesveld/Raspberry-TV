@@ -1,4 +1,12 @@
+@import "variables";
+
 .time {
-    font-size: 80px;
-    line-height: 80px;
+    font-size: $global-px * 5;
+    line-height: $global-px * 5;
+
+    @media (orientation: portrait) and (max-width: 767px),
+        (orientation: landscape) and (max-width: 1023px) {
+        font-size: $global-px * 2.5;
+        line-height: $global-px * 2.5;
+    }
 }
