@@ -1,16 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 
 const routes: Routes = [
     {
         path: '',
+        component: DefaultLayoutComponent,
         loadChildren: () =>
             import('src/app/modules/home/home.module').then((m) => {
                 return m.HomeModule;
             }),
     },
     {
+        path: 'test',
+        component: DefaultLayoutComponent,
+        loadChildren: () =>
+            import('src/app/modules/test/test.module').then((m) => {
+                return m.TestModule;
+            }),
+    },
+    {
         path: 'tv',
+        component: DefaultLayoutComponent,
         loadChildren: () =>
             import('src/app/modules/tv/tv.module').then((m) => {
                 return m.TvModule;

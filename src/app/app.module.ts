@@ -5,9 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, DefaultLayoutComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

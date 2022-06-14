@@ -1,3 +1,7 @@
-<section class="tv-wallpaper" [style.background-image]="currentBackgroundImage">
+<section
+    class="tv-wallpaper"
+    [style.background-image]="currentBackgroundImage"
+    [ngClass]="idle ? 'idle' : ''"
+>
     <ng-content></ng-content>
 </section>

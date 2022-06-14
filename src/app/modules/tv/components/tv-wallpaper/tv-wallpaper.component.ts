@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Photos } from 'src/app/data/models/photos.model';
 import { PexelsService } from 'src/app/data/services/pexels.service';
 
@@ -8,11 +8,14 @@ import { PexelsService } from 'src/app/data/services/pexels.service';
     styleUrls: ['./tv-wallpaper.component.scss'],
 })
 export class TvWallpaperComponent implements OnInit {
+    @Input() public idle: boolean | undefined;
+
     public photos: Photos | undefined;
     public photoParameters = '?auto=compress&fit=crop&w=1920&h=1080';
     public gradient =
         'linear-gradient(to bottom, rgba(105, 67, 45, 0.75), rgba(0, 0, 0, 0.75))';
     public dayIndex = 0;
+
     constructor(private pexelsService: PexelsService) {}
 
     get currentBackgroundImage() {

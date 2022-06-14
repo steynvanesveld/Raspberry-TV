@@ -1,35 +1,10 @@
 @import "variables";
 
 html {
-    font-family: "Open Sans";
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
     font-size: $global-px;
     line-height: $global-px * $golden-ratio;
-    font-weight: 400;
     color: #cccccc;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
-}
-
-a {
-    color: currentColor;
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
-
-    &:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        height: 2px;
-        background-color: currentColor;
-        width: 100%;
-        max-width: 0;
-        transition: 0.2s max-width ease-in-out;
-    }
-
-    &:hover:before {
-        max-width: 100%;
-    }
 }

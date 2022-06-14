@@ -1,7 +1,18 @@
+@import "variables";
+
 .tv-wallpaper {
+    position: relative;
     height: 100vh;
+    max-height: calc(100vh - $global-px * 4.5);
     width: 100vw;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    transition: 0.2s all ease-in-out;
+    z-index: 999;
+
+    &.idle {
+        max-height: 100vh;
+        margin-top: -($global-px * 4.5);
+    }
 }
