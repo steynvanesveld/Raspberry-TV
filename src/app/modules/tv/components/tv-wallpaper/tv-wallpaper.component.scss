@@ -9,10 +9,16 @@
     background-size: cover;
     background-repeat: no-repeat;
     transition: 0.2s all ease-in-out;
-    z-index: 999;
 
     &.idle {
         max-height: 100vh;
+        z-index: 4;
         margin-top: -($global-px * 4.5);
+
+        :host-context(.mobile-navigation-visible) & {
+            max-height: calc(100vh - $global-px * 4.5);
+            z-index: unset;
+            margin-top: unset;
+        }
     }
 }

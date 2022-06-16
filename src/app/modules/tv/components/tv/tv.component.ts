@@ -23,7 +23,6 @@ export class TvComponent implements OnInit {
         });
 
         window.addEventListener('mousemove', () => {
-            console.log('move');
             this.setTimer(miliseconds);
         });
     }

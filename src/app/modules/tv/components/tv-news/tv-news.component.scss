@@ -4,9 +4,14 @@
     width: 100%;
     max-width: $global-px * 60;
     display: -webkit-box;
-    -webkit-line-clamp: 16;
+    -webkit-line-clamp: 15;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+    @media (orientation: portrait) and (max-width: 767px),
+        (orientation: landscape) and (max-width: 1023px) {
+        -webkit-line-clamp: 20;
+    }
 
     h1 {
         font-size: $global-px * 2.5;
