@@ -31,15 +31,26 @@
             ul {
                 display: flex;
                 list-style: none;
+                height: 100%;
 
-                li a {
-                    text-decoration: none;
-                    color: currentColor;
-                    padding: $global-px * 0.5 $global-px;
-                    font-weight: 600;
+                li {
+                    a {
+                        text-decoration: none;
+                        color: currentColor;
+                        padding: $global-px * 0.5 $global-px;
+                        font-weight: 600;
 
-                    &.active {
-                        color: $primary-color;
+                        &.active {
+                            color: $primary-color;
+                        }
+                    }
+
+                    &:last-child {
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        height: 40px;
+                        width: 40px;
                     }
                 }
             }

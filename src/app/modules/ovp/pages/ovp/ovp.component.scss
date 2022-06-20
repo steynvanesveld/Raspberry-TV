@@ -1,0 +1,41 @@
+@import "variables";
+
+.navbar {
+    padding-bottom: $global-px;
+
+    input {
+        display: block;
+        border: none;
+        outline: none;
+        padding: ($global-px * 0.5) $global-px;
+        font-family: "Open Sans", "Helvetica Neue", sans-serif;
+        font-size: $global-px;
+        line-height: $global-px * $golden-ratio;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        @media (orientation: portrait) and (max-width: 767px),
+            (orientation: landscape) and (max-width: 1023px) {
+            width: 100%;
+        }
+    }
+}
+
+.ovp {
+    display: grid;
+    grid-gap: $global-px;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+
+    @media (orientation: portrait) and (max-width: 767px),
+        (orientation: landscape) and (max-width: 1023px) {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    article {
+        cursor: pointer;
+
+        figure img {
+            width: 100%;
+        }
+    }
+}

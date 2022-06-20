@@ -20,11 +20,17 @@
         overflow: hidden;
         display: flex;
         justify-content: space-between;
+
+        @media (orientation: portrait) and (max-width: 767px),
+            (orientation: landscape) and (max-width: 1023px) {
+            flex-direction: column;
+        }
     }
 
     &-footer {
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
         padding-top: $global-px * 2.5;
     }
 }

@@ -1,0 +1,7 @@
+<main class="content">
+    <div class="container">
+        <article class="ovp-video" *ngIf="ovpVideo">
+            <iframe [src]="sanitizedEmbedUrl()" allow="fullscreen"></iframe>
+        </article>
+    </div>
+</main>

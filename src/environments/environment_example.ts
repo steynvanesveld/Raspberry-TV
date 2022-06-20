@@ -9,6 +9,7 @@ export const environment = {
     open_weather_lat: '', // latitute of your location
     open_weather_lon: '', //  longitude of your location
     cors_bridged_api_key: '', //  https://github.com/gridaco/base/issues/23
+    ovp_api_url: '', // Online Video Platforms API url of your choice
 };
 
 /*

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-default-layout',
@@ -8,25 +8,45 @@ import { RouterOutlet } from '@angular/router';
 })
 export class DefaultLayoutComponent {
     public navVisible = false;
+    public showOVP = false;
+    public showOVPClicks = 0;
 
     public navItems = [
         {
             label: 'Home',
             value: '/',
-        },
-
-        {
-            label: 'Test',
-            value: '/test',
+            internal: true,
         },
         {
             label: 'Tv',
             value: '/tv',
+            internal: true,
+        },
+        {
+            label: 'Pi-hole',
+            value: '/admin',
+            internal: false,
+        },
+        {
+            label: 'OVP',
+            value: '/ovp',
+            internal: true,
         },
     ];
 
+    constructor(public router: Router) {}
+
     public navToggle(): void {
         this.navVisible = !this.navVisible;
+    }
+
+    public toggleOVP(): void {
+        if (this.showOVPClicks < 6) {
+            this.showOVPClicks++;
+            return;
+        }
+
+        this.showOVP = !this.showOVP;
     }
 
     public prepareRoute(outlet: RouterOutlet): void {

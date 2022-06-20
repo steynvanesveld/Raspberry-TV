@@ -1,0 +1,31 @@
+<main class="content" *ngIf="ovp">
+    <div class="container">
+        <nav class="navbar">
+            <input
+                type="search"
+                [(ngModel)]="search"
+                (change)="searchChange($event)"
+                placeholder="Search.."
+            />
+        </nav>
+
+        <main class="ovp" *ngIf="ovp.videos?.length; else noResults">
+            <article
+                *ngFor="let video of ovp.videos"
+                (touchstart)="setNewThumbnail(video)"
+                (mouseenter)="setNewThumbnail(video)"
+                (mouseleave)="setDefaultThumbnail(video)"
+                (click)="goToOVPVideo(video)"
+            >
+                <figure>
+                    <img [src]="video.current_thumb.src" />
+                </figure>
+            </article>
+            <!-- </ng-template> -->
+        </main>
+
+        <ng-template #noResults>
+            <span> No results..</span>
+        </ng-template>
+    </div>
+</main>

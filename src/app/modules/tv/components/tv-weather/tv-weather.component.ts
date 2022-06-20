@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Weather } from 'src/app/data/models/weather.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OpenWeatherService } from 'src/app/data/services/openweather.service';
 
 @Component({
@@ -7,29 +9,39 @@ import { OpenWeatherService } from 'src/app/data/services/openweather.service';
     templateUrl: './tv-weather.component.html',
     styleUrls: ['./tv-weather.component.scss'],
 })
-export class TvWeatherComponent implements OnInit {
-    public weather: Weather | undefined;
+export class TvWeatherComponent implements OnInit, OnDestroy {
+    public weather!: Weather;
+    public ngUnsubscribe = new Subject<void>();
 
     constructor(private openWeatherService: OpenWeatherService) {}
 
     get icon(): string {
         return `http://openweathermap.org/img/wn/${this.weather?.weather[0].icon}@2x.png`;
     }
+
     get temperature(): string {
         return `${Math.round(Number(this.weather?.main.temp))}°C`;
+    }
+
+    private getWeather(): void {
+        this.openWeatherService
+            .getWeather()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((response) => {
+                this.weather = response;
+            });
+
+        setTimeout(() => {
+            this.getWeather();
+        }, 1000 * 60 * 10); // 10 minutes
     }
 
     public ngOnInit(): void {
         this.getWeather();
     }
 
-    private getWeather(): void {
-        this.openWeatherService.getWeather().subscribe((response) => {
-            this.weather = response;
-        });
-
-        setTimeout(() => {
-            this.getWeather();
-        }, 1000 * 60 * 10); // 10 minutes
+    public ngOnDestroy(): void {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
     }
 }

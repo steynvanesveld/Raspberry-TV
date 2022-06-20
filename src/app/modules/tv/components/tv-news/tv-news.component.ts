@@ -1,7 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Rss } from 'src/app/data/models/rss.model';
 import { dataChange } from 'src/app/modules/tv/tv.animations';
 import { NosService } from 'src/app/data/services/nos.service';
+import {
+    Component,
+    ElementRef,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 
 @Component({
     selector: 'app-tv-news',
@@ -9,28 +18,22 @@ import { NosService } from 'src/app/data/services/nos.service';
     styleUrls: ['./tv-news.component.scss'],
     animations: [dataChange],
 })
-export class TvNewsComponent implements OnInit {
-    public rss: Rss | undefined;
+export class TvNewsComponent implements OnInit, OnDestroy {
+    @Input() public keyDownSubject = new Subject<KeyboardEvent>();
+
+    @ViewChild('newsArticle') newsArticle!: ElementRef<HTMLElement>;
+
+    public rss!: Rss;
     public currentNewsItemIndex = 0;
+    public ngUnsubscribe = new Subject<void>();
 
     constructor(private nosService: NosService) {}
 
-    public ngOnInit(): void {
-        this.getGeneralNews();
-        this.setCurrentNewsItemIndex();
-    }
-
-    public getGeneralNews(): void {
-        this.nosService.getGeneralNews().subscribe((response) => {
-            this.rss = response;
-        });
-
-        setTimeout(() => {
-            this.getGeneralNews();
-        }, 1000 * 60 * 60); // 60 minutes
-    }
-
     private setCurrentNewsItemIndex(): void {
+        if (this.newsArticle) {
+            this.scrollNewsArticle();
+        }
+
         if (this.currentNewsItemIndex + 1 === this.rss?.items.length) {
             this.currentNewsItemIndex = 0;
         } else {
@@ -40,5 +43,60 @@ export class TvNewsComponent implements OnInit {
         setTimeout(() => {
             this.setCurrentNewsItemIndex();
         }, 1000 * 60 * 1); // 1 minute
+    }
+
+    public getGeneralNews(): void {
+        this.nosService
+            .getGeneralNews()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((response) => {
+                this.rss = response;
+            });
+
+        setTimeout(() => {
+            this.getGeneralNews();
+        }, 1000 * 60 * 60); // 60 minutes
+    }
+
+    public listenForKeyDown(): void {
+        this.keyDownSubject.subscribe((event: KeyboardEvent) => {
+            if (event.key === 'ArrowDown') {
+                this.scrollNewsArticle('Down');
+            }
+
+            if (event.key === 'ArrowUp') {
+                this.scrollNewsArticle('Up');
+            }
+        });
+    }
+
+    public scrollNewsArticle(direction?: 'Up' | 'Down'): void {
+        const article = this.newsArticle.nativeElement;
+        let top = 0;
+        const amount = 100;
+
+        if (direction === 'Up') {
+            top = article.scrollTop - amount;
+        }
+
+        if (direction === 'Down') {
+            top = article.scrollTop + amount;
+        }
+
+        article.scroll({
+            top,
+            left: 0,
+        });
+    }
+
+    public ngOnInit(): void {
+        this.getGeneralNews();
+        this.setCurrentNewsItemIndex();
+        this.listenForKeyDown();
+    }
+
+    public ngOnDestroy(): void {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
     }
 }

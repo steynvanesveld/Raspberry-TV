@@ -2,15 +2,12 @@
 
 .news {
     width: 100%;
+    height: 100%;
     max-width: $global-px * 60;
-    display: -webkit-box;
-    -webkit-line-clamp: 15;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    overflow: scroll;
 
-    @media (orientation: portrait) and (max-width: 767px),
-        (orientation: landscape) and (max-width: 1023px) {
-        -webkit-line-clamp: 20;
+    &::-webkit-scrollbar {
+        display: none;
     }
 
     h1 {

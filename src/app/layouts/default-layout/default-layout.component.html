@@ -15,16 +15,30 @@
                 <nav class="nav">
                     <ul>
                         <li *ngFor="let item of navItems">
-                            <a
-                                [routerLink]="item.value"
-                                [routerLinkActiveOptions]="{ exact: true }"
-                                routerLinkActive="active"
+                            <ng-container
+                                *ngIf="item.internal; else externalLink"
                             >
-                                {{ item.label }}
-                            </a>
+                                <a
+                                    *ngIf="
+                                        item.label !== 'OVP' ||
+                                        showOVP ||
+                                        router.isActive(item.value, false)
+                                    "
+                                    [routerLink]="item.value"
+                                    [routerLinkActiveOptions]="{ exact: true }"
+                                    (click)="navToggle()"
+                                    routerLinkActive="active"
+                                >
+                                    {{ item.label }}
+                                </a>
+                            </ng-container>
+                            <ng-template #externalLink>
+                                <a [href]="item.value">
+                                    {{ item.label }}
+                                </a>
+                            </ng-template>
                         </li>
-
-                        <li><a href="/admin">Pi-hole</a></li>
+                        <li (click)="toggleOVP()"></li>
                     </ul>
                 </nav>
 

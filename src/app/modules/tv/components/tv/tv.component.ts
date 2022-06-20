@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TvComponent implements OnInit {
     public idle = false;
-    private idleTimeout: number | undefined;
+    private idleTimeout!: number;
+
+    public keyDownSubject = new Subject<KeyboardEvent>();
 
     public ngOnInit(): void {
         this.listenForEvents();
@@ -24,6 +27,10 @@ export class TvComponent implements OnInit {
 
         window.addEventListener('mousemove', () => {
             this.setTimer(miliseconds);
+        });
+
+        window.addEventListener('keydown', (event: KeyboardEvent) => {
+            this.keyDownSubject.next(event);
         });
     }
 

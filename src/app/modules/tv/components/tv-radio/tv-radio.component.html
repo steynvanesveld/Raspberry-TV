@@ -1,1 +1,6 @@
 <audio #radio></audio>
+
+<article class="now-playing" *ngIf="kink">
+    <h2>{{ kink.extended.kink.title }}</h2>
+    <h3>{{ kink.extended.kink.artist }}</h3>
+</article>

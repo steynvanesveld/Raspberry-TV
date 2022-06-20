@@ -1,0 +1,29 @@
+@import "variables";
+
+.now-playing {
+    display: block;
+    text-align: right;
+
+    h2 {
+        font-size: $global-px * 2.5;
+        line-height: $global-px * 2.5 * $golden-ratio;
+
+        @media (orientation: portrait) and (max-width: 767px),
+            (orientation: landscape) and (max-width: 1023px) {
+            font-size: $global-px * 1.5;
+            line-height: $global-px * 1.5 * $golden-ratio;
+        }
+    }
+
+    h3 {
+        font-size: $global-px * 2;
+        line-height: $global-px * 2 * $golden-ratio;
+        font-weight: 400;
+
+        @media (orientation: portrait) and (max-width: 767px),
+            (orientation: landscape) and (max-width: 1023px) {
+            font-size: $global-px;
+            line-height: $global-px * $golden-ratio;
+        }
+    }
+}

@@ -11,12 +11,13 @@ const routes: Routes = [
                 return m.HomeModule;
             }),
     },
+
     {
-        path: 'test',
+        path: 'ovp',
         component: DefaultLayoutComponent,
         loadChildren: () =>
-            import('src/app/modules/test/test.module').then((m) => {
-                return m.TestModule;
+            import('src/app/modules/ovp/ovp.module').then((m) => {
+                return m.OVPModule;
             }),
     },
     {
