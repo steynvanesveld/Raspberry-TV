@@ -3,13 +3,30 @@ import { Kink } from '../models/kink.model';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 import { KinkSerializer } from '../serializers/kink.serializer';
+import { KinkChannel } from '../models/kink-channel.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class KinkService extends HttpService<Kink> {
-    public audioSrc =
-        'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK.mp3';
+    public kinkChannels = [
+        new KinkChannel(
+            'Kink',
+            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK.mp3'
+        ),
+        new KinkChannel(
+            'Kink Distortion',
+            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK_DISTORTION.mp3'
+        ),
+        new KinkChannel(
+            'Kink DNA',
+            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK_DNA.mp3'
+        ),
+        new KinkChannel(
+            'Kink Indie',
+            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINKINDIE.mp3'
+        ),
+    ];
 
     constructor(httpClient: HttpClient) {
         super(httpClient);

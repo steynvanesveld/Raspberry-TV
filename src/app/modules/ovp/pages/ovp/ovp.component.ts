@@ -14,7 +14,7 @@ import { OVPVideo } from 'src/app/data/models/ovp-video.model';
 export class OVPComponent implements OnInit, OnDestroy {
     public ovp!: OVP;
     public playing = false;
-    public ovpVideoThumbTimeout: any;
+    public ovpVideoThumbTimeout!: number;
     public ngUnsubscribe = new Subject<void>();
     public query!: string;
     public order = 'latest';
@@ -33,8 +33,9 @@ export class OVPComponent implements OnInit, OnDestroy {
         });
     }
 
-    public searchChange(event: any): void {
-        event.target.blur();
+    public searchChange(event: Event): void {
+        const target = event.target as HTMLElement;
+        target.blur();
 
         this.router.navigate([], {
             relativeTo: this.activatedRoute,

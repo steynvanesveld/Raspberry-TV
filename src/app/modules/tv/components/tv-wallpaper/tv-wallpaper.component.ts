@@ -41,7 +41,7 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
                 this.photos = result;
             });
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             this.getPhotos();
         }, 1000 * 60 * 24 * 7); // 1 week
     }
@@ -50,7 +50,7 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
         const today = new Date();
         this.dayIndex = today.getDate();
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             this.setCurrentDay();
         }, 1000 * 60 * 6); // 6 hours
     }

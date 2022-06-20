@@ -45,7 +45,7 @@ export abstract class HttpService<T extends AbstractModel> {
             );
     }
 
-    public catchError(error: HttpErrorResponse) {
+    public catchError(error: HttpErrorResponse): Observable<T> {
         return throwError(() => error);
     }
 

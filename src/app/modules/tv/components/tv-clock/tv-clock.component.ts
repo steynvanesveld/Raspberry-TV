@@ -15,7 +15,7 @@ export class TvClockComponent implements OnInit {
 
         this.time = `${hours}:${minutes}`;
 
-        setTimeout(() => this.getTime(), 100);
+        window.setTimeout(() => this.getTime(), 100);
     }
 
     private makeDoubleDigits(i: number): string {

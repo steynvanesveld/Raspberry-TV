@@ -2,7 +2,7 @@ import { RssItem } from '../models/rss-item.model';
 import { Rss } from 'src/app/data/models/rss.model';
 
 export class RssSerializer {
-    public findItemsInXML(items: any): any {
+    public findItemsInXML(items: string): RssItem[] {
         const xmlItems = new window.DOMParser().parseFromString(
             items,
             'text/xml'
@@ -23,7 +23,7 @@ export class RssSerializer {
     }
 
     public fromJson(json: Rss): Rss {
-        return new Rss(this.findItemsInXML(json));
+        return new Rss(this.findItemsInXML(json as unknown as string));
     }
 
     public toJson(rss: Rss): object {

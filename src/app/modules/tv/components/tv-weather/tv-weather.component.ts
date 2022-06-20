@@ -31,7 +31,7 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
                 this.weather = response;
             });
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             this.getWeather();
         }, 1000 * 60 * 10); // 10 minutes
     }
