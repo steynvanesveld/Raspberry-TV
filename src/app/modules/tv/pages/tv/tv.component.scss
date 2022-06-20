@@ -39,19 +39,26 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            gap: $global-px * 2;
-            font-size: $global-px * 5;
-            line-height: $global-px * 5;
+            gap: $global-px;
+            font-size: $global-px * 2.5;
+            line-height: $global-px * 2.5;
+            font-weight: 600;
 
             @media (orientation: portrait) and (max-width: 767px),
                 (orientation: landscape) and (max-width: 1023px) {
-                font-size: $global-px * 2.5;
-                line-height: $global-px * 2.5;
+                font-size: $global-px * 1.5;
+                line-height: $global-px * 1.5;
             }
 
             .separator {
-                font-size: $global-px * 2.5;
-                line-height: $global-px * 2.5;
+                font-size: $global-px * 2;
+                line-height: $global-px * 2;
+
+                @media (orientation: portrait) and (max-width: 767px),
+                    (orientation: landscape) and (max-width: 1023px) {
+                    font-size: $global-px;
+                    line-height: $global-px;
+                }
             }
         }
     }

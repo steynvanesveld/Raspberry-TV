@@ -15,7 +15,7 @@ export class OVPService extends HttpService<any> {
         this.setBaseUrl(environment.ovp_api_url);
     }
 
-    public searchOVP(query?: string) {
+    public searchOVP(order: string, query?: string) {
         this.setSerializer(new OVPSerializer());
         this.setResource('/search/');
 
@@ -24,7 +24,7 @@ export class OVPService extends HttpService<any> {
             lq: '0',
             per_page: '100',
             thumbsize: 'big',
-            order: 'top-weekly',
+            order,
         };
 
         this.setParams(httpParams);

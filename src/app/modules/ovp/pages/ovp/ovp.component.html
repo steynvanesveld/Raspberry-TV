@@ -1,12 +1,19 @@
-<main class="content" *ngIf="ovp">
+<main *ngIf="ovp">
     <div class="container">
         <nav class="navbar">
             <input
                 type="search"
-                [(ngModel)]="search"
-                (change)="searchChange($event)"
+                [(ngModel)]="query"
+                (search)="searchChange($event)"
                 placeholder="Search.."
             />
+            <select [(ngModel)]="order" (change)="orderChange()">
+                <option value="latest">Latest</option>
+                <option value="top-rated">Top Rated</option>
+                <option value="most-popular">Most Popular</option>
+                <option value="top-weekly">Top Weekly</option>
+                <option value="top-monthly">Top Monthly</option>
+            </select>
         </nav>
 
         <main class="ovp" *ngIf="ovp.videos?.length; else noResults">

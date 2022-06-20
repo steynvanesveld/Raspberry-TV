@@ -1,6 +1,8 @@
 <article class="news-article" #newsArticle>
     <ng-container *ngIf="news">
-        <h1 [innerText]="news.items[currentNewsItemIndex].title"></h1>
-        <div [innerHTML]="news.items[currentNewsItemIndex].description"></div>
+        <h1 [innerText]="news.items[currentNewsArticleIndex].title"></h1>
+        <div
+            [innerHTML]="news.items[currentNewsArticleIndex].description"
+        ></div>
     </ng-container>
 </article>

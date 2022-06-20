@@ -1,23 +1,36 @@
 @import "variables";
 
 .navbar {
-    padding-bottom: $global-px;
+    padding: $global-px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: $global-px;
+    position: sticky;
+    top: 72px;
+    background-color: #000000;
 
-    input {
-        display: block;
+    input,
+    select {
+        display: inline-block;
         border: none;
         outline: none;
         padding: ($global-px * 0.5) $global-px;
         font-family: "Open Sans", "Helvetica Neue", sans-serif;
         font-size: $global-px;
         line-height: $global-px * $golden-ratio;
+        all: unset;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        color: currentColor;
 
         @media (orientation: portrait) and (max-width: 767px),
             (orientation: landscape) and (max-width: 1023px) {
-            width: 100%;
+            // width: 100%;
         }
+    }
+
+    select {
+        text-align: right;
     }
 }
 

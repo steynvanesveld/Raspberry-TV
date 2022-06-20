@@ -7,13 +7,13 @@
 
     figure {
         position: relative;
-        height: $global-px * 5;
-        width: $global-px * 5;
+        height: $global-px * 2.5;
+        width: $global-px * 2.5;
 
         @media (orientation: portrait) and (max-width: 767px),
             (orientation: landscape) and (max-width: 1023px) {
-            height: $global-px * 2.5;
-            width: $global-px * 2.5;
+            height: $global-px * 1.5;
+            width: $global-px * 1.5;
         }
 
         img {

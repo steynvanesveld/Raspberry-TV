@@ -16,7 +16,8 @@ export class OVPComponent implements OnInit, OnDestroy {
     public playing = false;
     public ovpVideoThumbTimeout: any;
     public ngUnsubscribe = new Subject<void>();
-    public search!: string;
+    public query!: string;
+    public order = 'latest';
 
     constructor(
         private ovpService: OVPService,
@@ -24,19 +25,27 @@ export class OVPComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute
     ) {}
 
+    public orderChange(): void {
+        this.router.navigate([], {
+            relativeTo: this.activatedRoute,
+            queryParams: { order: this.order },
+            queryParamsHandling: 'merge',
+        });
+    }
+
     public searchChange(event: any): void {
         event.target.blur();
 
         this.router.navigate([], {
             relativeTo: this.activatedRoute,
-            queryParams: { search: this.search },
+            queryParams: { search: this.query },
             queryParamsHandling: 'merge',
         });
     }
 
-    public searchOVP(query?: string): void {
+    public searchOVP(order: string, query?: string): void {
         this.ovpService
-            .searchOVP(query)
+            .searchOVP(order, query)
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((result) => {
                 this.ovp = result;
@@ -78,9 +87,10 @@ export class OVPComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((queryParams) => {
-                this.search = queryParams.get('search') as string;
+                this.order = queryParams.get('order') ?? ('latest' as string);
+                this.query = queryParams.get('search') as string;
 
-                this.searchOVP(this.search);
+                this.searchOVP(this.order, this.query);
             });
     }
 
