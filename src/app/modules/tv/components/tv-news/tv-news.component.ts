@@ -24,7 +24,6 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     public news!: Rss;
     public currentNewsArticleIndex = 0;
     public ngUnsubscribe = new Subject<void>();
-
     public nextNewsItemTimeout!: number;
     public doubleKeyDownTimeout!: number;
 
