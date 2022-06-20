@@ -2,11 +2,14 @@
     <section class="tv">
         <main class="tv-main">
             <app-tv-news [keyDownSubject]="keyDownSubject"></app-tv-news>
-            <app-tv-radio></app-tv-radio>
         </main>
-        <footer class="tv-footer">
-            <app-tv-weather></app-tv-weather>
-            <app-tv-clock></app-tv-clock>
-        </footer>
+        <aside class="tv-aside">
+            <app-tv-radio></app-tv-radio>
+            <section class="tv-aside-section">
+                <app-tv-weather></app-tv-weather>
+                <span class="separator">|</span>
+                <app-tv-clock></app-tv-clock>
+            </section>
+        </aside>
     </section>
 </app-tv-wallpaper>

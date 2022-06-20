@@ -1,10 +1,11 @@
 @import "variables";
 
-.news {
+.news-article {
     width: 100%;
     height: 100%;
     max-width: $global-px * 60;
     overflow: scroll;
+    padding: 0 0 $global-px * 2.5 0;
 
     &::-webkit-scrollbar {
         display: none;

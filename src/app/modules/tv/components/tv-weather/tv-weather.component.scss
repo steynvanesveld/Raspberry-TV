@@ -1,17 +1,9 @@
 @import "variables";
 
 .weather {
-    font-size: $global-px * 5;
-    line-height: $global-px * 5;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    @media (orientation: portrait) and (max-width: 767px),
-        (orientation: landscape) and (max-width: 1023px) {
-        font-size: $global-px * 2.5;
-        line-height: $global-px * 2.5;
-    }
 
     figure {
         position: relative;

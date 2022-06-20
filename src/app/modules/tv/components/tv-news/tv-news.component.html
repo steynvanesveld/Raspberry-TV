@@ -1,6 +1,6 @@
-<article class="news" #newsArticle>
-    <ng-container *ngIf="rss">
-        <h1 [innerText]="rss.items[currentNewsItemIndex].title"></h1>
-        <div [innerHTML]="rss.items[currentNewsItemIndex].description"></div>
+<article class="news-article" #newsArticle>
+    <ng-container *ngIf="news">
+        <h1 [innerText]="news.items[currentNewsItemIndex].title"></h1>
+        <div [innerHTML]="news.items[currentNewsItemIndex].description"></div>
     </ng-container>
 </article>

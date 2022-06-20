@@ -21,34 +21,21 @@ export class TvNewsComponent implements OnInit, OnDestroy {
 
     @ViewChild('newsArticle') private newsArticle!: ElementRef<HTMLElement>;
 
-    public rss!: Rss;
+    public news!: Rss;
     public currentNewsItemIndex = 0;
     public ngUnsubscribe = new Subject<void>();
 
+    public timeout: any;
+
     constructor(private nosService: NosService) {}
-
-    private setCurrentNewsItemIndex(): void {
-        if (this.newsArticle) {
-            this.scrollNewsArticle();
-        }
-
-        if (this.currentNewsItemIndex + 1 === this.rss?.items.length) {
-            this.currentNewsItemIndex = 0;
-        } else {
-            this.currentNewsItemIndex = this.currentNewsItemIndex + 1;
-        }
-
-        setTimeout(() => {
-            this.setCurrentNewsItemIndex();
-        }, 1000 * 60 * 1); // 1 minute
-    }
 
     private getGeneralNews(): void {
         this.nosService
             .getGeneralNews()
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((response) => {
-                this.rss = response;
+                this.news = response;
+                this.changeNewsArticle('reset');
             });
 
         setTimeout(() => {
@@ -56,28 +43,42 @@ export class TvNewsComponent implements OnInit, OnDestroy {
         }, 1000 * 60 * 60); // 60 minutes
     }
 
-    private listenForKeyDown(): void {
-        this.keyDownSubject.subscribe((event: KeyboardEvent) => {
-            if (event.key === 'ArrowDown') {
-                this.scrollNewsArticle('Down');
-            }
+    private changeNewsArticle(action: 'previous' | 'next' | 'reset'): void {
+        this.scrollNewsArticle();
 
-            if (event.key === 'ArrowUp') {
-                this.scrollNewsArticle('Up');
+        if (action === 'previous') {
+            if (this.currentNewsItemIndex - 1 < 0) {
+                this.currentNewsItemIndex = this.news?.items.length - 1;
+            } else {
+                this.currentNewsItemIndex = this.currentNewsItemIndex - 1;
             }
-        });
+        }
+
+        if (action === 'next') {
+            if (this.currentNewsItemIndex + 1 === this.news?.items.length) {
+                this.currentNewsItemIndex = 0;
+            } else {
+                this.currentNewsItemIndex = this.currentNewsItemIndex + 1;
+            }
+        }
+
+        if (action === 'reset') {
+            this.currentNewsItemIndex = 0;
+        }
     }
 
-    private scrollNewsArticle(direction?: 'Up' | 'Down'): void {
+    private scrollNewsArticle(direction?: 'up' | 'down'): void {
+        this.setThisTimeout();
+
         const article = this.newsArticle.nativeElement;
         let top = 0;
         const amount = 100;
 
-        if (direction === 'Up') {
+        if (direction === 'up') {
             top = article.scrollTop - amount;
         }
 
-        if (direction === 'Down') {
+        if (direction === 'down') {
             top = article.scrollTop + amount;
         }
 
@@ -87,9 +88,36 @@ export class TvNewsComponent implements OnInit, OnDestroy {
         });
     }
 
+    private setThisTimeout() {
+        clearTimeout(this.timeout);
+
+        this.timeout = window.setTimeout(() => {
+            this.changeNewsArticle('next');
+        }, 1000 * 60 * 1); // 1 minute;
+    }
+
+    private listenForKeyDown(): void {
+        this.keyDownSubject.subscribe((event: KeyboardEvent) => {
+            if (event.key === 'ArrowDown') {
+                this.scrollNewsArticle('down');
+            }
+
+            if (event.key === 'ArrowUp') {
+                this.scrollNewsArticle('up');
+            }
+
+            if (event.key === 'ArrowLeft') {
+                this.changeNewsArticle('previous');
+            }
+
+            if (event.key === 'ArrowRight') {
+                this.changeNewsArticle('next');
+            }
+        });
+    }
+
     public ngOnInit(): void {
         this.getGeneralNews();
-        this.setCurrentNewsItemIndex();
         this.listenForKeyDown();
     }
 

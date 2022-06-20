@@ -4,7 +4,7 @@
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     padding: $global-px * 2.5;
     color: #cccccc;
@@ -14,6 +14,7 @@
     @media (orientation: portrait) and (max-width: 767px),
         (orientation: landscape) and (max-width: 1023px) {
         padding: $global-px;
+        flex-direction: column;
     }
 
     &-main {
@@ -27,10 +28,31 @@
         }
     }
 
-    &-footer {
+    &-aside {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         align-items: flex-end;
-        padding-top: $global-px * 2.5;
+
+        &-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: $global-px * 2;
+            font-size: $global-px * 5;
+            line-height: $global-px * 5;
+
+            @media (orientation: portrait) and (max-width: 767px),
+                (orientation: landscape) and (max-width: 1023px) {
+                font-size: $global-px * 2.5;
+                line-height: $global-px * 2.5;
+            }
+
+            .separator {
+                font-size: $global-px * 2.5;
+                line-height: $global-px * 2.5;
+            }
+        }
     }
 }
