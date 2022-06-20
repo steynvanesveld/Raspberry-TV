@@ -16,19 +16,20 @@ import {
     styleUrls: ['./tv-radio.component.scss'],
 })
 export class TvRadioComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('radio') private radio!: ElementRef<HTMLAudioElement>;
+
     public kink!: Kink;
     public ngUnsubscribe = new Subject<void>();
-    @ViewChild('radio') radio!: ElementRef<HTMLAudioElement>;
 
     constructor(private kinkService: KinkService) {}
 
-    public startRadio(): void {
+    private startRadio(): void {
         this.radio.nativeElement.src = this.kinkService.audioSrc;
         this.radio.nativeElement.volume = 0.5;
         this.radio.nativeElement.play();
     }
 
-    public getNowPlaying() {
+    private getNowPlaying() {
         this.kinkService
             .getNowPlaying()
             .pipe(takeUntil(this.ngUnsubscribe))

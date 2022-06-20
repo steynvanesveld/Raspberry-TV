@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
+import { TvComponent } from './pages/tv/tv.component';
 import { Routes, RouterModule } from '@angular/router';
-import { TvComponent } from './components/tv/tv.component';
 
 const routes: Routes = [{ path: '', component: TvComponent }];
 

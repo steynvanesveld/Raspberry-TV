@@ -12,16 +12,17 @@ import { PexelsService } from 'src/app/data/services/pexels.service';
 export class TvWallpaperComponent implements OnInit, OnDestroy {
     @Input() public idle!: boolean;
 
-    public photos!: Photos;
-    public photoParameters = '?auto=compress&fit=crop&w=1920&h=1080';
-    public gradient =
-        'linear-gradient(to bottom, rgba(105, 67, 45, 0.75), rgba(0, 0, 0, 0.75))';
-    public dayIndex = 0;
     public ngUnsubscribe = new Subject<void>();
+
+    private photos!: Photos;
+    private photoParameters = '?auto=compress&fit=crop&w=1920&h=1080';
+    private gradient =
+        'linear-gradient(to bottom, rgba(105, 67, 45, 0.75), rgba(0, 0, 0, 0.75))';
+    private dayIndex = 0;
 
     constructor(private pexelsService: PexelsService) {}
 
-    get currentBackgroundImage() {
+    public get currentBackgroundImage() {
         let url = '';
 
         if (this.photos?.photos.length) {

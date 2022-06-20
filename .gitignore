@@ -39,7 +39,6 @@ testem.log
 /typings
 .env
 .nvmrc
-src/modules/test/*
 environment.ts
 environment.prod.ts
 # System Files

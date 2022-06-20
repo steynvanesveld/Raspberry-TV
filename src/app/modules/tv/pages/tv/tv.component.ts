@@ -7,16 +7,20 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./tv.component.scss'],
 })
 export class TvComponent implements OnInit {
-    public idle = false;
     private idleTimeout!: number;
-
+    public idle = false;
     public keyDownSubject = new Subject<KeyboardEvent>();
 
-    public ngOnInit(): void {
-        this.listenForEvents();
+    private setTimer(miliseconds: number): void {
+        this.idle = false;
+        clearTimeout(this.idleTimeout);
+
+        this.idleTimeout = window.setTimeout(() => {
+            this.idle = true;
+        }, miliseconds);
     }
 
-    public listenForEvents(): void {
+    private listenForEvents(): void {
         const miliseconds = 1000 * 5; // 5 seconds
 
         this.setTimer(miliseconds);
@@ -34,12 +38,7 @@ export class TvComponent implements OnInit {
         });
     }
 
-    private setTimer(miliseconds: number): void {
-        this.idle = false;
-        clearTimeout(this.idleTimeout);
-
-        this.idleTimeout = window.setTimeout(() => {
-            this.idle = true;
-        }, miliseconds);
+    public ngOnInit(): void {
+        this.listenForEvents();
     }
 }

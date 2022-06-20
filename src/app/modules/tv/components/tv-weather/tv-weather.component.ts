@@ -15,11 +15,11 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
 
     constructor(private openWeatherService: OpenWeatherService) {}
 
-    get icon(): string {
+    public get icon(): string {
         return `http://openweathermap.org/img/wn/${this.weather?.weather[0].icon}@2x.png`;
     }
 
-    get temperature(): string {
+    public get temperature(): string {
         return `${Math.round(Number(this.weather?.main.temp))}°C`;
     }
 
