@@ -4,10 +4,10 @@
             <input
                 type="search"
                 [(ngModel)]="query"
-                (search)="searchChange($event)"
+                (search)="routerNavigate($event)"
                 placeholder="Search.."
             />
-            <select [(ngModel)]="order" (change)="orderChange()">
+            <select [(ngModel)]="order" (change)="routerNavigate()">
                 <option value="latest">Latest</option>
                 <option value="top-rated">Top Rated</option>
                 <option value="most-popular">Most Popular</option>
@@ -16,7 +16,8 @@
             </select>
         </nav>
 
-        <main class="ovp" *ngIf="ovp.videos?.length; else noResults">
+        <main class="ovp" #main *ngIf="ovp.videos?.length; else noResults">
+            <ng-template [ngTemplateOutlet]="pagination"></ng-template>
             <article
                 *ngFor="let video of ovp.videos"
                 (touchstart)="setNewThumbnail(video)"
@@ -28,8 +29,24 @@
                     <img [src]="video.current_thumb.src" />
                 </figure>
             </article>
+            <ng-template [ngTemplateOutlet]="pagination"></ng-template>
             <!-- </ng-template> -->
         </main>
+
+        <ng-template #pagination>
+            <ul class="ovp-pagination" *ngIf="ovp.total_pages > 1">
+                <li
+                    *ngFor="
+                        let item of [].constructor(ovp.total_pages);
+                        let index = index
+                    "
+                    [ngClass]="index + 1 === page ? 'active' : ''"
+                    (click)="routerNavigate(undefined, index + 1)"
+                >
+                    {{ index + 1 }}
+                </li>
+            </ul>
+        </ng-template>
 
         <ng-template #noResults>
             <span> No results..</span>

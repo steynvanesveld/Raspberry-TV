@@ -23,6 +23,36 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
         return `${Math.round(Number(this.weather?.main.temp))}°C`;
     }
 
+    public get wind(): string {
+        return `${Math.round(Number(this.weather?.wind.speed * 3.6))} km/u`;
+    }
+
+    public get rotation(): string {
+        return `rotate(${this.weather.wind.deg}deg)`;
+    }
+
+    public get humidity(): string {
+        return `${this.weather?.main.humidity}%`;
+    }
+
+    public get sunSet(): string {
+        const date = new Date(this.weather?.sys.sunset * 1000);
+        const hours = this.makeDoubleDigits(date.getHours());
+        const minutes = this.makeDoubleDigits(date.getMinutes());
+
+        return `${hours}:${minutes}`;
+    }
+
+    private makeDoubleDigits(i: number): string {
+        let j = i.toString();
+
+        if (i < 10) {
+            j = `0${i}`;
+        }
+
+        return j;
+    }
+
     private getWeather(): void {
         this.openWeatherService
             .getWeather()

@@ -2,9 +2,13 @@ import { OVP } from '../models/ovp.model';
 import { OVPVideo } from '../models/ovp-video.model';
 
 export class OVPSerializer {
-    public setVideos(videos: OVPVideo[]) {
+    private setVideos(videos: OVPVideo[]) {
         videos.forEach((video) => (video.current_thumb = video.default_thumb));
         return videos;
+    }
+
+    private setTotalPages(total_pages: number): number {
+        return total_pages > 10 ? 10 : total_pages;
     }
 
     public fromJson(json: OVP): OVP {
@@ -15,7 +19,7 @@ export class OVPSerializer {
             json.page,
             json.time_ms,
             json.total_count,
-            json.total_pages,
+            this.setTotalPages(json.total_pages),
             this.setVideos(json.videos)
         );
     }

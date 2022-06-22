@@ -1,7 +1,46 @@
-<span class="weather" *ngIf="weather">
-    <figure>
-        <img [src]="icon" />
-    </figure>
+<div class="weather" *ngIf="weather">
+    <section>
+        <span>
+            {{ temperature }}
+        </span>
 
-    {{ temperature }}
-</span>
+        <figure>
+            <img [src]="icon" />
+        </figure>
+    </section>
+
+    <section>
+        <span> {{ wind }} </span>
+
+        <figure>
+            <img
+                src="/assets/images/arrow-right.svg"
+                class="custom wind"
+                alt="Arrow"
+                [style.transform]="rotation"
+            />
+        </figure>
+    </section>
+
+    <section>
+        <span> {{ humidity }} </span>
+
+        <figure>
+            <img
+                src="/assets/images/water-drop.svg"
+                class="custom"
+                alt="Water-drop"
+            />
+        </figure>
+    </section>
+
+    <section>
+        <span>
+            {{ sunSet }}
+        </span>
+
+        <figure>
+            <img src="/assets/images/sun-set.svg" class="custom" alt="Sun" />
+        </figure>
+    </section>
+</div>

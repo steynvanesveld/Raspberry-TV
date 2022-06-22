@@ -1,0 +1,16 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="75"
+    height="103"
+    viewBox="0 0 75 103"
+>
+    <path
+        fill="#ffffff"
+        stroke="#ffffff"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="10"
+        d="M64.2857143,60.7142857 C64.2857143,42.9285714 32.1428571,0 32.1428571,0 C32.1428571,0 0,42.9285714 0,60.7142857 C0,78.4662953 14.3908475,92.8571424 32.1428571,92.8571424 C49.8948668,92.8571424 64.2857143,78.4662953 64.2857143,60.7142857 Z"
+        transform="translate(5.286 5)"
+    />
+</svg>

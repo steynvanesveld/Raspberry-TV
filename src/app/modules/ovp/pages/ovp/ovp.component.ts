@@ -2,7 +2,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OVP } from 'src/app/data/models/ovp.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { OVPService } from 'src/app/data/services/ovp.service';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
 
@@ -17,7 +23,10 @@ export class OVPComponent implements OnInit, OnDestroy {
     public ovpVideoThumbTimeout!: number;
     public ngUnsubscribe = new Subject<void>();
     public query!: string;
-    public order = 'latest';
+    public order!: string;
+    public page!: number;
+
+    @ViewChild('main') private main!: ElementRef<HTMLElement>;
 
     constructor(
         private ovpService: OVPService,
@@ -25,31 +34,39 @@ export class OVPComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute
     ) {}
 
-    public orderChange(): void {
+    public routerNavigate(event?: Event, page = 1): void {
+        this.page = page;
+
+        const target = event?.target as HTMLElement;
+        if (target) {
+            target.blur();
+        }
+
         this.router.navigate([], {
             relativeTo: this.activatedRoute,
-            queryParams: { order: this.order },
+            queryParams: {
+                order: this.order,
+                page: this.page,
+                search: this.query,
+            },
             queryParamsHandling: 'merge',
         });
     }
 
-    public searchChange(event: Event): void {
-        const target = event.target as HTMLElement;
-        target.blur();
-
-        this.router.navigate([], {
-            relativeTo: this.activatedRoute,
-            queryParams: { search: this.query },
-            queryParamsHandling: 'merge',
-        });
-    }
-
-    public searchOVP(order: string, query?: string): void {
+    public searchOVP(order: string, page: number, query?: string): void {
         this.ovpService
-            .searchOVP(order, query)
+            .searchOVP(order, page, query)
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((result) => {
                 this.ovp = result;
+
+                setTimeout(() => {
+                    this.main?.nativeElement.scroll({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                });
             });
     }
 
@@ -89,9 +106,10 @@ export class OVPComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((queryParams) => {
                 this.order = queryParams.get('order') ?? ('latest' as string);
+                this.page = Number(queryParams.get('page') ?? (1 as number));
                 this.query = queryParams.get('search') as string;
 
-                this.searchOVP(this.order, this.query);
+                this.searchOVP(this.order, this.page, this.query);
             });
     }
 

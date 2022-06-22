@@ -20,11 +20,6 @@ export abstract class RssService extends CorsProxyService {
     ): Observable<AbstractModel | undefined> {
         const response = error.error.text;
 
-        console.log(
-            of(response).pipe(
-                map((data: object) => this.serializer?.fromJson(data))
-            )
-        );
         return of(response).pipe(
             map((data: object) => this.serializer?.fromJson(data))
         );
