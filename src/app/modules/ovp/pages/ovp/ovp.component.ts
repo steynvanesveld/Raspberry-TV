@@ -95,12 +95,6 @@ export class OVPComponent implements OnInit, OnDestroy {
         ovpVideo.current_thumb = ovpVideo.default_thumb;
     }
 
-    public goToOVPVideo(ovpVideo: OVPVideo): void {
-        this.router.navigate([`/ovp/${ovpVideo.id}`], {
-            queryParams: { redirect: 'true' },
-        });
-    }
-
     public listenForSearchChange(): void {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.ngUnsubscribe))

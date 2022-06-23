@@ -18,17 +18,17 @@
 
         <main class="ovp" #main *ngIf="ovp.videos?.length; else noResults">
             <ng-template [ngTemplateOutlet]="pagination"></ng-template>
-            <article
+            <a
                 *ngFor="let video of ovp.videos"
                 (touchstart)="setNewThumbnail(video)"
                 (mouseenter)="setNewThumbnail(video)"
                 (mouseleave)="setDefaultThumbnail(video)"
-                (click)="goToOVPVideo(video)"
+                href="/#/ovp/{{ video.id }}?redirect=true"
             >
                 <figure>
                     <img [src]="video.current_thumb.src" />
                 </figure>
-            </article>
+            </a>
             <ng-template [ngTemplateOutlet]="pagination"></ng-template>
             <!-- </ng-template> -->
         </main>

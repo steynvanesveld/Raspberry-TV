@@ -55,11 +55,14 @@
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 
-    article {
+    a {
         cursor: pointer;
 
         figure img {
+            user-select: none;
+            pointer-events: none;
             width: 100%;
+            display: block;
         }
     }
 
