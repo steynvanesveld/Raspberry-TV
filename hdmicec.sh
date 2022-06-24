@@ -9,12 +9,13 @@ do
         strkey=$(grep -oP '(?<=sed: ).*?(?= \()' <<< "$keyline")
         strstat=$(grep -oP '(?<=key ).*?(?=:)' <<< "$keyline")
         strpressed=$(echo $strstat | grep "pressed")
-        echo $strkey
-        echo $strkey >> test.txt
         if [ -n "$strpressed" ]; then
             case "$strkey" in
                 "select")
                     xdotool key "Return"
+                ;;
+                "exit")
+                    xdotool key "BackSpace"
                 ;;
                 "up")
                     xdotool key "Up"

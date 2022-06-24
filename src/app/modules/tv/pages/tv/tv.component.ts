@@ -10,6 +10,7 @@ export class TvComponent implements OnInit {
     private idleTimeout!: number;
     public idle = false;
     public keyDownSubject = new Subject<KeyboardEvent>();
+    public multiKeyDownTimeout!: number;
 
     private setTimer(miliseconds: number): void {
         this.idle = false;
@@ -18,6 +19,14 @@ export class TvComponent implements OnInit {
         this.idleTimeout = window.setTimeout(() => {
             this.idle = true;
         }, miliseconds);
+    }
+
+    private listenForKeyDown(): void {
+        this.keyDownSubject.subscribe((event: KeyboardEvent) => {
+            if (event.key === 'Backspace') {
+                document.body.classList.toggle('hidden');
+            }
+        });
     }
 
     private listenForEvents(): void {
@@ -34,11 +43,16 @@ export class TvComponent implements OnInit {
         });
 
         window.addEventListener('keydown', (event: KeyboardEvent) => {
-            this.keyDownSubject.next(event);
+            clearTimeout(this.multiKeyDownTimeout);
+
+            this.multiKeyDownTimeout = window.setTimeout(() => {
+                this.keyDownSubject.next(event);
+            }, 250);
         });
     }
 
     public ngOnInit(): void {
         this.listenForEvents();
+        this.listenForKeyDown();
     }
 }

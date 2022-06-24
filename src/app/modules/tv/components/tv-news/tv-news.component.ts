@@ -25,7 +25,6 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     public currentNewsArticleIndex = 0;
     public ngUnsubscribe = new Subject<void>();
     public nextNewsItemTimeout!: number;
-    public doubleKeyDownTimeout!: number;
 
     constructor(private nosService: NosService) {}
 
@@ -99,25 +98,21 @@ export class TvNewsComponent implements OnInit, OnDestroy {
 
     private listenForKeyDown(): void {
         this.keyDownSubject.subscribe((event: KeyboardEvent) => {
-            clearTimeout(this.doubleKeyDownTimeout);
+            if (event.key === 'ArrowDown') {
+                this.scrollNewsArticle('down');
+            }
 
-            this.doubleKeyDownTimeout = window.setTimeout(() => {
-                if (event.key === 'ArrowDown') {
-                    this.scrollNewsArticle('down');
-                }
+            if (event.key === 'ArrowUp') {
+                this.scrollNewsArticle('up');
+            }
 
-                if (event.key === 'ArrowUp') {
-                    this.scrollNewsArticle('up');
-                }
+            if (event.key === 'ArrowLeft') {
+                this.changeNewsArticle('previous');
+            }
 
-                if (event.key === 'ArrowLeft') {
-                    this.changeNewsArticle('previous');
-                }
-
-                if (event.key === 'ArrowRight') {
-                    this.changeNewsArticle('next');
-                }
-            }, 250);
+            if (event.key === 'ArrowRight') {
+                this.changeNewsArticle('next');
+            }
         });
     }
 

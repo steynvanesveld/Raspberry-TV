@@ -6,6 +6,8 @@ read -p "Compile the latest version? (y/n)" -n 1 -r COMPILE
 echo
 read -p "Deploy to server? (y/n)" -n 1 -r DEPLOY
 echo
+read -p "Replace hdmicec? (y/n)" -n 1 -r HDMICEC
+echo
 read -p "Reboot server? (y/n)" -n 1 -r REBOOT
 echo
 
@@ -22,6 +24,11 @@ then
         sudo mv -f ~/raspberry/* ~/lighttpd/
         sudo rm -rf ~/raspberry
     '
+fi
+
+if [[ $HDMICEC =~ ^[Yy]$ ]]
+then
+    scp -r hdmicec.sh $USERNAME@$IP_ADDRESS:~
 fi
 
 if [[ $REBOOT =~ ^[Yy]$ ]]

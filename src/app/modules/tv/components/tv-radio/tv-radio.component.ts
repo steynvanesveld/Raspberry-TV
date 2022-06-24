@@ -24,7 +24,6 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
 
     public kink!: Kink;
     public ngUnsubscribe = new Subject<void>();
-    public doubleKeyDownTimeout!: number;
     public getNowPlayingTimeout!: number;
     public currentChannelIndex = 0;
 
@@ -83,13 +82,9 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
 
     private listenForKeyDown(): void {
         this.keyDownSubject.subscribe((event: KeyboardEvent) => {
-            clearTimeout(this.doubleKeyDownTimeout);
-
-            this.doubleKeyDownTimeout = window.setTimeout(() => {
-                if (event.key === 'Enter') {
-                    this.setNextChannel();
-                }
-            }, 250);
+            if (event.key === 'Enter') {
+                this.setNextChannel();
+            }
         });
     }
 
