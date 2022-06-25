@@ -33,20 +33,19 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
         return this.kinkService.kinkChannels[this.currentChannelIndex];
     }
 
-    public get currentChannelName(): string {
-        return this.currentChannel.name.replace(' ', '-').toLowerCase();
-    }
-
     public get currentSong(): string {
-        return this.kink.extended[this.currentChannelName].title;
+        return this.kink.extended[this.currentChannel.apiName].title;
     }
 
     public get currentArtist(): string {
-        return this.kink.extended[this.currentChannelName].artist;
+        return this.kink.extended[this.currentChannel.apiName].artist;
     }
 
     private startRadio(): void {
-        this.radio.nativeElement.src = this.currentChannel.url;
+        this.radio.nativeElement.src =
+            this.kinkService.fileUrl +
+            this.currentChannel.fileName +
+            this.kinkService.fileFormat;
         this.radio.nativeElement.volume = 0.5;
         this.radio.nativeElement.play();
     }

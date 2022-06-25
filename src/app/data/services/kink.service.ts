@@ -9,23 +9,15 @@ import { KinkChannel } from '../models/kink-channel.model';
     providedIn: 'root',
 })
 export class KinkService extends HttpService<Kink> {
+    public fileUrl =
+        'http://playerservices.streamtheworld.com/api/livestream-redirect/';
+    public fileFormat = '.mp3';
+
     public kinkChannels = [
-        new KinkChannel(
-            'Kink',
-            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK.mp3'
-        ),
-        new KinkChannel(
-            'Kink Distortion',
-            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK_DISTORTION.mp3'
-        ),
-        new KinkChannel(
-            'Kink DNA',
-            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK_DNA.mp3'
-        ),
-        new KinkChannel(
-            'Kink Indie',
-            'http://playerservices.streamtheworld.com/api/livestream-redirect/KINKINDIE.mp3'
-        ),
+        new KinkChannel('kink', '<i>K</i>INK', 'KINK'),
+        new KinkChannel('kink-distortion', 'DISTORTION', 'KINK_DISTORTION'),
+        new KinkChannel('kink-dna', 'CLASSICS', 'KINK_DNA'),
+        new KinkChannel('kink-indie', 'INDIE', 'KINKINDIE'),
     ];
 
     constructor(httpClient: HttpClient) {

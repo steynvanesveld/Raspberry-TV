@@ -4,10 +4,35 @@
     box-sizing: border-box;
 }
 
-html {
+body {
     background-color: #000000;
-}
 
-.hidden {
-    display: none;
+    &::before,
+    &::after {
+        content: "";
+        position: fixed;
+        background-color: #000000;
+        top: 0;
+        bottom: 0;
+        width: 50vw;
+        transition: all 0.2s ease-in-out;
+        z-index: 9;
+    }
+
+    &::before {
+        left: 0;
+        transform: translateX(-50vw);
+    }
+
+    &::after {
+        right: 0;
+        transform: translateX(50vw);
+    }
+
+    &.hidden {
+        &::before,
+        &::after {
+            transform: translateY(0);
+        }
+    }
 }

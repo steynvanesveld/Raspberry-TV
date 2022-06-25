@@ -17,13 +17,15 @@ export class OpenWeatherService extends HttpService<Weather> {
     }
 
     public getWeather() {
-        this.setResource('/weather');
+        this.setResource('/onecall');
 
         const httpParams = {
             lat: environment.open_weather_lat,
             lon: environment.open_weather_lon,
             appid: environment.open_weather_api_key,
             units: 'metric',
+            lang: 'nl',
+            exclude: 'minutely,hourly,alerts',
         };
 
         this.setParams(httpParams);

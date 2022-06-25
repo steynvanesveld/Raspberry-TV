@@ -1,7 +1,7 @@
 <audio #radio></audio>
 
 <article class="now-playing" *ngIf="kink">
-    <h3>{{ currentChannel.name }}</h3>
+    <h3 class="kink" [innerHTML]="currentChannel.visibleName"></h3>
     <h2>{{ currentSong }}</h2>
     <h3>{{ currentArtist }}</h3>
 </article>
