@@ -18,5 +18,6 @@ export class OVPVideo extends AbstractModel {
         public current_thumb: OVPVideoThumb
     ) {
         super(id);
+        this.current_thumb = this.default_thumb;
     }
 }

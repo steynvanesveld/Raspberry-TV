@@ -1,0 +1,6 @@
+<ng-container *ngIf="system">
+    <h2>{{ system.model }}</h2>
+    <p>RAM: <span [innerHtml]="system.ram_usage"></span></p>
+    <p>Load: <span [innerHtml]="system.load"></span></p>
+    <p>Temp: <span [innerHtml]="system.temp"></span></p>
+</ng-container>

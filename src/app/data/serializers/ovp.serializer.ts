@@ -2,7 +2,7 @@ import { OVP } from '../models/ovp.model';
 import { OVPVideo } from '../models/ovp-video.model';
 
 export class OVPSerializer {
-    private setVideos(videos: OVPVideo[]) {
+    private setVideos(videos: OVPVideo[]): OVPVideo[] {
         videos.forEach((video) => (video.current_thumb = video.default_thumb));
         return videos;
     }

@@ -6,8 +6,14 @@
     justify-content: space-between;
     gap: $global-px;
     position: sticky;
-    top: 72px;
-    background-color: #000000;
+    top: $global-px * 4.5 - 1px;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0px,
+        rgba(0, 0, 0, 0) 1px,
+        rgba(0, 0, 0, 1) 1px
+    );
+    z-index: 1;
 
     input,
     select {
@@ -47,22 +53,54 @@
 .ovp {
     display: grid;
     grid-gap: $global-px;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(424px, 1fr));
     padding: $global-px 0;
+    position: relative;
 
     @media (orientation: portrait) and (max-width: 767px),
         (orientation: landscape) and (max-width: 1023px) {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 
-    a {
+    .video {
         cursor: pointer;
+        position: relative;
+
+        &.hidden {
+            opacity: 0;
+        }
 
         figure img {
             user-select: none;
             pointer-events: none;
             width: 100%;
             display: block;
+        }
+
+        .favorite-button {
+            all: unset;
+            position: absolute;
+            top: $global-px;
+            right: $global-px;
+            height: $global-px * 2;
+            width: $global-px * 2;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-image: url("/assets/images/star-grey.svg");
+
+            &.favorite {
+                background-image: url("/assets/images/star-gold.svg");
+            }
+        }
+
+        span {
+            position: absolute;
+            bottom: 0;
+            left: $global-px * 0.25;
+            display: block;
+            color: #cccccc;
+            text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
         }
     }
 
@@ -71,8 +109,8 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-        list-style: none;
         gap: $global-px;
+        list-style: none;
         overflow: hidden;
 
         li {
@@ -82,5 +120,30 @@
                 color: $primary-color;
             }
         }
+    }
+}
+
+.no-result {
+    display: block;
+    padding: $global-px 0;
+}
+
+input[type="checkbox"] {
+    all: unset;
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    height: $global-px * 4.5;
+    width: $global-px * 4.5;
+    background-color: #000000;
+    background-size: $global-px * 2.5;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(/assets/images/star-grey.svg);
+    z-index: 9;
+
+    &.active {
+        background-image: url("/assets/images/star-gold.svg");
     }
 }

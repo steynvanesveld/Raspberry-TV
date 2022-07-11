@@ -1,8 +1,12 @@
 <article class="news-article" #newsArticle>
-    <ng-container *ngIf="news">
-        <h1 [innerText]="news.items[currentNewsArticleIndex].title"></h1>
-        <div
-            [innerHTML]="news.items[currentNewsArticleIndex].description"
-        ></div>
+    <ng-container *ngIf="news?.items?.length">
+        <h1
+            [innerText]="
+                news.items[currentNewsArticleIndex].source +
+                ': ' +
+                news.items[currentNewsArticleIndex].title
+            "
+        ></h1>
+        <p [innerHTML]="news.items[currentNewsArticleIndex].description"></p>
     </ng-container>
 </article>

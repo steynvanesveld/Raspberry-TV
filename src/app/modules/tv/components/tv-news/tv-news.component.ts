@@ -1,7 +1,8 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Rss } from 'src/app/data/models/rss.model';
-import { NosService } from 'src/app/data/services/nos.service';
+import { RssItem } from 'src/app/data/models/rss-item.model';
+import { NewsService } from 'src/app/data/services/news.service';
 import {
     Component,
     ElementRef,
@@ -26,19 +27,35 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     public ngUnsubscribe = new Subject<void>();
     public nextNewsItemTimeout!: number;
 
-    constructor(private nosService: NosService) {}
+    constructor(private newsService: NewsService) {}
 
-    private getGeneralNews(): void {
-        this.nosService
-            .getGeneralNews()
+    private getNews(): void {
+        this.newsService
+            .getNos()
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((response) => {
+                response.items.map((item: RssItem) => (item.source = 'NOS'));
                 this.news = response;
-                this.changeNewsArticle('reset');
+
+                this.newsService
+                    .getHoogeveenscheCourant()
+                    .pipe(takeUntil(this.ngUnsubscribe))
+                    .subscribe((response) => {
+                        response.items.map(
+                            (item: RssItem) =>
+                                (item.source = 'Hoogeveensche Courant')
+                        );
+
+                        this.news.items = this.news.items.concat(
+                            response.items
+                        );
+
+                        this.changeNewsArticle('reset');
+                    });
             });
 
         window.setTimeout(() => {
-            this.getGeneralNews();
+            this.getNews();
         }, 1000 * 60 * 60); // 60 minutes
     }
 
@@ -117,7 +134,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.getGeneralNews();
+        this.getNews();
         this.listenForKeyDown();
     }
 

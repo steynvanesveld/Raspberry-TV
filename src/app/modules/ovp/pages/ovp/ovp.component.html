@@ -1,6 +1,15 @@
 <main *ngIf="ovp">
     <div class="container">
-        <nav class="navbar">
+        <input
+            type="checkbox"
+            name="favorites"
+            id="favorites"
+            [ngClass]="showFavorites ? 'active' : ''"
+            [(ngModel)]="showFavorites"
+            (change)="routerNavigate()"
+        />
+
+        <nav class="navbar" *ngIf="!showFavorites">
             <input
                 type="search"
                 [(ngModel)]="query"
@@ -16,25 +25,56 @@
             </select>
         </nav>
 
-        <main class="ovp" #main *ngIf="ovp.videos?.length; else noResults">
+        <main
+            class="ovp"
+            #main
+            *ngIf="
+                (showFavorites && favoriteVideos.length) ||
+                    (!showFavorites && ovp.videos?.length);
+                else noResults
+            "
+        >
             <ng-template [ngTemplateOutlet]="pagination"></ng-template>
-            <a
-                *ngFor="let video of ovp.videos"
-                (touchstart)="setNewThumbnail(video)"
-                (mouseenter)="setNewThumbnail(video)"
-                (mouseleave)="setDefaultThumbnail(video)"
-                href="/#/ovp/{{ video.id }}?redirect=true"
+            <ng-container
+                *ngFor="
+                    let video of showFavorites ? favoriteVideos : ovp.videos
+                "
             >
-                <figure>
-                    <img [src]="video.current_thumb.src" />
-                </figure>
-            </a>
+                <a
+                    *ngIf="video?.current_thumb?.src"
+                    (touchstart)="setNewThumbnail(video)"
+                    (mouseenter)="setNewThumbnail(video)"
+                    (mouseleave)="setDefaultThumbnail(video)"
+                    href="/#/ovp/{{ video.id }}?redirect=true"
+                    class="video hidden"
+                >
+                    <button
+                        [ngClass]="[
+                            'favorite-button',
+                            favorites?.favorites?.includes(video.id)
+                                ? 'favorite'
+                                : ''
+                        ]"
+                        (click)="setFavorite($event, video)"
+                    ></button>
+                    <figure>
+                        <img
+                            [src]="video.current_thumb.src"
+                            (load)="showFavoriteButton($event.target)"
+                        />
+                    </figure>
+                    <span>{{ video.title }}</span>
+                </a>
+            </ng-container>
             <ng-template [ngTemplateOutlet]="pagination"></ng-template>
             <!-- </ng-template> -->
         </main>
 
         <ng-template #pagination>
-            <ul class="ovp-pagination" *ngIf="ovp.total_pages > 1">
+            <ul
+                class="ovp-pagination"
+                *ngIf="ovp.total_pages > 1 && !showFavorites"
+            >
                 <li
                     *ngFor="
                         let item of [].constructor(ovp.total_pages);
@@ -49,7 +89,7 @@
         </ng-template>
 
         <ng-template #noResults>
-            <span> No results..</span>
+            <span class="no-result"> No results..</span>
         </ng-template>
     </div>
 </main>

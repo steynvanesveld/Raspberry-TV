@@ -1,7 +1,7 @@
 import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { CorsProxyService } from './cors-proxy.service';
+import { CorsProxyService } from './corsproxy.service';
 import { AbstractModel } from '../models/abstract.model';
 import { RssSerializer } from '../serializers/rss.serializer';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';

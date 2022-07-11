@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OVPService } from 'src/app/data/services/ovp.service';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
 
 @Component({
     selector: 'app-ovp-video',
@@ -17,6 +18,7 @@ export class OVPVideoComponent implements AfterViewInit, OnDestroy {
 
     constructor(
         private ovpService: OVPService,
+        private ovpVideoService: OVPVideoService,
         private activatedRoute: ActivatedRoute,
         private domSanitizer: DomSanitizer
     ) {}
@@ -28,7 +30,7 @@ export class OVPVideoComponent implements AfterViewInit, OnDestroy {
     }
 
     public getOVPVideo(id: string): void {
-        this.ovpService
+        this.ovpVideoService
             .getOVPVideo(id)
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((result) => {
