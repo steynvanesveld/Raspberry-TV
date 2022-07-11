@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 
 @Component({
     selector: 'app-tv',
@@ -7,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./tv.component.scss'],
 })
 export class TvComponent implements OnInit {
-    private idleTimeout!: number;
+    private idleTimeout = 0;
     public idle = false;
-    public keyDownSubject = new Subject<KeyboardEvent>();
-    public multiKeyDownTimeout!: number;
+    public keyDownSubject = new Subject<KeyboardEventKey>();
+    public keyPressed: string | undefined;
 
-    private setTimer(miliseconds: number): void {
+    private setIdleTimeout(miliseconds: number): void {
         this.idle = false;
         clearTimeout(this.idleTimeout);
 
@@ -22,8 +23,8 @@ export class TvComponent implements OnInit {
     }
 
     private listenForKeyDown(): void {
-        this.keyDownSubject.subscribe((event: KeyboardEvent) => {
-            if (event.key === 'Backspace') {
+        this.keyDownSubject.subscribe((key: KeyboardEventKey) => {
+            if (key === 'Backspace') {
                 document.body.classList.toggle('hidden');
             }
         });
@@ -32,22 +33,18 @@ export class TvComponent implements OnInit {
     private listenForEvents(): void {
         const miliseconds = 1000 * 5; // 5 seconds
 
-        this.setTimer(miliseconds);
+        this.setIdleTimeout(miliseconds);
 
         window.addEventListener('click', () => {
-            this.setTimer(miliseconds);
+            this.setIdleTimeout(miliseconds);
         });
 
         window.addEventListener('mousemove', () => {
-            this.setTimer(miliseconds);
+            this.setIdleTimeout(miliseconds);
         });
 
         window.addEventListener('keydown', (event: KeyboardEvent) => {
-            clearTimeout(this.multiKeyDownTimeout);
-
-            this.multiKeyDownTimeout = window.setTimeout(() => {
-                this.keyDownSubject.next(event);
-            }, 250);
+            this.keyDownSubject.next(event.key as KeyboardEventKey);
         });
     }
 

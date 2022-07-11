@@ -3,6 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Kink } from 'src/app/data/models/kink.model';
 import { KinkService } from 'src/app/data/services/kink.service';
 import { KinkChannel } from 'src/app/data/models/kink-channel.model';
+import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 import {
     AfterViewInit,
     Component,
@@ -18,7 +19,7 @@ import {
     styleUrls: ['./tv-radio.component.scss'],
 })
 export class TvRadioComponent implements AfterViewInit, OnDestroy {
-    @Input() public keyDownSubject = new Subject<KeyboardEvent>();
+    @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
 
     @ViewChild('radio') private radio!: ElementRef<HTMLAudioElement>;
 
@@ -80,8 +81,8 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
     }
 
     private listenForKeyDown(): void {
-        this.keyDownSubject.subscribe((event: KeyboardEvent) => {
-            if (event.key === 'Enter') {
+        this.keyDownSubject.subscribe((key: KeyboardEventKey) => {
+            if (key === 'Enter') {
                 this.setNextChannel();
             }
         });

@@ -7,9 +7,8 @@ do
     keyline=$(echo $oneline | grep " key ")
     if [ -n "$keyline" ]; then
         strkey=$(grep -oP '(?<=sed: ).*?(?= \()' <<< "$keyline")
-        strstat=$(grep -oP '(?<=key ).*?(?=:)' <<< "$keyline")
-        strpressed=$(echo $strstat | grep "pressed")
-        if [ -n "$strpressed" ]; then
+        strcurrent=$(echo $oneline | grep "current")
+        if [ -n "$strcurrent" ]; then
             case "$strkey" in
                 "select")
                     xdotool key "Return"
@@ -28,6 +27,9 @@ do
                 ;;
                 "left")
                     xdotool key "Left"
+                ;;
+                *)
+                    xdotool key "$strkey"
                 ;;
             esac
         fi

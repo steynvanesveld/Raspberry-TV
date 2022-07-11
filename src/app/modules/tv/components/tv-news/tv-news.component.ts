@@ -3,6 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Rss } from 'src/app/data/models/rss.model';
 import { RssItem } from 'src/app/data/models/rss-item.model';
 import { NewsService } from 'src/app/data/services/news.service';
+import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 import {
     Component,
     ElementRef,
@@ -18,7 +19,7 @@ import {
     styleUrls: ['./tv-news.component.scss'],
 })
 export class TvNewsComponent implements OnInit, OnDestroy {
-    @Input() public keyDownSubject = new Subject<KeyboardEvent>();
+    @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
 
     @ViewChild('newsArticle') private newsArticle!: ElementRef<HTMLElement>;
 
@@ -114,20 +115,20 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     }
 
     private listenForKeyDown(): void {
-        this.keyDownSubject.subscribe((event: KeyboardEvent) => {
-            if (event.key === 'ArrowDown') {
+        this.keyDownSubject.subscribe((key: KeyboardEventKey) => {
+            if (key === 'ArrowDown') {
                 this.scrollNewsArticle('down');
             }
 
-            if (event.key === 'ArrowUp') {
+            if (key === 'ArrowUp') {
                 this.scrollNewsArticle('up');
             }
 
-            if (event.key === 'ArrowLeft') {
+            if (key === 'ArrowLeft') {
                 this.changeNewsArticle('previous');
             }
 
-            if (event.key === 'ArrowRight') {
+            if (key === 'ArrowRight') {
                 this.changeNewsArticle('next');
             }
         });
