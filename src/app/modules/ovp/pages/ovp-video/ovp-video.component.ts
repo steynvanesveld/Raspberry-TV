@@ -2,10 +2,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { OVPService } from 'src/app/data/services/ovp.service';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { Favorites } from 'src/app/data/models/favorites.model';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
+import { RaspberryService } from 'src/app/data/services/raspberry.service';
 
 @Component({
     selector: 'app-ovp-video',
@@ -15,12 +16,13 @@ import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
 export class OVPVideoComponent implements AfterViewInit, OnDestroy {
     public ovpVideo!: OVPVideo;
     public ngUnsubscribe = new Subject<void>();
+    @Input() public favorites: Favorites | undefined;
 
     constructor(
-        private ovpService: OVPService,
         private ovpVideoService: OVPVideoService,
         private activatedRoute: ActivatedRoute,
-        private domSanitizer: DomSanitizer
+        private domSanitizer: DomSanitizer,
+        private raspberryService: RaspberryService
     ) {}
 
     public sanitizedEmbedUrl(): string {
@@ -57,8 +59,33 @@ export class OVPVideoComponent implements AfterViewInit, OnDestroy {
             });
     }
 
+    public url(keyword: string): string {
+        return `/#/ovp?search=${encodeURIComponent(keyword.trim())}`;
+    }
+
+    public getFavorites(): void {
+        this.raspberryService
+            .getFavorites()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((result) => {
+                this.favorites = result;
+            });
+    }
+
+    public setFavorite(event: Event, ovpVideo: OVPVideo): void {
+        event.preventDefault();
+
+        this.raspberryService
+            .setFavorite(ovpVideo.id)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((result) => {
+                this.favorites = result;
+            });
+    }
+
     public ngAfterViewInit(): void {
         this.getRouteData();
+        this.getFavorites();
     }
 
     public ngOnDestroy(): void {

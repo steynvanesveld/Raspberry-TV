@@ -1,7 +1,26 @@
 <main class="content">
     <div class="container">
         <article class="ovp-video" *ngIf="ovpVideo">
+            <button
+                [ngClass]="[
+                    'favorite-button',
+                    favorites?.favorites?.includes(ovpVideo.id)
+                        ? 'favorite'
+                        : ''
+                ]"
+                (click)="setFavorite($event, ovpVideo)"
+            ></button>
             <iframe [src]="sanitizedEmbedUrl()" allow="fullscreen"></iframe>
         </article>
+
+        <div class="tags">
+            <ng-container
+                *ngFor="let keyword of ovpVideo?.keywords?.split(',')"
+            >
+                <a *ngIf="keyword" href="{{ url(keyword) }}">
+                    {{ keyword.trim() }}
+                </a>
+            </ng-container>
+        </div>
     </div>
 </main>

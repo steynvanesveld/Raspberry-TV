@@ -1,7 +1,6 @@
 <?php
 $filename = 'favorites.txt';
 $output = new stdClass();
-$output->favorites = explode("\n", file_get_contents($filename));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $favorites = explode("\n", file_get_contents($filename));
@@ -15,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     file_put_contents($filename, implode("\n", $favorites));
 }
+
+$output->favorites = explode("\n", file_get_contents($filename));
 
 echo json_encode($output);
 ?>

@@ -6,4 +6,33 @@
         aspect-ratio: 16 / 9;
         border: none;
     }
+
+    .favorite-button {
+        all: unset;
+        height: $global-px * 2;
+        width: $global-px * 2;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url("/assets/images/star-grey.svg");
+
+        &.favorite {
+            background-image: url("/assets/images/star-gold.svg");
+        }
+    }
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $global-px * 0.5;
+
+    a {
+        cursor: pointer;
+        padding: 0 $global-px * 0.5;
+        background-color: #cccccc;
+        color: #000000;
+        border-radius: $global-px * 0.25;
+        text-decoration: none;
+    }
 }

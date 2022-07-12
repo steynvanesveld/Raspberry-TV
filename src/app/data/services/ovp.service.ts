@@ -20,11 +20,11 @@ export class OVPService extends HttpService<any> {
 
         const httpParams = {
             query: query ?? '',
-            per_page: '100',
+            per_page: 100,
             page,
             thumbsize: 'big',
             order,
-            lq: '0',
+            ...environment.ovp_api_params,
         };
 
         this.setParams(httpParams);
