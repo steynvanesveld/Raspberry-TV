@@ -81,11 +81,13 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
     }
 
     private listenForKeyDown(): void {
-        this.keyDownSubject.subscribe((key: KeyboardEventKey) => {
-            if (key === 'Enter') {
-                this.setNextChannel();
-            }
-        });
+        this.keyDownSubject
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((key: KeyboardEventKey) => {
+                if (key === 'Enter') {
+                    this.setNextChannel();
+                }
+            });
     }
 
     public ngAfterViewInit(): void {

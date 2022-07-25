@@ -70,7 +70,7 @@ export class OVPComponent implements OnInit, OnDestroy {
                 this.ovp = result;
 
                 setTimeout(() => {
-                    this.main?.nativeElement.scroll({
+                    window.scroll({
                         top: 0,
                         left: 0,
                         behavior: 'smooth',

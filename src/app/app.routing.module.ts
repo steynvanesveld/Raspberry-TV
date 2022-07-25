@@ -11,21 +11,28 @@ const routes: Routes = [
                 return m.HomeModule;
             }),
     },
-
-    {
-        path: 'ovp',
-        component: DefaultLayoutComponent,
-        loadChildren: () =>
-            import('src/app/modules/ovp/ovp.module').then((m) => {
-                return m.OVPModule;
-            }),
-    },
     {
         path: 'tv',
         component: DefaultLayoutComponent,
         loadChildren: () =>
             import('src/app/modules/tv/tv.module').then((m) => {
                 return m.TvModule;
+            }),
+    },
+    {
+        path: 'camera',
+        component: DefaultLayoutComponent,
+        loadChildren: () =>
+            import('src/app/modules/cam/cam.module').then((m) => {
+                return m.CamModule;
+            }),
+    },
+    {
+        path: 'ovp',
+        component: DefaultLayoutComponent,
+        loadChildren: () =>
+            import('src/app/modules/ovp/ovp.module').then((m) => {
+                return m.OVPModule;
             }),
     },
 ];

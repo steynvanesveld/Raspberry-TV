@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
-import { HomeSystemComponent } from './home-system.component';
+import { CameraComponent } from './camera.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('HomeSystemComponent', () => {
+describe('CameraComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [RouterTestingModule],
-            declarations: [HomeSystemComponent],
+            declarations: [CameraComponent],
         }).compileComponents();
     });
 
     it('should create the component', () => {
-        const fixture = TestBed.createComponent(HomeSystemComponent);
+        const fixture = TestBed.createComponent(CameraComponent);
         const app = fixture.componentInstance;
         expect(app).toBeTruthy();
     });

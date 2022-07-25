@@ -23,7 +23,8 @@ export class TvNewsComponent implements OnInit, OnDestroy {
 
     @ViewChild('newsArticle') private newsArticle!: ElementRef<HTMLElement>;
 
-    public news!: Rss;
+    public news = new Rss([]);
+    public newsLoading = new Rss([]);
     public currentNewsArticleIndex = 0;
     public ngUnsubscribe = new Subject<void>();
     public nextNewsItemTimeout!: number;
@@ -31,33 +32,87 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     constructor(private newsService: NewsService) {}
 
     private getNews(): void {
-        this.newsService
-            .getNos()
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((response) => {
-                response.items.map((item: RssItem) => (item.source = 'NOS'));
-                this.news = response;
-
-                this.newsService
-                    .getHoogeveenscheCourant()
-                    .pipe(takeUntil(this.ngUnsubscribe))
-                    .subscribe((response) => {
-                        response.items.map(
-                            (item: RssItem) =>
-                                (item.source = 'Hoogeveensche Courant')
-                        );
-
-                        this.news.items = this.news.items.concat(
-                            response.items
-                        );
-
-                        this.changeNewsArticle('reset');
-                    });
-            });
+        this.getNos();
 
         window.setTimeout(() => {
             this.getNews();
         }, 1000 * 60 * 60); // 60 minutes
+    }
+
+    private getNos(): void {
+        this.newsService
+            .getNos()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((response: Rss) => {
+                this.setNewsItems({
+                    source: 'NOS',
+                    items: response.items,
+                    firstSource: true,
+                });
+                this.getRTVDrenthe();
+            });
+    }
+
+    private getRTVDrenthe(): void {
+        this.newsService
+            .getRTVDrenthe()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((response: Rss) => {
+                this.setNewsItems({
+                    source: 'RTV Drenthe',
+                    items: response.items,
+                    getAdditionalDescription: true,
+                });
+                this.getHoogeveenscheCourant();
+            });
+    }
+
+    private getHoogeveenscheCourant(): void {
+        this.newsService
+            .getHoogeveenscheCourant()
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((response: Rss) => {
+                this.setNewsItems({
+                    source: 'Hoogeveensche Courant',
+                    items: response.items,
+                    getAdditionalDescription: true,
+                    lastSource: true,
+                });
+            });
+    }
+
+    private setNewsItems(payload: {
+        source: string;
+        items: RssItem[];
+        getAdditionalDescription?: boolean;
+        firstSource?: boolean;
+        lastSource?: boolean;
+    }): void {
+        if (payload.firstSource) {
+            this.newsLoading.items = [];
+        }
+
+        if (payload.getAdditionalDescription) {
+            payload.items.map((item: RssItem) => {
+                this.newsService
+                    .getNewsItem(item.link)
+                    .pipe(takeUntil(this.ngUnsubscribe))
+                    .subscribe((response) => {
+                        item.description = response.items[0].description;
+                    });
+            });
+        }
+
+        payload.items.map((item: RssItem) => (item.source = payload.source));
+
+        this.newsLoading.items = this.newsLoading.items
+            .concat(payload.items)
+            .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
+
+        if (payload.lastSource) {
+            this.news = { ...this.newsLoading };
+            this.changeNewsArticle('reset');
+        }
     }
 
     private changeNewsArticle(action: 'previous' | 'next' | 'reset'): void {
@@ -115,23 +170,25 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     }
 
     private listenForKeyDown(): void {
-        this.keyDownSubject.subscribe((key: KeyboardEventKey) => {
-            if (key === 'ArrowDown') {
-                this.scrollNewsArticle('down');
-            }
+        this.keyDownSubject
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((key: KeyboardEventKey) => {
+                if (key === 'ArrowDown') {
+                    this.scrollNewsArticle('down');
+                }
 
-            if (key === 'ArrowUp') {
-                this.scrollNewsArticle('up');
-            }
+                if (key === 'ArrowUp') {
+                    this.scrollNewsArticle('up');
+                }
 
-            if (key === 'ArrowLeft') {
-                this.changeNewsArticle('previous');
-            }
+                if (key === 'ArrowLeft') {
+                    this.changeNewsArticle('previous');
+                }
 
-            if (key === 'ArrowRight') {
-                this.changeNewsArticle('next');
-            }
-        });
+                if (key === 'ArrowRight') {
+                    this.changeNewsArticle('next');
+                }
+            });
     }
 
     public ngOnInit(): void {

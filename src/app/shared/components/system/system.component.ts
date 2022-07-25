@@ -5,11 +5,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RaspberryService } from 'src/app/data/services/raspberry.service';
 
 @Component({
-    selector: 'app-home-system',
-    templateUrl: './home-system.component.html',
-    styleUrls: ['./home-system.component.scss'],
+    selector: 'app-system',
+    templateUrl: './system.component.html',
+    styleUrls: ['./system.component.scss'],
 })
-export class HomeSystemComponent implements OnInit, OnDestroy {
+export class SystemComponent implements OnInit, OnDestroy {
     public ngUnsubscribe = new Subject<void>();
     public system: System | undefined;
 

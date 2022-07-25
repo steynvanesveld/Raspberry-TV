@@ -1,12 +1,10 @@
 <article class="news-article" #newsArticle>
     <ng-container *ngIf="news?.items?.length">
-        <h1
-            [innerText]="
-                news.items[currentNewsArticleIndex].source +
-                ': ' +
-                news.items[currentNewsArticleIndex].title
-            "
-        ></h1>
+        <h6>
+            {{ news.items[currentNewsArticleIndex].readablePubDate }} door
+            {{ news.items[currentNewsArticleIndex].source }}
+        </h6>
+        <h1 [innerText]="news.items[currentNewsArticleIndex].title"></h1>
         <p [innerHTML]="news.items[currentNewsArticleIndex].description"></p>
     </ng-container>
 </article>

@@ -50,5 +50,28 @@
                 padding-bottom: 0;
             }
         }
+
+        h6 {
+            font-size: $global-px * 1.5;
+            line-height: $global-px * 1.5 * $golden-ratio;
+            font-weight: 400;
+            display: flex;
+        }
+
+        a {
+            color: currentColor;
+            pointer-events: none;
+            text-decoration: none;
+        }
+
+        .share-article,
+        .read-more,
+        .signupPlus,
+        div[type="image"],
+        div[kind="link"],
+        div[type="article-header"],
+        div[type="carousel"] {
+            display: none;
+        }
     }
 }

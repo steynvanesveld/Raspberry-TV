@@ -18,14 +18,24 @@ export class DefaultLayoutComponent {
             internal: true,
         },
         {
-            label: 'Tv',
-            value: '/tv',
+            label: 'Camera',
+            value: '/camera',
             internal: true,
+        },
+        {
+            label: 'Camera config',
+            value: 'http://raspberry.local:1339/',
+            internal: false,
         },
         {
             label: 'Pi-hole',
             value: '/admin',
             internal: false,
+        },
+        {
+            label: 'Tv',
+            value: '/tv',
+            internal: true,
         },
         {
             label: 'OVP',

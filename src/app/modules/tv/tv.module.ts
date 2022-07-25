@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TvRoutingModule } from './tv.routing.module';
 import { TvComponent } from './pages/tv/tv.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { TvNewsComponent } from './components/tv-news/tv-news.component';
 import { TvClockComponent } from './components/tv-clock/tv-clock.component';
 import { TvRadioComponent } from './components/tv-radio/tv-radio.component';
@@ -17,6 +18,6 @@ import { TvWallpaperComponent } from './components/tv-wallpaper/tv-wallpaper.com
         TvWeatherComponent,
         TvWallpaperComponent,
     ],
-    imports: [CommonModule, TvRoutingModule],
+    imports: [CommonModule, TvRoutingModule, SharedModule],
 })
 export class TvModule {}

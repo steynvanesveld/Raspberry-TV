@@ -10,6 +10,11 @@ export class NewsService extends RssService {
         super(httpClient);
     }
 
+    public getNewsItem(link?: string) {
+        this.setResource(link ?? '');
+        return this.read();
+    }
+
     public getNos() {
         this.setResource('http://feeds.nos.nl/nosnieuwsalgemeen?format=xml');
         return this.read();
@@ -17,6 +22,11 @@ export class NewsService extends RssService {
 
     public getHoogeveenscheCourant() {
         this.setResource('https://hoogeveenschecourant.nl/api/feed/rss');
+        return this.read();
+    }
+
+    public getRTVDrenthe() {
+        this.setResource('https://www.rtvdrenthe.nl/rss/index.xml');
         return this.read();
     }
 }

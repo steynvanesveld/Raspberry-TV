@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
+    raspberry_host: '',
     pexels_api_key: '', // https://www.pexels.com/api/new/
     open_weather_api_key: '', // https://home.openweathermap.org/api_keys
     open_weather_lat: '', // latitute of your location

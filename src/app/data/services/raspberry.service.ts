@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SystemSerializer } from '../serializers/system.serializer';
 import { FavoritesSerializer } from '../serializers/favorites.serializer';
@@ -16,7 +17,7 @@ export class RaspberryService extends HttpService<any> {
         };
 
         this.setHeaders(new HttpHeaders(headers));
-        this.setBaseUrl('http://raspberry.local/api/');
+        this.setBaseUrl(environment.raspberry_host + '/api/');
     }
 
     public getSystem() {
