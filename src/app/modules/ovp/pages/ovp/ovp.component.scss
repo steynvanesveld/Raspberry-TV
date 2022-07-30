@@ -1,5 +1,10 @@
 @import "variables";
 
+.ovp-wrapper {
+    position: relative;
+    z-index: 0;
+}
+
 .navbar {
     padding: $global-px 0;
     display: flex;
@@ -44,9 +49,23 @@
         }
     }
 
+    div {
+        text-align: right;
+    }
+
     select {
         text-align: right;
         cursor: pointer;
+        margin-right: $global-px;
+
+        @media (orientation: portrait) and (max-width: 767px),
+            (orientation: landscape) and (max-width: 1023px) {
+            margin-right: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 }
 
@@ -65,16 +84,42 @@
     .video {
         cursor: pointer;
         position: relative;
+        z-index: 0;
 
         &.hidden {
             opacity: 0;
         }
 
-        figure img {
-            user-select: none;
-            pointer-events: none;
-            width: 100%;
-            display: block;
+        figure {
+            padding-top: 56.3%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+
+            .background {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                object-fit: cover;
+                filter: blur($global-px * 0.5);
+                z-index: -1;
+            }
+
+            .thumb {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                user-select: none;
+                pointer-events: none;
+                max-width: 100%;
+                max-height: 100%;
+                display: block;
+            }
         }
 
         .favorite-button {
@@ -88,6 +133,7 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-image: url("/assets/images/star-grey.svg");
+            z-index: 2;
 
             &.favorite {
                 background-image: url("/assets/images/star-gold.svg");
@@ -98,9 +144,12 @@
             position: absolute;
             bottom: 0;
             left: $global-px * 0.25;
-            display: block;
             color: #cccccc;
             text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     }
 

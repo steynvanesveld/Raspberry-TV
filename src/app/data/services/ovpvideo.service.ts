@@ -21,6 +21,7 @@ export class OVPVideoService extends HttpService<any> {
 
         const httpParams = {
             id: id ?? '',
+            thumbsize: 'big',
         };
 
         this.setParams(httpParams);

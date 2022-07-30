@@ -2,18 +2,12 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OVP } from 'src/app/data/models/ovp.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OVPService } from 'src/app/data/services/ovp.service';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
 import { Favorites } from 'src/app/data/models/favorites.model';
 import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
 import { RaspberryService } from 'src/app/data/services/raspberry.service';
-import {
-    Component,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
 
 @Component({
     selector: 'app-ovp',
@@ -31,8 +25,7 @@ export class OVPComponent implements OnInit, OnDestroy {
     public favorites: Favorites | undefined;
     public favoriteVideos: OVPVideo[] = [];
     public showFavorites = false;
-
-    @ViewChild('main') private main!: ElementRef<HTMLElement>;
+    public orientation!: string;
 
     constructor(
         private ovpService: OVPService,
@@ -57,6 +50,7 @@ export class OVPComponent implements OnInit, OnDestroy {
                 page: this.page,
                 search: this.query,
                 showFavorites: this.showFavorites,
+                orientation: this.orientation,
             },
             queryParamsHandling: 'merge',
         });
@@ -116,6 +110,8 @@ export class OVPComponent implements OnInit, OnDestroy {
                 this.showFavorites =
                     queryParams.get('showFavorites') === 'true' ? true : false;
 
+                this.orientation =
+                    queryParams.get('orientation') ?? 'landscape';
                 this.searchOVP(this.order, this.page, this.query);
             });
     }

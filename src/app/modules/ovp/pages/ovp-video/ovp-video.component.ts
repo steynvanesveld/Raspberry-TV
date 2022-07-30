@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
 import { Favorites } from 'src/app/data/models/favorites.model';
-import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { RaspberryService } from 'src/app/data/services/raspberry.service';
 
 @Component({
