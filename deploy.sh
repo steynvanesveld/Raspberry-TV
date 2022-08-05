@@ -1,6 +1,6 @@
 #!/bin/sh
 USER="pipi"
-CLIENT="raspberry.local"
+CLIENT="192.168.178.2"
 
 read -p "Deploy new build to server? (y/n)" -n 1 -r DEPLOY
 echo

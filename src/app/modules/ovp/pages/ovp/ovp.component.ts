@@ -104,14 +104,20 @@ export class OVPComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((queryParams) => {
-                this.order = queryParams.get('order') ?? ('latest' as string);
+                this.order =
+                    queryParams.get('order') ?? ('top-weekly' as string);
                 this.page = Number(queryParams.get('page') ?? (1 as number));
                 this.query = queryParams.get('search') as string;
                 this.showFavorites =
                     queryParams.get('showFavorites') === 'true' ? true : false;
 
-                this.orientation =
-                    queryParams.get('orientation') ?? 'landscape';
+                if (/Android/i.test(navigator.userAgent)) {
+                    this.orientation =
+                        queryParams.get('orientation') ?? 'portrait';
+                } else {
+                    this.orientation =
+                        queryParams.get('orientation') ?? 'landscape';
+                }
                 this.searchOVP(this.order, this.page, this.query);
             });
     }

@@ -18,16 +18,16 @@
             />
             <div>
                 <select [(ngModel)]="order" (change)="routerNavigate()">
-                    <option value="latest">Latest</option>
-                    <option value="top-rated">Top Rated</option>
-                    <option value="most-popular">Most Popular</option>
                     <option value="top-weekly">Top Weekly</option>
                     <option value="top-monthly">Top Monthly</option>
+                    <option value="most-popular">Most Popular</option>
+                    <option value="top-rated">Top Rated</option>
+                    <option value="latest">Latest</option>
                 </select>
 
                 <select [(ngModel)]="orientation" (change)="routerNavigate()">
-                    <option value="landscape">Landscape</option>
                     <option value="portrait">Portrait</option>
+                    <option value="landscape">Landscape</option>
                 </select>
             </div>
         </nav>

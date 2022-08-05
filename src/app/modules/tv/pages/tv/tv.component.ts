@@ -32,11 +32,11 @@ export class TvComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((key: KeyboardEventKey) => {
                 if (key === 'Backspace') {
-                    this.showCamera = !this.showCamera;
+                    document.body.classList.toggle('hidden');
                 }
 
                 if (key === '6') {
-                    document.body.classList.toggle('hidden');
+                    this.showCamera = !this.showCamera;
                 }
             });
     }
