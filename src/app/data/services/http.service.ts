@@ -23,38 +23,33 @@ export abstract class HttpService<T extends AbstractModel> {
                   | ReadonlyArray<string | number | boolean>;
           }
         | undefined;
-    public baseUrl: string | undefined;
-    public resource: string | undefined;
-    public serializer: Serializer | undefined;
+    public baseUrl!: string;
+    public resource!: string;
+    public serializer!: Serializer;
 
-    constructor(private http: HttpClient) {
+    constructor(public http: HttpClient) {
         this.http = http;
     }
 
-    public read(id?: string): Observable<T> {
-        const identifier = id ? `/${id}` : '';
-
+    public read(): Observable<T> {
         return this.http
-            .get(`${this.baseUrl}${this.resource}${identifier}`, {
+            .get(`${this.baseUrl}${this.resource}`, {
                 headers: this.headers,
                 params: this.params,
             })
             .pipe(
-                map((data: object) => this.serializer?.fromJson(data) as T),
+                map((data: object) => this.serializer.fromJson(data) as T),
                 catchError((error) => this.catchError(error))
             );
     }
 
-    public create(body?: object): Observable<T> {
+    public create(body: object): Observable<T> {
         return this.http
             .post(`${this.baseUrl}${this.resource}`, body, {
                 headers: this.headers,
                 params: this.params,
             })
-            .pipe(
-                map((data: object) => this.serializer?.fromJson(data) as T),
-                catchError((error) => this.catchError(error))
-            );
+            .pipe(map((data: object) => this.serializer.fromJson(data) as T));
     }
 
     public catchError(error: HttpErrorResponse): Observable<T> {

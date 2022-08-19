@@ -8,9 +8,14 @@
                         ? 'favorite'
                         : ''
                 ]"
-                (click)="setFavorite($event, ovpVideo)"
+                (click)="setFavorite(ovpVideo)"
             ></button>
-            <iframe [src]="sanitizedEmbedUrl()" allow="fullscreen"></iframe>
+            <iframe
+                [src]="
+                    domSanitizer.bypassSecurityTrustResourceUrl(ovpVideo.embed)
+                "
+                allow="fullscreen"
+            ></iframe>
         </article>
 
         <div class="tags">

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-camera',
@@ -7,10 +6,7 @@ import { environment } from 'src/environments/environment';
     styleUrls: ['./camera.component.scss'],
 })
 export class CameraComponent {
-    public cameraSrc =
-        (environment.production
-            ? '//' + window.location.hostname.split(':')[0]
-            : environment.raspberry_host) + ':1338';
+    public cameraSrc = `//${window.location.hostname.split(':')[0]}:1338`;
 
     constructor() {}
 }

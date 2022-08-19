@@ -21,7 +21,7 @@ import {
 export class TvNewsComponent implements OnInit, OnDestroy {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
 
-    @ViewChild('newsArticle') private newsArticle!: ElementRef<HTMLElement>;
+    @ViewChild('newsArticle') public newsArticle!: ElementRef<HTMLElement>;
 
     public news = new Rss([]);
     public newsLoading = new Rss([]);
@@ -31,7 +31,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
 
     constructor(private newsService: NewsService) {}
 
-    private getNews(): void {
+    public getNews(): void {
         this.getNos();
 
         window.setTimeout(() => {
@@ -39,7 +39,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
         }, 1000 * 60 * 60); // 60 minutes
     }
 
-    private getNos(): void {
+    public getNos(): void {
         this.newsService
             .getNos()
             .pipe(takeUntil(this.ngUnsubscribe))
@@ -53,7 +53,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private getRTVDrenthe(): void {
+    public getRTVDrenthe(): void {
         this.newsService
             .getRTVDrenthe()
             .pipe(takeUntil(this.ngUnsubscribe))
@@ -67,7 +67,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private getHoogeveenscheCourant(): void {
+    public getHoogeveenscheCourant(): void {
         this.newsService
             .getHoogeveenscheCourant()
             .pipe(takeUntil(this.ngUnsubscribe))
@@ -81,7 +81,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private setNewsItems(payload: {
+    public setNewsItems(payload: {
         source: string;
         items: RssItem[];
         getAdditionalDescription?: boolean;
@@ -95,7 +95,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
         if (payload.getAdditionalDescription) {
             payload.items.map((item: RssItem) => {
                 this.newsService
-                    .getNewsItem(item.link)
+                    .getNewsItem(item.link ?? '')
                     .pipe(takeUntil(this.ngUnsubscribe))
                     .subscribe((response) => {
                         item.description = response.items[0].description;
@@ -107,39 +107,40 @@ export class TvNewsComponent implements OnInit, OnDestroy {
 
         this.newsLoading.items = this.newsLoading.items
             .concat(payload.items)
+            .filter((item) => item.pubDate !== undefined)
             .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 
         if (payload.lastSource) {
             this.news = { ...this.newsLoading };
-            this.changeNewsArticle('reset');
+            this.changeNewsArticle();
         }
     }
 
-    private changeNewsArticle(action: 'previous' | 'next' | 'reset'): void {
+    public changeNewsArticle(action?: 'previous' | 'next'): void {
         this.scrollNewsArticle();
 
         if (action === 'previous') {
             if (this.currentNewsArticleIndex - 1 < 0) {
-                this.currentNewsArticleIndex = this.news?.items.length - 1;
+                this.currentNewsArticleIndex = this.news.items.length - 1;
             } else {
                 this.currentNewsArticleIndex = this.currentNewsArticleIndex - 1;
             }
+            return;
         }
 
         if (action === 'next') {
-            if (this.currentNewsArticleIndex + 1 === this.news?.items.length) {
+            if (this.currentNewsArticleIndex + 1 === this.news.items.length) {
                 this.currentNewsArticleIndex = 0;
             } else {
                 this.currentNewsArticleIndex = this.currentNewsArticleIndex + 1;
             }
+            return;
         }
 
-        if (action === 'reset') {
-            this.currentNewsArticleIndex = 0;
-        }
+        this.currentNewsArticleIndex = 0;
     }
 
-    private scrollNewsArticle(direction?: 'up' | 'down'): void {
+    public scrollNewsArticle(direction?: 'up' | 'down'): void {
         const article = this.newsArticle.nativeElement;
         const amount = 250;
         let top = 0;
@@ -161,15 +162,15 @@ export class TvNewsComponent implements OnInit, OnDestroy {
         });
     }
 
-    private setNextNewsItemTimeout() {
+    public setNextNewsItemTimeout() {
         clearTimeout(this.nextNewsItemTimeout);
 
         this.nextNewsItemTimeout = window.setTimeout(() => {
             this.changeNewsArticle('next');
-        }, 1000 * 60 * 1); // 1 minute;
+        }, 1000 * 60); // 1 minute;
     }
 
-    private listenForKeyDown(): void {
+    public listenForKeyDown(): void {
         this.keyDownSubject
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((key: KeyboardEventKey) => {

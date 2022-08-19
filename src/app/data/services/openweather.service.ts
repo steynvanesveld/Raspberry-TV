@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +17,7 @@ export class OpenWeatherService extends HttpService<Weather> {
         this.setBaseUrl('https://api.openweathermap.org/data/2.5');
     }
 
-    public getWeather() {
+    public getWeather(): Observable<Weather> {
         this.setResource('/onecall');
 
         const httpParams = {

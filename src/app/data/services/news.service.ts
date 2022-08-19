@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { Rss } from '../models/rss.model';
 import { Injectable } from '@angular/core';
 import { RssService } from './rss.service';
 import { HttpClient } from '@angular/common/http';
@@ -10,22 +12,22 @@ export class NewsService extends RssService {
         super(httpClient);
     }
 
-    public getNewsItem(link?: string) {
-        this.setResource(link ?? '');
+    public getNewsItem(link: string): Observable<Rss> {
+        this.setResource(link);
         return this.read();
     }
 
-    public getNos() {
+    public getNos(): Observable<Rss> {
         this.setResource('http://feeds.nos.nl/nosnieuwsalgemeen?format=xml');
         return this.read();
     }
 
-    public getHoogeveenscheCourant() {
+    public getHoogeveenscheCourant(): Observable<Rss> {
         this.setResource('https://hoogeveenschecourant.nl/api/feed/rss');
         return this.read();
     }
 
-    public getRTVDrenthe() {
+    public getRTVDrenthe(): Observable<Rss> {
         this.setResource('https://www.rtvdrenthe.nl/rss/index.xml');
         return this.read();
     }

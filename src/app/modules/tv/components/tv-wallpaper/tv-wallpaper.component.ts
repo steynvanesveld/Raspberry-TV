@@ -11,29 +11,27 @@ import { PexelsService } from 'src/app/data/services/pexels.service';
 })
 export class TvWallpaperComponent implements OnInit, OnDestroy {
     @Input() public idle!: boolean;
-
+    public dayIndex = 0;
     public ngUnsubscribe = new Subject<void>();
-
-    private photos!: Photos;
+    public photos: Photos | undefined;
     private photoParameters = '?auto=compress&fit=crop&w=1920&h=1080';
     private gradient =
         'linear-gradient(to bottom, rgba(105, 67, 45, 0.75), rgba(0, 0, 0, 0.75))';
-    private dayIndex = 0;
 
     constructor(private pexelsService: PexelsService) {}
 
-    public get currentBackgroundImage() {
+    public get currentBackgroundImage(): string {
         let url = '';
 
         if (this.photos?.photos.length) {
             const photo = this.photos.photos[this.dayIndex].src.original;
-            url = `url('${photo}${this.photoParameters}')`;
+            url = `, url('${photo}${this.photoParameters}')`;
         }
 
-        return `${this.gradient}, ${url}`;
+        return this.gradient + url;
     }
 
-    private getPhotos(): void {
+    public getPhotos(): void {
         this.pexelsService
             .getPhotos('Forest')
             .pipe(takeUntil(this.ngUnsubscribe))
@@ -46,7 +44,7 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
         }, 1000 * 60 * 24 * 7); // 1 week
     }
 
-    private setCurrentDay(): void {
+    public setCurrentDay(): void {
         const today = new Date();
         this.dayIndex = today.getDate();
 

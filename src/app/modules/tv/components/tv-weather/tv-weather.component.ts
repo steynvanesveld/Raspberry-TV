@@ -17,32 +17,32 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
     constructor(private openWeatherService: OpenWeatherService) {}
 
     public get icon(): string {
-        return `http://openweathermap.org/img/wn/${this.weather?.current.weather[0].icon}@2x.png`;
+        return `http://openweathermap.org/img/wn/${this.weather.current.weather[0].icon}@2x.png`;
     }
 
     public get temperature(): string {
-        return `${Math.round(Number(this.weather?.current.temp))}°C`;
+        return `${Math.round(Number(this.weather.current.temp))}°C`;
     }
 
     public get wind(): string {
         return `${Math.round(
-            Number(this.weather?.current.wind_speed * 3.6)
+            Number(this.weather.current.wind_speed * 3.6)
         )} km/u`;
     }
 
     public get rotation(): string {
-        return `rotate(${this.weather?.current.wind_deg}deg)`;
+        return `rotate(${this.weather.current.wind_deg}deg)`;
     }
 
     public get humidity(): string {
-        return `${this.weather?.current.humidity}%`;
+        return `${this.weather.current.humidity}%`;
     }
 
     public setSunTime(): void {
         const now = new Date();
-        const sunRiseToday = new Date(this.weather?.daily[0].sunrise * 1000);
-        const sunSetToday = new Date(this.weather?.daily[0].sunset * 1000);
-        const sunRiseTomorrow = new Date(this.weather?.daily[1].sunrise * 1000);
+        const sunRiseToday = new Date(this.weather.daily[0].sunrise * 1000);
+        const sunSetToday = new Date(this.weather.daily[0].sunset * 1000);
+        const sunRiseTomorrow = new Date(this.weather.daily[1].sunrise * 1000);
 
         let hours: number;
         let minutes: number;
@@ -63,7 +63,7 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
         )}`;
     }
 
-    private makeDoubleDigits(i: number): string {
+    public makeDoubleDigits(i: number): string {
         let j = i.toString();
 
         if (i < 10) {
@@ -73,7 +73,7 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
         return j;
     }
 
-    private getWeather(): void {
+    public getWeather(): void {
         this.openWeatherService
             .getWeather()
             .pipe(takeUntil(this.ngUnsubscribe))

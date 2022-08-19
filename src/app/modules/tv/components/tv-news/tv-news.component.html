@@ -1,6 +1,7 @@
 <article class="news-article" #newsArticle>
     <ng-container *ngIf="news?.items?.length">
         <h6>
+            {{ currentNewsArticleIndex + 1 }}/{{ news.items.length }} -
             {{ news.items[currentNewsArticleIndex].readablePubDate }} door
             {{ news.items[currentNewsArticleIndex].source }}
         </h6>

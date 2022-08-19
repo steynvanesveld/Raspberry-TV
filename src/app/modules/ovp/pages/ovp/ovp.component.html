@@ -104,7 +104,8 @@
             >
                 <li
                     *ngFor="
-                        let item of [].constructor(ovp.total_pages);
+                        let item of [].constructor(ovp.total_pages)
+                            | slice: 0:10;
                         let index = index
                     "
                     [ngClass]="index + 1 === page ? 'active' : ''"

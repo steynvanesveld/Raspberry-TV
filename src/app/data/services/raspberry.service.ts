@@ -1,5 +1,8 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { System } from '../models/system.model';
+import { Favorites } from '../models/favorites.model';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SystemSerializer } from '../serializers/system.serializer';
@@ -20,19 +23,19 @@ export class RaspberryService extends HttpService<any> {
         this.setBaseUrl(environment.raspberry_host + '/api/');
     }
 
-    public getSystem() {
+    public getSystem(): Observable<System> {
         this.setSerializer(new SystemSerializer());
         this.setResource('system.php');
         return this.read();
     }
 
-    public getFavorites() {
+    public getFavorites(): Observable<Favorites> {
         this.setSerializer(new FavoritesSerializer());
         this.setResource('favorites.php');
         return this.read();
     }
 
-    public setFavorite(id: string) {
+    public setFavorite(id: string): Observable<Favorites> {
         this.setSerializer(new FavoritesSerializer());
         this.setResource('favorites.php');
         const body = new URLSearchParams();

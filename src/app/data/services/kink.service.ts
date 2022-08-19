@@ -1,9 +1,10 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Kink } from '../models/kink.model';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
-import { KinkSerializer } from '../serializers/kink.serializer';
 import { KinkChannel } from '../models/kink-channel.model';
+import { KinkSerializer } from '../serializers/kink.serializer';
 
 @Injectable({
     providedIn: 'root',
@@ -24,11 +25,18 @@ export class KinkService extends HttpService<Kink> {
         super(httpClient);
 
         this.setSerializer(new KinkSerializer());
-        this.setBaseUrl('https://api.kink.nl/static');
     }
 
-    public getNowPlaying() {
+    public getNowPlaying(): Observable<Kink> {
+        this.setBaseUrl('https://api.kink.nl/static');
         this.setResource('/now-playing.json');
+
+        return this.read();
+    }
+
+    public getChannel(channel: KinkChannel): Observable<Kink> {
+        this.setBaseUrl(this.fileUrl);
+        this.setResource(channel.fileName + this.fileFormat);
 
         return this.read();
     }

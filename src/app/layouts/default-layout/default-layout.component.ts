@@ -1,5 +1,5 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-default-layout',
@@ -47,13 +47,5 @@ export class DefaultLayoutComponent {
         }
 
         this.showOVP = !this.showOVP;
-    }
-
-    public prepareRoute(outlet: RouterOutlet): void {
-        return (
-            outlet &&
-            outlet.activatedRouteData &&
-            outlet.activatedRouteData['animation']
-        );
     }
 }

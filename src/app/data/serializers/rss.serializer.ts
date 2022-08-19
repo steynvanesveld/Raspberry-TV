@@ -3,27 +3,33 @@ import { Rss } from 'src/app/data/models/rss.model';
 
 export class RssSerializer {
     public dateTime(date: Date): string {
-        const today = new Date();
+        const checkDate = new Date();
 
-        let newsItemDate = date.toLocaleDateString('nl-NL', {
-            day: '2-digit',
-            month: '2-digit',
-        });
-
-        if (today.toDateString() === date.toDateString()) {
-            newsItemDate = 'Vandaag';
-        } else {
-            today.setDate(today.getDate() - 1);
-
-            if (today.toDateString() === date.toDateString()) {
-                newsItemDate = 'Gisteren';
-            }
-        }
-
-        return `${newsItemDate} om ${date.toLocaleString('nl-NL', {
+        const newsItemTime = `om ${date.toLocaleString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
         })}`;
+
+        if (checkDate.toDateString() === date.toDateString()) {
+            return `Vandaag ${newsItemTime}`;
+        }
+
+        checkDate.setDate(checkDate.getDate() - 1);
+
+        if (checkDate.toDateString() === date.toDateString()) {
+            return `Gisteren ${newsItemTime}`;
+        }
+
+        checkDate.setDate(checkDate.getDate() - 1);
+
+        if (checkDate.toDateString() === date.toDateString()) {
+            return `Eergisteren ${newsItemTime}`;
+        }
+
+        return `${date.toLocaleDateString('nl-NL', {
+            day: '2-digit',
+            month: 'long',
+        })} ${newsItemTime}`;
     }
 
     public findItems(items: string): RssItem[] {
@@ -37,28 +43,14 @@ export class RssSerializer {
                 .slice(0, 20)
                 .map((item) => {
                     const date = new Date(
-                        item.querySelector('pubDate')?.innerHTML ?? ''
+                        this.getTextFromElement(item, 'pubDate') ?? 0
                     );
 
-                    const title =
-                        item
-                            .querySelector('title')
-                            ?.innerHTML.replace('<![CDATA[', '')
-                            .replace(']]>', '') ?? '';
-
-                    const description =
-                        item
-                            .querySelector('description')
-                            ?.innerHTML.replace('<![CDATA[', '')
-                            .replace(']]>', '') ?? '';
-
-                    const link = item.querySelector('link')?.innerHTML ?? '';
-
                     return new RssItem(
-                        description,
-                        title,
-                        link,
+                        this.getTextFromElement(item, 'description') ?? '',
                         date,
+                        this.getTextFromElement(item, 'title') ?? '',
+                        this.getTextFromElement(item, 'link') ?? '',
                         this.dateTime(date)
                     );
                 });
@@ -68,19 +60,26 @@ export class RssSerializer {
 
         return [
             new RssItem(
-                html.querySelector('.article-page__body')?.innerHTML ??
-                    html.querySelector('.article-content')?.innerHTML ??
+                this.getTextFromElement(html, '.article-page__body') ??
+                    this.getTextFromElement(html, '.article-content') ??
                     '',
-                '',
-                '',
-                new Date(),
-                ''
+                new Date(0)
             ),
         ];
     }
 
+    public getTextFromElement(
+        element: Element | Document,
+        selector: string
+    ): string | undefined {
+        return element
+            .querySelector(selector)
+            ?.innerHTML.replace('<![CDATA[', '')
+            .replace(']]>', '');
+    }
+
     public fromJson(json: Rss): Rss {
-        return new Rss(this.findItems(json as unknown as string));
+        return new Rss(this.findItems(json.toString()));
     }
 
     public toJson(rss: Rss): object {

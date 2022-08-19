@@ -2,10 +2,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OVP } from 'src/app/data/models/ovp.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OVPService } from 'src/app/data/services/ovp.service';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
 import { Favorites } from 'src/app/data/models/favorites.model';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
 import { RaspberryService } from 'src/app/data/services/raspberry.service';
 
@@ -19,7 +19,7 @@ export class OVPComponent implements OnInit, OnDestroy {
     public playing = false;
     public ovpVideoThumbTimeout!: number;
     public ngUnsubscribe = new Subject<void>();
-    public query!: string;
+    public query!: string | null;
     public order!: string;
     public page!: number;
     public favorites: Favorites | undefined;
@@ -30,35 +30,41 @@ export class OVPComponent implements OnInit, OnDestroy {
     constructor(
         private ovpService: OVPService,
         private ovpVideoService: OVPVideoService,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private raspberryService: RaspberryService
+        private ngZone: NgZone,
+        private raspberryService: RaspberryService,
+        public activatedRoute: ActivatedRoute,
+        public router: Router
     ) {}
 
     public routerNavigate(event?: Event, page = 1): void {
         this.page = page;
 
         const target = event?.target as HTMLElement;
+
         if (target) {
             target.blur();
         }
 
-        this.router.navigate([], {
-            relativeTo: this.activatedRoute,
-            queryParams: {
-                order: this.order,
-                page: this.page,
-                search: this.query,
-                showFavorites: this.showFavorites,
-                orientation: this.orientation,
-            },
-            queryParamsHandling: 'merge',
-        });
+        this.ngZone
+            .run(() =>
+                this.router.navigate([], {
+                    relativeTo: this.activatedRoute,
+                    queryParams: {
+                        order: this.order,
+                        page: this.page,
+                        search: this.query,
+                        showFavorites: this.showFavorites,
+                        orientation: this.orientation,
+                    },
+                    queryParamsHandling: 'merge',
+                })
+            )
+            .then();
     }
 
     public searchOVP(order: string, page: number, query?: string): void {
         this.ovpService
-            .searchOVP(order, page, query)
+            .searchOVP(order, page, query ?? '')
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((result) => {
                 this.ovp = result;
@@ -133,22 +139,22 @@ export class OVPComponent implements OnInit, OnDestroy {
     }
 
     public getFavoriteVideos(): void {
-        if (this.showFavorites) {
-            this.favoriteVideos = [];
+        if (!this.showFavorites || !this.favorites) return;
 
-            this.favorites?.favorites?.forEach((favoriteId) => {
-                if (favoriteId.length <= 1) {
-                    return;
-                }
+        this.favoriteVideos = [];
 
-                this.ovpVideoService
-                    .getOVPVideo(favoriteId)
-                    .pipe(takeUntil(this.ngUnsubscribe))
-                    .subscribe((result) => {
-                        this.favoriteVideos.unshift(result);
-                    });
-            });
-        }
+        this.favorites.favorites.reverse().forEach((favoriteId, index) => {
+            if (favoriteId.length <= 1) {
+                return;
+            }
+
+            this.ovpVideoService
+                .getOVPVideo(favoriteId)
+                .pipe(takeUntil(this.ngUnsubscribe))
+                .subscribe((result) => {
+                    this.favoriteVideos[index] = result;
+                });
+        });
     }
 
     public setFavorite(event: Event, ovpVideo: OVPVideo): void {

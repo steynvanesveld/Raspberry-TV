@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { OVP } from '../models/ovp.model';
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
@@ -15,11 +16,15 @@ export class OVPService extends HttpService<OVP> {
         this.setBaseUrl(environment.ovp_api_url);
     }
 
-    public searchOVP(order: string, page: number, query?: string) {
+    public searchOVP(
+        order: string,
+        page: number,
+        query: string
+    ): Observable<OVP> {
         this.setResource('/search/');
 
         const httpParams = {
-            query: query ?? '',
+            query,
             per_page: 500,
             page,
             thumbsize: 'big',

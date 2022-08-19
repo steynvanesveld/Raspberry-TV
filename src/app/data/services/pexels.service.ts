@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Photos } from '../models/photos.model';
@@ -21,7 +22,7 @@ export class PexelsService extends HttpService<Photos> {
         this.setBaseUrl('https://api.pexels.com/v1');
     }
 
-    public getPhotos(query: string) {
+    public getPhotos(query: string): Observable<Photos> {
         this.setResource('/search');
 
         const httpParams = {

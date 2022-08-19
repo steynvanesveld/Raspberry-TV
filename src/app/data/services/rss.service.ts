@@ -21,7 +21,7 @@ export abstract class RssService extends CorsProxyService {
         const response = error.error.text;
 
         return of(response).pipe(
-            map((data: object) => this.serializer?.fromJson(data))
+            map((data: object) => this.serializer.fromJson(data))
         );
     }
 }

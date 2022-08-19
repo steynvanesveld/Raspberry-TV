@@ -1,15 +1,16 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Kink } from 'src/app/data/models/kink.model';
+import { HttpErrorResponse } from '@angular/common/http';
 import { KinkService } from 'src/app/data/services/kink.service';
 import { KinkChannel } from 'src/app/data/models/kink-channel.model';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 import {
-    AfterViewInit,
     Component,
     ElementRef,
     Input,
     OnDestroy,
+    OnInit,
     ViewChild,
 } from '@angular/core';
 
@@ -18,10 +19,10 @@ import {
     templateUrl: './tv-radio.component.html',
     styleUrls: ['./tv-radio.component.scss'],
 })
-export class TvRadioComponent implements AfterViewInit, OnDestroy {
+export class TvRadioComponent implements OnInit, OnDestroy {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
 
-    @ViewChild('radio') private radio!: ElementRef<HTMLAudioElement>;
+    @ViewChild('radio') public radio!: ElementRef<HTMLAudioElement>;
 
     public kink!: Kink;
     public ngUnsubscribe = new Subject<void>();
@@ -42,16 +43,17 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
         return this.kink.extended[this.currentChannel.apiName].artist;
     }
 
-    private startRadio(): void {
-        this.radio.nativeElement.src =
-            this.kinkService.fileUrl +
-            this.currentChannel.fileName +
-            this.kinkService.fileFormat;
-        this.radio.nativeElement.volume = 0.5;
-        this.radio.nativeElement.play();
+    public startRadio(): void {
+        this.kinkService.getChannel(this.currentChannel).subscribe({
+            error: /* istanbul ignore next */ (response: HttpErrorResponse) => {
+                this.radio.nativeElement.src = response.url as string;
+                this.radio.nativeElement.volume = 0.5;
+                this.radio.nativeElement.play(); // https://developer.chrome.com/blog/autoplay/ --autoplay-policy=no-user-gesture-required
+            },
+        });
     }
 
-    private getNowPlaying() {
+    public getNowPlaying() {
         clearTimeout(this.getNowPlayingTimeout);
 
         this.kinkService
@@ -66,7 +68,7 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
         }, 1000 * 30); // 30 seconds
     }
 
-    private setNextChannel(): void {
+    public setNextChannel(): void {
         if (
             this.currentChannelIndex + 1 ===
             this.kinkService.kinkChannels.length
@@ -80,7 +82,7 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
         this.getNowPlaying();
     }
 
-    private listenForKeyDown(): void {
+    public listenForKeyDown(): void {
         this.keyDownSubject
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((key: KeyboardEventKey) => {
@@ -90,7 +92,7 @@ export class TvRadioComponent implements AfterViewInit, OnDestroy {
             });
     }
 
-    public ngAfterViewInit(): void {
+    public ngOnInit(): void {
         this.startRadio();
         this.getNowPlaying();
         this.listenForKeyDown();

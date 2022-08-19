@@ -1,8 +1,9 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
+import { OVPVideo } from '../models/ovp-video.model';
 import { environment } from 'src/environments/environment';
-import { OVPSerializer } from '../serializers/ovp.serializer';
 import { OVPVideoSerializer } from '../serializers/ovp-video.serializer';
 
 @Injectable({
@@ -16,11 +17,11 @@ export class OVPVideoService extends HttpService<any> {
         this.setBaseUrl(environment.ovp_api_url);
     }
 
-    public getOVPVideo(id: string) {
+    public getOVPVideo(id: string): Observable<OVPVideo> {
         this.setResource('/id/');
 
         const httpParams = {
-            id: id ?? '',
+            id,
             thumbsize: 'big',
         };
 

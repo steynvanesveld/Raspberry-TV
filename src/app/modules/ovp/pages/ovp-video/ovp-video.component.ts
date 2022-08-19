@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
 import { Favorites } from 'src/app/data/models/favorites.model';
+import { OnInit, Component, Input, OnDestroy } from '@angular/core';
 import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
-import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { RaspberryService } from 'src/app/data/services/raspberry.service';
 
 @Component({
@@ -13,23 +13,17 @@ import { RaspberryService } from 'src/app/data/services/raspberry.service';
     templateUrl: './ovp-video.component.html',
     styleUrls: ['./ovp-video.component.scss'],
 })
-export class OVPVideoComponent implements AfterViewInit, OnDestroy {
-    public ovpVideo!: OVPVideo;
+export class OVPVideoComponent implements OnInit, OnDestroy {
+    public ovpVideo: OVPVideo | undefined;
     public ngUnsubscribe = new Subject<void>();
     @Input() public favorites: Favorites | undefined;
 
     constructor(
         private ovpVideoService: OVPVideoService,
-        private activatedRoute: ActivatedRoute,
-        private domSanitizer: DomSanitizer,
-        private raspberryService: RaspberryService
+        private raspberryService: RaspberryService,
+        public activatedRoute: ActivatedRoute,
+        public domSanitizer: DomSanitizer
     ) {}
-
-    public sanitizedEmbedUrl(): string {
-        return this.domSanitizer.bypassSecurityTrustResourceUrl(
-            this.ovpVideo?.embed ?? ''
-        ) as string;
-    }
 
     public getOVPVideo(id: string): void {
         this.ovpVideoService
@@ -50,13 +44,18 @@ export class OVPVideoComponent implements AfterViewInit, OnDestroy {
                     .pipe(takeUntil(this.ngUnsubscribe))
                     .subscribe((params) => {
                         if (redirect) {
-                            window.location.replace(`/#/ovp/${params['id']}`);
-                            window.location.reload();
+                            this.reloadPage(`/#/ovp/${params['id']}`);
                         } else {
                             this.getOVPVideo(params['id']);
                         }
                     });
             });
+    }
+
+    /* istanbul ignore next */
+    public reloadPage(url: string): void {
+        window.location.replace(url);
+        window.location.reload();
     }
 
     public url(keyword: string): string {
@@ -72,9 +71,7 @@ export class OVPVideoComponent implements AfterViewInit, OnDestroy {
             });
     }
 
-    public setFavorite(event: Event, ovpVideo: OVPVideo): void {
-        event.preventDefault();
-
+    public setFavorite(ovpVideo: OVPVideo): void {
         this.raspberryService
             .setFavorite(ovpVideo.id)
             .pipe(takeUntil(this.ngUnsubscribe))
@@ -83,7 +80,7 @@ export class OVPVideoComponent implements AfterViewInit, OnDestroy {
             });
     }
 
-    public ngAfterViewInit(): void {
+    public ngOnInit(): void {
         this.getRouteData();
         this.getFavorites();
     }

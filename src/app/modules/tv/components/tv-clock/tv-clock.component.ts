@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class TvClockComponent implements OnInit {
     public time = '';
 
-    private getTime(): void {
+    public getTime(): void {
         const today = new Date();
         const hours = this.makeDoubleDigits(today.getHours());
         const minutes = this.makeDoubleDigits(today.getMinutes());
@@ -18,7 +18,7 @@ export class TvClockComponent implements OnInit {
         window.setTimeout(() => this.getTime(), 100);
     }
 
-    private makeDoubleDigits(i: number): string {
+    public makeDoubleDigits(i: number): string {
         let j = i.toString();
 
         if (i < 10) {

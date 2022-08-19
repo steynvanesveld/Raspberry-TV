@@ -18,7 +18,15 @@ export class TvComponent implements OnInit, OnDestroy {
 
     constructor() {}
 
-    private setIdleTimeout(miliseconds: number): void {
+    public toggleAppVisibility(): void {
+        document.body.classList.toggle('hidden');
+    }
+
+    public toggleCameraVisibility(): void {
+        this.showCamera = !this.showCamera;
+    }
+
+    public setIdleTimeout(miliseconds: number): void {
         this.idle = false;
         clearTimeout(this.idleTimeout);
 
@@ -27,21 +35,21 @@ export class TvComponent implements OnInit, OnDestroy {
         }, miliseconds);
     }
 
-    private listenForKeyDown(): void {
+    public listenForKeyDown(): void {
         this.keyDownSubject
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((key: KeyboardEventKey) => {
                 if (key === 'Backspace') {
-                    document.body.classList.toggle('hidden');
+                    this.toggleAppVisibility();
                 }
 
                 if (key === '6') {
-                    this.showCamera = !this.showCamera;
+                    this.toggleCameraVisibility();
                 }
             });
     }
 
-    private listenForEvents(): void {
+    public listenForEvents(): void {
         const miliseconds = 1000 * 5; // 5 seconds
 
         this.setIdleTimeout(miliseconds);
