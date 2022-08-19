@@ -6,29 +6,27 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./tv-clock.component.scss'],
 })
 export class TvClockComponent implements OnInit {
+    public date = '';
     public time = '';
 
-    public getTime(): void {
+    public getDateTime(): void {
         const today = new Date();
-        const hours = this.makeDoubleDigits(today.getHours());
-        const minutes = this.makeDoubleDigits(today.getMinutes());
 
-        this.time = `${hours}:${minutes}`;
+        this.date = today.toLocaleString('nl-NL', {
+            weekday: 'short',
+            day: 'numeric',
+            month: 'short',
+        });
 
-        window.setTimeout(() => this.getTime(), 100);
-    }
+        this.time = today.toLocaleString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
 
-    public makeDoubleDigits(i: number): string {
-        let j = i.toString();
-
-        if (i < 10) {
-            j = `0${i}`;
-        }
-
-        return j;
+        setTimeout(() => this.getDateTime(), 100);
     }
 
     public ngOnInit(): void {
-        this.getTime();
+        this.getDateTime();
     }
 }

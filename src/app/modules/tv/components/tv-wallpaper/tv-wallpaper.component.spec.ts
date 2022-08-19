@@ -49,11 +49,17 @@ describe('TvWallpaperComponent', () => {
 
     describe('getPhotos()', () => {
         it('should call pexelsService.getPhotos()', () => {
+            const season = ['winter', 'spring', 'summer', 'autumn'][
+                Math.floor((new Date().getMonth() / 12) * 4) % 4
+            ];
+
             spyOn(pexelsService, 'getPhotos').and.callThrough();
 
             component.getPhotos();
 
-            expect(pexelsService.getPhotos).toHaveBeenCalledWith('Forest');
+            expect(pexelsService.getPhotos).toHaveBeenCalledWith(
+                `${season} nature forest wallpaper`
+            );
         });
 
         it('should call itself after 1 week', () => {

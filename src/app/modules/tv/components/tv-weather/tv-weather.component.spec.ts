@@ -69,54 +69,44 @@ describe('TvWeatherComponent', () => {
     describe('setSunTime()', () => {
         it('should set the sunTime variable to todays sunrise if sunrise has yet to come', () => {
             const now = new Date();
+            const time = now.toLocaleString('nl-NL', {
+                hour: '2-digit',
+                minute: '2-digit',
+            });
             component.weather.daily[0].sunrise = now.getTime() / 1000;
 
             component.setSunTime();
 
-            expect(component.sunTime).toEqual(
-                `${component.makeDoubleDigits(
-                    now.getHours()
-                )}:${component.makeDoubleDigits(now.getMinutes())}`
-            );
+            expect(component.sunTime).toEqual(time);
         });
 
         it('should set the sunTime variable to todays sunset if sunrise has passed', () => {
             const now = new Date();
+            const time = now.toLocaleString('nl-NL', {
+                hour: '2-digit',
+                minute: '2-digit',
+            });
             component.weather.daily[0].sunrise = (now.getTime() - 1000) / 1000;
             component.weather.daily[0].sunset = now.getTime() / 1000;
 
             component.setSunTime();
 
-            expect(component.sunTime).toEqual(
-                `${component.makeDoubleDigits(
-                    now.getHours()
-                )}:${component.makeDoubleDigits(now.getMinutes())}`
-            );
+            expect(component.sunTime).toEqual(time);
         });
 
         it('should set the sunTime variable to tomorrows sunrise if sunset has passed', () => {
             const now = new Date();
+            const time = now.toLocaleString('nl-NL', {
+                hour: '2-digit',
+                minute: '2-digit',
+            });
             component.weather.daily[0].sunrise = (now.getTime() - 1000) / 1000;
             component.weather.daily[0].sunset = (now.getTime() - 1000) / 1000;
             component.weather.daily[1].sunset = now.getTime() / 1000;
 
             component.setSunTime();
 
-            expect(component.sunTime).toEqual(
-                `${component.makeDoubleDigits(
-                    now.getHours()
-                )}:${component.makeDoubleDigits(now.getMinutes())}`
-            );
-        });
-    });
-
-    describe('makeDoubleDigits()', () => {
-        it('should do nothing when the input already has double digits', () => {
-            expect(component.makeDoubleDigits(10)).toEqual('10');
-        });
-
-        it('should add a prepending zero when the input is a single digit', () => {
-            expect(component.makeDoubleDigits(9)).toEqual('09');
+            expect(component.sunTime).toEqual(time);
         });
     });
 

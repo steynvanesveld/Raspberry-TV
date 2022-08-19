@@ -32,14 +32,18 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
     }
 
     public getPhotos(): void {
+        const season = ['winter', 'spring', 'summer', 'autumn'][
+            Math.floor((new Date().getMonth() / 12) * 4) % 4
+        ];
+
         this.pexelsService
-            .getPhotos('Forest')
+            .getPhotos(`${season} nature forest wallpaper`)
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((result) => {
                 this.photos = result;
             });
 
-        window.setTimeout(() => {
+        setTimeout(() => {
             this.getPhotos();
         }, 1000 * 60 * 24 * 7); // 1 week
     }
@@ -48,7 +52,7 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
         const today = new Date();
         this.dayIndex = today.getDate();
 
-        window.setTimeout(() => {
+        setTimeout(() => {
             this.setCurrentDay();
         }, 1000 * 60 * 6); // 6 hours
     }

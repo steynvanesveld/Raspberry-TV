@@ -146,6 +146,7 @@ describe('TvNewsComponent', () => {
 
             expect(newsService.getNewsItem).toHaveBeenCalledWith(link);
         });
+
         it('should call newsService.getNewsItem() with fallback when getAdditionalDescription is true and link is undefined', () => {
             const link = undefined;
             component.news.items[0].link = link;

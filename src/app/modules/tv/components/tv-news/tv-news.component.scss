@@ -30,7 +30,8 @@
         h4,
         h5,
         h6,
-        p {
+        p,
+        div.text {
             font-size: $global-px * 2;
             line-height: $global-px * 2 * $golden-ratio;
             padding-bottom: $global-px * 0.5;
@@ -43,10 +44,11 @@
             }
         }
 
-        p {
+        p,
+        div.text {
             font-weight: 400;
 
-            &:last-child {
+            &:last-child:not(:only-child) {
                 padding-bottom: 0;
             }
         }

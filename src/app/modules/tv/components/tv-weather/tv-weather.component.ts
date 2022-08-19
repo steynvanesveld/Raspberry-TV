@@ -43,34 +43,17 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
         const sunRiseToday = new Date(this.weather.daily[0].sunrise * 1000);
         const sunSetToday = new Date(this.weather.daily[0].sunset * 1000);
         const sunRiseTomorrow = new Date(this.weather.daily[1].sunrise * 1000);
+        const sunTime =
+            now.getTime() <= sunRiseToday.getTime()
+                ? sunRiseToday
+                : now.getTime() <= sunSetToday.getTime()
+                ? sunSetToday
+                : sunRiseTomorrow;
 
-        let hours: number;
-        let minutes: number;
-
-        if (now.getTime() <= sunRiseToday.getTime()) {
-            hours = sunRiseToday.getHours();
-            minutes = sunRiseToday.getMinutes();
-        } else if (now.getTime() <= sunSetToday.getTime()) {
-            hours = sunSetToday.getHours();
-            minutes = sunSetToday.getMinutes();
-        } else {
-            hours = sunRiseTomorrow.getHours();
-            minutes = sunRiseTomorrow.getMinutes();
-        }
-
-        this.sunTime = `${this.makeDoubleDigits(hours)}:${this.makeDoubleDigits(
-            minutes
-        )}`;
-    }
-
-    public makeDoubleDigits(i: number): string {
-        let j = i.toString();
-
-        if (i < 10) {
-            j = `0${i}`;
-        }
-
-        return j;
+        this.sunTime = sunTime.toLocaleString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
     }
 
     public getWeather(): void {
@@ -82,7 +65,7 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
                 this.setSunTime();
             });
 
-        window.setTimeout(() => {
+        setTimeout(() => {
             this.getWeather();
         }, 1000 * 60 * 5); // 5 minutes
     }

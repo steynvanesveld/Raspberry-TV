@@ -1,6 +1,18 @@
 @import "variables";
 
-.time {
+.datetime {
     font-size: $global-px * 5;
     line-height: $global-px * 5;
+    text-align: right;
+
+    span {
+        display: block;
+        font-size: $global-px * 2;
+        line-height: $global-px * 2 * $golden-ratio;
+        padding-bottom: $global-px * 0.5;
+
+        &::first-letter {
+            text-transform: capitalize;
+        }
+    }
 }

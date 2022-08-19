@@ -34,7 +34,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     public getNews(): void {
         this.getNos();
 
-        window.setTimeout(() => {
+        setTimeout(() => {
             this.getNews();
         }, 1000 * 60 * 60); // 60 minutes
     }

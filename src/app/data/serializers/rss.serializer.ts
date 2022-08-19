@@ -27,8 +27,8 @@ export class RssSerializer {
         }
 
         return `${date.toLocaleDateString('nl-NL', {
-            day: '2-digit',
-            month: 'long',
+            day: 'numeric',
+            month: 'short',
         })} ${newsItemTime}`;
     }
 

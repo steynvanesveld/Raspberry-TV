@@ -23,45 +23,37 @@ describe('TvClockComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    describe('getTime()', () => {
-        it('should set the time variable', () => {
+    describe('getDateTime()', () => {
+        it('should set the date & time variables', () => {
+            component.date = '';
             component.time = '';
 
-            component.getTime();
+            component.getDateTime();
 
+            expect(component.date).not.toEqual('');
             expect(component.time).not.toEqual('');
         });
 
         it('should call itself after 100 milliseconds', () => {
             jasmine.clock().install();
 
-            spyOn(component, 'getTime').and.callThrough();
+            spyOn(component, 'getDateTime').and.callThrough();
 
-            component.getTime();
+            component.getDateTime();
 
             jasmine.clock().tick(100);
 
-            expect(component.getTime).toHaveBeenCalledTimes(2);
+            expect(component.getDateTime).toHaveBeenCalledTimes(2);
 
             jasmine.clock().uninstall();
         });
     });
 
-    describe('makeDoubleDigits()', () => {
-        it('should do nothing when the input already has double digits', () => {
-            expect(component.makeDoubleDigits(10)).toEqual('10');
-        });
-
-        it('should add a prepending zero when the input is a single digit', () => {
-            expect(component.makeDoubleDigits(9)).toEqual('09');
-        });
-    });
-
     describe('ngOnInit()', () => {
-        it('should call getTime()', () => {
-            spyOn(component, 'getTime').and.callThrough();
+        it('should call getDateTime()', () => {
+            spyOn(component, 'getDateTime').and.callThrough();
             component.ngOnInit();
-            expect(component.getTime).toHaveBeenCalled();
+            expect(component.getDateTime).toHaveBeenCalled();
         });
     });
 });

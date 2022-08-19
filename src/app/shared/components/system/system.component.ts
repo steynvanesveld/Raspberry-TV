@@ -23,7 +23,7 @@ export class SystemComponent implements OnInit, OnDestroy {
                 this.system = response;
             });
 
-        window.setTimeout(() => {
+        setTimeout(() => {
             this.getSystem();
         }, 1000 * 30); // 30 seconds
     }
