@@ -39,6 +39,13 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
     }
 
     public setSunTime(): void {
+        if (!this.weather) {
+            setTimeout(() => {
+                this.setSunTime();
+            });
+            return;
+        }
+
         const now = new Date();
         const sunRiseToday = new Date(this.weather.daily[0].sunrise * 1000);
         const sunSetToday = new Date(this.weather.daily[0].sunset * 1000);
@@ -54,6 +61,10 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
             hour: '2-digit',
             minute: '2-digit',
         });
+
+        setTimeout(() => {
+            this.setSunTime();
+        }, 1000 * 60); // 1 minute
     }
 
     public getWeather(): void {
@@ -62,7 +73,6 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((response) => {
                 this.weather = response;
-                this.setSunTime();
             });
 
         setTimeout(() => {
@@ -72,6 +82,7 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.getWeather();
+        this.setSunTime();
     }
 
     public ngOnDestroy(): void {

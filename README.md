@@ -1,27 +1,33 @@
 # Raspberry
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.
+An open-source application for personal use.
 
-## Development server
+## Open for modification
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:1337/`. The app will automatically reload if you change any of the source files.
+This project can be downloaded and modified by anyone interested.
 
-## Code scaffolding
+### Requirements
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Download and install [Node.js](https://nodejs.org/). Node 16.17 LTS or higher recommended
+- Install Angular CLI globally `npm install -g @angular/cli`. Angular 14 is recommended.
 
-## Build
+### Setup
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Clone this repo, go to its root directory and run `npm install` to install its dependencies.
+- Create an `environment.ts` file in the project's `root/src/environment` directory. An example can be found in `environment_example.ts`.
 
-## Running unit tests
+### Development
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run start` for a dev server. Navigate to `http://localhost:1337/`.
 
-## Running end-to-end tests
+### Deploy
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `npm run deploy` for a full build of the project.
+This executes a custom bash script providing multiple options, but is mainly focussed on automating the SSH actions I had to manually do after every build
 
-## Further help
+## Unit testing
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+Visit `root/coverage/raspberry/index.html` for a detailed coverage report via [istanbul](https://istanbul.js.org/).<br>
+Note that the coverage folder is only created after running a test for the first time, and is hidden by default.

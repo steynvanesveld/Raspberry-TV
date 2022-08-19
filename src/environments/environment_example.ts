@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    raspberry_host: '',
+    raspberry_host: '', // internal ip address of pi during development
     pexels_api_key: '', // https://www.pexels.com/api/new/
     open_weather_api_key: '', // https://home.openweathermap.org/api_keys
     open_weather_lat: '', // latitute of your location
