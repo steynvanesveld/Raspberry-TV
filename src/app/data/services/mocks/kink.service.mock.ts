@@ -33,8 +33,4 @@ export class KinkServiceMock {
             )
         );
     }
-
-    getChannel(): Observable<Kink> {
-        return of();
-    }
 }

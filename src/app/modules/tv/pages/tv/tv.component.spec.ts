@@ -11,9 +11,6 @@ class TvNewsComponent {
     @Input() public keyDownSubject!: Subject<KeyboardEventKey>;
 }
 
-@Component({ selector: 'app-camera', template: '' })
-class CameraComponent {}
-
 @Component({ selector: 'app-tv-radio', template: '' })
 class TvRadioComponent {
     @Input() public keyDownSubject!: Subject<KeyboardEventKey>;
@@ -40,7 +37,6 @@ describe('TvComponent', () => {
             declarations: [
                 TvComponent,
                 TvNewsComponent,
-                CameraComponent,
                 TvRadioComponent,
                 TvClockComponent,
                 TvWeatherComponent,
@@ -59,17 +55,35 @@ describe('TvComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    describe('toggleCameraVisibility()', () => {
-        it('should toggle the showCamera boolean', () => {
-            expect(component.showCamera).toBeFalse();
+    describe('toggleAppVisibility()', () => {
+        it('should toggle the hidden boolean', () => {
+            expect(component.hidden).toBeFalse();
 
-            component.toggleCameraVisibility();
+            component.toggleAppVisibility();
 
-            expect(component.showCamera).toBeTrue();
+            expect(component.hidden).toBeTrue();
 
-            component.toggleCameraVisibility();
+            component.toggleAppVisibility();
 
-            expect(component.showCamera).toBeFalse();
+            expect(component.hidden).toBeFalse();
+        });
+    });
+
+    describe('setIdleTimeout()', () => {
+        it('should always set idle to false', () => {
+            component.idle = true;
+            component.setIdleTimeout(0);
+            expect(component.idle).toBeFalse();
+        });
+
+        it('should always set idle back to true after the timeout', () => {
+            const ms = 1000;
+            jasmine.clock().install();
+            component.idle = true;
+            component.setIdleTimeout(ms);
+            jasmine.clock().tick(ms);
+            expect(component.idle).toBeTrue();
+            jasmine.clock().uninstall();
         });
     });
 
@@ -100,16 +114,6 @@ describe('TvComponent', () => {
             component.keyDownSubject.next('Backspace');
 
             expect(component.toggleAppVisibility).toHaveBeenCalled();
-        });
-
-        it('should call toggleAppVisibility() on key "6"', () => {
-            spyOn(component, 'toggleCameraVisibility').and.callThrough();
-
-            component.listenForKeyDown();
-
-            component.keyDownSubject.next('6');
-
-            expect(component.toggleCameraVisibility).toHaveBeenCalled();
         });
     });
 

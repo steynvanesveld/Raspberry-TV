@@ -43,13 +43,15 @@ export class TvRadioComponent implements OnInit, OnDestroy {
         return this.kink.extended[this.currentChannel.apiName].artist;
     }
 
+    /* istanbul ignore next */
     public startRadio(): void {
-        this.kinkService.getChannel(this.currentChannel).subscribe({
-            error: /* istanbul ignore next */ (response: HttpErrorResponse) => {
-                this.radio.nativeElement.src = response.url as string;
-                this.radio.nativeElement.volume = 0.5;
-                this.radio.nativeElement.play(); // https://developer.chrome.com/blog/autoplay/ --autoplay-policy=no-user-gesture-required
-            },
+        setTimeout(() => {
+            this.radio.nativeElement.src =
+                this.kinkService.fileUrl +
+                this.currentChannel.fileName +
+                this.kinkService.fileFormat;
+            this.radio.nativeElement.volume = 0.5;
+            this.radio.nativeElement.play();
         });
     }
 

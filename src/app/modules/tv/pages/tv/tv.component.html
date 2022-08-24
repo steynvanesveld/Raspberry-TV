@@ -1,4 +1,4 @@
-<app-tv-wallpaper [idle]="idle">
+<app-tv-wallpaper [idle]="idle" [hidden]="hidden">
     <section class="tv">
         <main class="tv-main">
             <app-tv-news [keyDownSubject]="keyDownSubject"></app-tv-news>
@@ -8,7 +8,5 @@
             <app-tv-weather></app-tv-weather>
             <app-tv-clock></app-tv-clock>
         </aside>
-
-        <app-camera *ngIf="showCamera"></app-camera>
     </section>
 </app-tv-wallpaper>

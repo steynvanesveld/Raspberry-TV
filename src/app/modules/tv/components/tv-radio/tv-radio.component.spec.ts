@@ -22,6 +22,7 @@ describe('TvRadioComponent', () => {
         fixture = TestBed.createComponent(TvRadioComponent);
         kinkService = TestBed.inject(KinkService);
         component = fixture.componentInstance;
+        spyOn(component, 'startRadio');
         fixture.detectChanges();
     });
 
@@ -52,16 +53,6 @@ describe('TvRadioComponent', () => {
             expect(component.currentArtist).toEqual(
                 component.kink.extended[component.currentChannel.apiName].artist
             );
-        });
-    });
-
-    describe('startRadio()', () => {
-        it('should call kinkService.getChannel()', () => {
-            spyOn(kinkService, 'getChannel').and.callThrough();
-
-            component.startRadio();
-
-            expect(kinkService.getChannel).toHaveBeenCalled();
         });
     });
 
@@ -105,8 +96,6 @@ describe('TvRadioComponent', () => {
         });
 
         it('should call startRadio()', () => {
-            spyOn(component, 'startRadio').and.callThrough();
-
             component.setNextChannel();
 
             expect(component.startRadio).toHaveBeenCalled();
@@ -135,7 +124,6 @@ describe('TvRadioComponent', () => {
 
     describe('ngOnInit()', () => {
         it('should call startRadio()', () => {
-            spyOn(component, 'startRadio').and.callThrough();
             component.ngOnInit();
             expect(component.startRadio).toHaveBeenCalled();
         });

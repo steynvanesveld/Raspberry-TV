@@ -10,32 +10,34 @@ import { OpenWeatherService } from 'src/app/data/services/openweather.service';
     styleUrls: ['./tv-weather.component.scss'],
 })
 export class TvWeatherComponent implements OnInit, OnDestroy {
-    public weather!: Weather;
+    public weather: Weather | undefined;
     public sunTime: string | undefined;
     public ngUnsubscribe = new Subject<void>();
 
     constructor(private openWeatherService: OpenWeatherService) {}
 
     public get icon(): string {
-        return `http://openweathermap.org/img/wn/${this.weather.current.weather[0].icon}@2x.png`;
+        return this.weather
+            ? `http://openweathermap.org/img/wn/${this.weather.current.weather[0].icon}@2x.png`
+            : '';
     }
 
     public get temperature(): string {
-        return `${Math.round(Number(this.weather.current.temp))}°C`;
+        return `${Math.round(Number(this.weather?.current.temp ?? 0))}°C`;
     }
 
     public get wind(): string {
         return `${Math.round(
-            Number(this.weather.current.wind_speed * 3.6)
+            Number(this.weather?.current.wind_speed ?? 0 * 3.6)
         )} km/u`;
     }
 
     public get rotation(): string {
-        return `rotate(${this.weather.current.wind_deg}deg)`;
+        return `rotate(${this.weather?.current.wind_deg ?? 0}deg)`;
     }
 
     public get humidity(): string {
-        return `${this.weather.current.humidity}%`;
+        return `${this.weather?.current.humidity ?? 0}%`;
     }
 
     public setSunTime(): void {

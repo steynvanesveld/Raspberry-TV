@@ -33,11 +33,4 @@ export class KinkService extends HttpService<Kink> {
 
         return this.read();
     }
-
-    public getChannel(channel: KinkChannel): Observable<Kink> {
-        this.setBaseUrl(this.fileUrl);
-        this.setResource(channel.fileName + this.fileFormat);
-
-        return this.read();
-    }
 }

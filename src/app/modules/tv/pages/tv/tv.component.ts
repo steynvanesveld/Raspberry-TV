@@ -15,15 +15,12 @@ export class TvComponent implements OnInit, OnDestroy {
     public keyPressed: string | undefined;
     public ngUnsubscribe = new Subject<void>();
     public showCamera = false;
+    public hidden = false;
 
     constructor() {}
 
     public toggleAppVisibility(): void {
-        document.body.classList.toggle('hidden');
-    }
-
-    public toggleCameraVisibility(): void {
-        this.showCamera = !this.showCamera;
+        this.hidden = !this.hidden;
     }
 
     public setIdleTimeout(miliseconds: number): void {
@@ -41,10 +38,6 @@ export class TvComponent implements OnInit, OnDestroy {
             .subscribe((key: KeyboardEventKey) => {
                 if (key === 'Backspace') {
                     this.toggleAppVisibility();
-                }
-
-                if (key === '6') {
-                    this.toggleCameraVisibility();
                 }
             });
     }

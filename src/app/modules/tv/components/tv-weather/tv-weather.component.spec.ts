@@ -40,28 +40,53 @@ describe('TvWeatherComponent', () => {
                 'http://openweathermap.org/img/wn/02d@2x.png'
             );
         });
+
+        it('should return empty string is weather is undefined', () => {
+            component.weather = undefined;
+            expect(component.icon).toEqual('');
+        });
     });
 
     describe('temperature()', () => {
         it('should return current temperature in °C', () => {
+            expect(component.temperature).toEqual('4°C');
+        });
+
+        it('should return fallback in °C if weather is undefined', () => {
+            component.weather = undefined;
             expect(component.temperature).toEqual('0°C');
         });
     });
 
     describe('wind()', () => {
         it('should return current wind in km/u', () => {
+            expect(component.wind).toEqual('12 km/u');
+        });
+
+        it('should return fallback in km/u if weather is undefined', () => {
+            component.weather = undefined;
             expect(component.wind).toEqual('0 km/u');
         });
     });
 
     describe('rotation()', () => {
         it('should return current rotation in deg', () => {
+            expect(component.rotation).toEqual('rotate(13deg)');
+        });
+
+        it('should return fallback in deg if weather is undefined', () => {
+            component.weather = undefined;
             expect(component.rotation).toEqual('rotate(0deg)');
         });
     });
 
     describe('humidity()', () => {
         it('should return current humidity in percentage', () => {
+            expect(component.humidity).toEqual('7%');
+        });
+
+        it('should return fallback in percentage if weather is undefined', () => {
+            component.weather = undefined;
             expect(component.humidity).toEqual('0%');
         });
     });
@@ -73,7 +98,8 @@ describe('TvWeatherComponent', () => {
                 hour: '2-digit',
                 minute: '2-digit',
             });
-            component.weather.daily[0].sunrise = now.getTime() / 1000;
+
+            component.weather!.daily[0].sunrise = now.getTime() / 1000;
 
             component.setSunTime();
 
@@ -86,8 +112,8 @@ describe('TvWeatherComponent', () => {
                 hour: '2-digit',
                 minute: '2-digit',
             });
-            component.weather.daily[0].sunrise = (now.getTime() - 1000) / 1000;
-            component.weather.daily[0].sunset = now.getTime() / 1000;
+            component.weather!.daily[0].sunrise = (now.getTime() - 1000) / 1000;
+            component.weather!.daily[0].sunset = now.getTime() / 1000;
 
             component.setSunTime();
 
@@ -100,13 +126,43 @@ describe('TvWeatherComponent', () => {
                 hour: '2-digit',
                 minute: '2-digit',
             });
-            component.weather.daily[0].sunrise = (now.getTime() - 1000) / 1000;
-            component.weather.daily[0].sunset = (now.getTime() - 1000) / 1000;
-            component.weather.daily[1].sunset = now.getTime() / 1000;
+            component.weather!.daily[0].sunrise = (now.getTime() - 1000) / 1000;
+            component.weather!.daily[0].sunset = (now.getTime() - 1000) / 1000;
+            component.weather!.daily[1].sunset = now.getTime() / 1000;
 
             component.setSunTime();
 
             expect(component.sunTime).toEqual(time);
+        });
+
+        it('should call itself if weather is undefined', () => {
+            jasmine.clock().install();
+
+            spyOn(component, 'setSunTime').and.callThrough();
+
+            component.weather = undefined;
+
+            component.setSunTime();
+
+            jasmine.clock().tick(0);
+
+            expect(component.setSunTime).toHaveBeenCalledTimes(2);
+
+            jasmine.clock().uninstall();
+        });
+
+        it('should call itself after 1 minute', () => {
+            jasmine.clock().install();
+
+            spyOn(component, 'setSunTime').and.callThrough();
+
+            component.setSunTime();
+
+            jasmine.clock().tick(1000 * 60);
+
+            expect(component.setSunTime).toHaveBeenCalledTimes(2);
+
+            jasmine.clock().uninstall();
         });
     });
 

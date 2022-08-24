@@ -6,25 +6,25 @@ import { WeatherCurrent } from '../../models/weather-current.model';
 import { WeatherWeather } from '../../models/weather-weather.model';
 
 const weatherDaily = new WeatherDaily(
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    new WeatherTemp(0, 0, 0, 0, 0, 0),
-    new WeatherTemp(0, 0, 0, 0, 0, 0),
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    new WeatherTemp(1, 2, 3, 4, 5, 6),
+    new WeatherTemp(1, 2, 3, 4, 5, 6),
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
     [new WeatherWeather(801, 'Clouds', 'Cloudy', '02d')],
-    0,
-    0,
-    0,
-    0
+    13,
+    14,
+    15,
+    16
 );
 
 const weatherDailyArray = () => {
@@ -42,9 +42,23 @@ export class OpenWeatherServiceMock {
     getWeather(): Observable<Weather> {
         return of(
             new Weather(
-                new WeatherCurrent(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [
-                    new WeatherWeather(801, 'Clouds', 'Cloudy', '02d'),
-                ]),
+                new WeatherCurrent(
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    [new WeatherWeather(801, 'Clouds', 'Cloudy', '02d')]
+                ),
                 weatherDailyArray()
             )
         );

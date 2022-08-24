@@ -44,24 +44,4 @@ describe('KinkService', () => {
             request.flush([]);
         });
     });
-
-    describe('getChannel()', () => {
-        it('should make a GET request via the abstract http class', () => {
-            const abstractMethod = spyOn(service, 'read').and.callThrough();
-
-            service.getChannel(service.kinkChannels[0]).subscribe(() => {
-                expect(abstractMethod).toHaveBeenCalled();
-            });
-
-            const request = httpMock.expectOne(
-                service.fileUrl +
-                    service.kinkChannels[0].fileName +
-                    service.fileFormat
-            );
-
-            expect(request.request.method).toBe('GET');
-
-            request.flush([]);
-        });
-    });
 });
