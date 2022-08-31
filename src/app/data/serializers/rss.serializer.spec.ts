@@ -28,6 +28,12 @@ describe('RssSerializer', () => {
         });
     });
 
+    it('should return empty RSS on faulty input', () => {
+        expect(serializer.fromJson(null as unknown as Rss)).toEqual(
+            new Rss([])
+        );
+    });
+
     it('should serialize from model to json', () => {
         mock.getRss().subscribe((data: Rss) => {
             expect(typeof serializer.toJson(data)).toBe('object');

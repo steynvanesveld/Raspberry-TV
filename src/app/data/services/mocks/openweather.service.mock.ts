@@ -31,7 +31,7 @@ const weatherDailyArray = () => {
     const daysInWeek = 7;
     const array = [];
 
-    for (let i = 0; i < daysInWeek; i++) {
+    for (let i = 0; i <= daysInWeek; i++) {
         array.push(weatherDaily);
     }
 

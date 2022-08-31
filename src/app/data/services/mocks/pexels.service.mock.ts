@@ -29,7 +29,7 @@ const pexelsPhotoArray = () => {
     const maxDaysInMonth = 31;
     const array = [];
 
-    for (let i = 0; i < maxDaysInMonth; i++) {
+    for (let i = 0; i <= maxDaysInMonth; i++) {
         array.push(pexelsPhoto);
     }
 

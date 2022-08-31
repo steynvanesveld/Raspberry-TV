@@ -79,6 +79,8 @@ export class RssSerializer {
     }
 
     public fromJson(json: Rss): Rss {
+        if (!json) return new Rss([]);
+
         return new Rss(this.findItems(json.toString()));
     }
 
