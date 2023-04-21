@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-camera',
@@ -6,7 +7,11 @@ import { Component } from '@angular/core';
     styleUrls: ['./camera.component.scss'],
 })
 export class CameraComponent {
-    public cameraSrc = `//${window.location.hostname.split(':')[0]}:1338`;
+    constructor(private sanitizer: DomSanitizer) {}
 
-    constructor() {}
+    public get cameraSrc(): string {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(
+            `//${window.location.hostname.split(':')[0]}:1336`
+        ) as string;
+    }
 }

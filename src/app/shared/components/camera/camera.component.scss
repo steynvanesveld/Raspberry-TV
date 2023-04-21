@@ -3,18 +3,13 @@
 :host {
     display: inline-block;
     position: relative;
-
-    &:after {
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 2px;
-        background-color: #000000;
-        position: absolute;
-    }
+    width: 100%;
 }
 
 .camera {
-    max-width: 100%;
+    border: none;
+    width: calc(100% + $global-px * 2);
+    display: block;
+    height: calc(100vh - ($global-px * 5));
+    margin: (-$global-px) 0 0 (-$global-px);
 }
