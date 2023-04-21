@@ -20,6 +20,7 @@ import {
 })
 export class TvNewsComponent implements OnInit, OnDestroy {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
+    @Input() public overlay!: boolean;
 
     @ViewChild('newsArticle') public newsArticle!: ElementRef<HTMLElement>;
 
@@ -174,6 +175,10 @@ export class TvNewsComponent implements OnInit, OnDestroy {
         this.keyDownSubject
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((key: KeyboardEventKey) => {
+                if (this.overlay) {
+                    return;
+                }
+
                 if (key === 'ArrowDown') {
                     this.scrollNewsArticle('down');
                 }

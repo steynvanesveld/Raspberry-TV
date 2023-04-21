@@ -12,6 +12,8 @@ import { PexelsService } from 'src/app/data/services/pexels.service';
 export class TvWallpaperComponent implements OnInit, OnDestroy {
     @Input() public idle!: boolean;
     @Input() public hidden!: boolean;
+    @Input() public overlay!: boolean;
+
     public dayIndex = 0;
     public ngUnsubscribe = new Subject<void>();
     public photos: Photos | undefined;

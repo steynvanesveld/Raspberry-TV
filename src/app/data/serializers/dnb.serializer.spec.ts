@@ -1,19 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-import { KinkSerializer } from './kink.serializer';
+import { DNBSerializer } from './dnb.serializer';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RadioServiceMock } from '../services/mocks/radio.service.mock';
 
-describe('KinkSerializer', () => {
-    let serializer: KinkSerializer;
+describe('DNBSerializer', () => {
+    let serializer: DNBSerializer;
     const mock = new RadioServiceMock();
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule],
-            providers: [KinkSerializer],
+            providers: [DNBSerializer],
         });
 
-        serializer = TestBed.inject(KinkSerializer);
+        serializer = TestBed.inject(DNBSerializer);
     });
 
     it('should be created', () => {
@@ -21,13 +21,13 @@ describe('KinkSerializer', () => {
     });
 
     it('should serialize from json to model', () => {
-        mock.getNowPlayingKink().subscribe((data: any) => {
+        mock.getNowPlayingDNB().subscribe((data: any) => {
             expect(serializer.fromJson(data)).toEqual(data);
         });
     });
 
     it('should serialize from model to json', () => {
-        mock.getNowPlayingKink().subscribe((data: any) => {
+        mock.getNowPlayingDNB().subscribe((data: any) => {
             expect(typeof serializer.toJson(data)).toBe('object');
         });
     });

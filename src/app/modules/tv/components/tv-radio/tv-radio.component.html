@@ -1,7 +1,17 @@
-<audio #radio></audio>
+<audio #radioElement></audio>
 
-<article class="now-playing" *ngIf="kink">
-    <h3 class="kink" [innerHTML]="currentChannel.visibleName"></h3>
-    <h2>{{ currentSong }}</h2>
-    <h3>{{ currentArtist }}</h3>
+<article class="now-playing">
+    <h3 class="radio" [innerHTML]="nowPlayingChannel.visibleName"></h3>
+    <h2>{{ nowPlayingSong }}</h2>
+    <h3>{{ nowPlayingArtist }}</h3>
 </article>
+
+<section class="channels">
+    <ul>
+        <li
+            *ngFor="let channel of radioService.radioChannels; let i = index"
+            [ngClass]="i === selectedChannelIndex ? 'selected' : ''"
+            [innerHTML]="channel.visibleName"
+        ></li>
+    </ul>
+</section>

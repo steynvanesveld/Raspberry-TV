@@ -13,13 +13,13 @@ export class DefaultLayoutComponent {
 
     public navItems = [
         {
-            label: 'Home',
+            label: 'Camera',
             value: '/',
             internal: true,
         },
         {
-            label: 'Camera',
-            value: '/camera',
+            label: 'About',
+            value: '/about',
             internal: true,
         },
         {

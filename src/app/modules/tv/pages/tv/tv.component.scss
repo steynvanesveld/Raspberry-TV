@@ -7,9 +7,14 @@
     flex-direction: row;
     justify-content: space-between;
     padding: $global-px * 2.5;
+    gap: $global-px * 5;
     color: #cccccc;
     text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
-    transition: 0.2s all ease-in-out;
+    transition: 0.2s transform ease-in-out;
+
+    &.overlay {
+        transform: translateX(-20vw);
+    }
 
     @media (orientation: portrait) and (max-width: 767px),
         (orientation: landscape) and (max-width: 1023px) {

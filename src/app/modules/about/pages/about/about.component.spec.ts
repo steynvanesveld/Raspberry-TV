@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { HomeComponent } from './home.component';
+import { AboutComponent } from './about.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 @Component({ selector: 'app-system', template: '' })
 class SystemComponent {}
 
-describe('HomeComponent', () => {
-    let component: HomeComponent;
-    let fixture: ComponentFixture<HomeComponent>;
+describe('AboutComponent', () => {
+    let component: AboutComponent;
+    let fixture: ComponentFixture<AboutComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [RouterTestingModule],
-            declarations: [HomeComponent, SystemComponent],
+            declarations: [AboutComponent, SystemComponent],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(HomeComponent);
+        fixture = TestBed.createComponent(AboutComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

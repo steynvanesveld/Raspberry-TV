@@ -105,14 +105,14 @@ describe('RssSerializer', () => {
                     new Date(0),
                     'Item title',
                     'https://item.link',
-                    '1 jan. om 01:00'
+                    '1 jan om 01:00'
                 ),
             ]);
         });
 
         it('should have fallback for an empty xml', () => {
             expect(serializer.findItems(mock.xmlEmpty)).toEqual([
-                new RssItem('', new Date(0), '', '', '1 jan. om 01:00'),
+                new RssItem('', new Date(0), '', '', '1 jan om 01:00'),
             ]);
         });
 

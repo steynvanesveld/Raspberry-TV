@@ -258,6 +258,18 @@ describe('TvNewsComponent', () => {
     });
 
     describe('listenForKeyDown()', () => {
+        it('should do nothing when overlay is true', () => {
+            spyOn(component, 'scrollNewsArticle').and.callThrough();
+
+            component.overlay = true;
+
+            component.listenForKeyDown();
+
+            component.keyDownSubject.next('ArrowDown');
+
+            expect(component.scrollNewsArticle).not.toHaveBeenCalled();
+        });
+
         it('should call scrollNewsArticle() on key "ArrowDown"', () => {
             spyOn(component, 'scrollNewsArticle').and.callThrough();
 

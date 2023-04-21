@@ -7,8 +7,8 @@ const routes: Routes = [
         path: '',
         component: DefaultLayoutComponent,
         loadChildren: () =>
-            import('src/app/modules/home/home.module').then((m) => {
-                return m.HomeModule;
+            import('src/app/modules/cam/cam.module').then((m) => {
+                return m.CamModule;
             }),
     },
     {
@@ -20,11 +20,11 @@ const routes: Routes = [
             }),
     },
     {
-        path: 'camera',
+        path: 'about',
         component: DefaultLayoutComponent,
         loadChildren: () =>
-            import('src/app/modules/cam/cam.module').then((m) => {
-                return m.CamModule;
+            import('src/app/modules/about/about.module').then((m) => {
+                return m.AboutModule;
             }),
     },
     {

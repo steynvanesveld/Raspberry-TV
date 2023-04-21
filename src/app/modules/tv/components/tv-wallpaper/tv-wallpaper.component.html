@@ -1,7 +1,11 @@
 <section
     class="tv-wallpaper"
     [style.background-image]="currentBackgroundImage"
-    [ngClass]="[idle ? 'idle' : '', hidden ? 'hidden' : '']"
+    [ngClass]="[
+        idle ? 'idle' : '',
+        hidden ? 'hidden' : '',
+        overlay ? 'overlay' : ''
+    ]"
 >
     <ng-content></ng-content>
 </section>

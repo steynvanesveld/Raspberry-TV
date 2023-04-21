@@ -9,11 +9,13 @@ import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 @Component({ selector: 'app-tv-news', template: '' })
 class TvNewsComponent {
     @Input() public keyDownSubject!: Subject<KeyboardEventKey>;
+    @Input() public overlay!: boolean;
 }
 
 @Component({ selector: 'app-tv-radio', template: '' })
 class TvRadioComponent {
     @Input() public keyDownSubject!: Subject<KeyboardEventKey>;
+    @Input() public overlay!: boolean;
 }
 
 @Component({ selector: 'app-tv-clock', template: '' })
@@ -25,6 +27,7 @@ class TvWeatherComponent {}
 @Component({ selector: 'app-tv-wallpaper', template: '' })
 class TvWallpaperComponent {
     @Input() public idle!: boolean;
+    @Input() public overlay!: boolean;
 }
 
 describe('TvComponent', () => {
@@ -66,6 +69,29 @@ describe('TvComponent', () => {
             component.toggleAppVisibility();
 
             expect(component.hidden).toBeFalse();
+        });
+
+        it('should call toggleOverlayVisibility() when overlay is true', () => {
+            spyOn(component, 'toggleOverlayVisibility').and.callThrough();
+            component.overlay = true;
+
+            component.toggleAppVisibility();
+
+            expect(component.toggleOverlayVisibility).toHaveBeenCalled();
+        });
+    });
+
+    describe('toggleOverlayVisibility()', () => {
+        it('should toggle the overlay boolean', () => {
+            expect(component.overlay).toBeFalse();
+
+            component.toggleOverlayVisibility();
+
+            expect(component.overlay).toBeTrue();
+
+            component.toggleOverlayVisibility();
+
+            expect(component.overlay).toBeFalse();
         });
     });
 
@@ -114,6 +140,16 @@ describe('TvComponent', () => {
             component.keyDownSubject.next('Backspace');
 
             expect(component.toggleAppVisibility).toHaveBeenCalled();
+        });
+
+        it('should call toggleOverlayVisibility() on key "Enter"', () => {
+            spyOn(component, 'toggleOverlayVisibility').and.callThrough();
+
+            component.listenForKeyDown();
+
+            component.keyDownSubject.next('Enter');
+
+            expect(component.toggleOverlayVisibility).toHaveBeenCalled();
         });
     });
 

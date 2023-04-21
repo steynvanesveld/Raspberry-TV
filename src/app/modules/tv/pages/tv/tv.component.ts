@@ -16,11 +16,20 @@ export class TvComponent implements OnInit, OnDestroy {
     public ngUnsubscribe = new Subject<void>();
     public showCamera = false;
     public hidden = false;
+    public overlay = false;
 
     constructor() {}
 
     public toggleAppVisibility(): void {
+        if (this.overlay) {
+            this.toggleOverlayVisibility();
+            return;
+        }
         this.hidden = !this.hidden;
+    }
+
+    public toggleOverlayVisibility(): void {
+        this.overlay = !this.overlay;
     }
 
     public setIdleTimeout(miliseconds: number): void {
@@ -38,6 +47,10 @@ export class TvComponent implements OnInit, OnDestroy {
             .subscribe((key: KeyboardEventKey) => {
                 if (key === 'Backspace') {
                     this.toggleAppVisibility();
+                }
+
+                if (key === 'Enter') {
+                    this.toggleOverlayVisibility();
                 }
             });
     }

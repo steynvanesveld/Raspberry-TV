@@ -1,9 +1,10 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DNB } from 'src/app/data/models/dnb.model';
 import { Kink } from 'src/app/data/models/kink.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { KinkService } from 'src/app/data/services/kink.service';
-import { KinkChannel } from 'src/app/data/models/kink-channel.model';
+import { Flux } from 'src/app/data/models/flux.model';
+import { RadioService } from 'src/app/data/services/radio.service';
+import { RadioChannel } from 'src/app/data/models/radio-channel.model';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 import {
     Component,
@@ -21,48 +22,74 @@ import {
 })
 export class TvRadioComponent implements OnInit, OnDestroy {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
+    @Input() public overlay!: boolean;
 
-    @ViewChild('radio') public radio!: ElementRef<HTMLAudioElement>;
+    @ViewChild('radioElement')
+    public radioElement!: ElementRef<HTMLAudioElement>;
 
-    public kink!: Kink;
     public ngUnsubscribe = new Subject<void>();
+    public nowPlaying: Kink | Flux | DNB | undefined = undefined;
+    public nowPlayingChannelIndex = 0;
     public getNowPlayingTimeout!: number;
-    public currentChannelIndex = 0;
+    public selectedChannelIndex = 0;
 
-    constructor(public kinkService: KinkService) {}
+    constructor(public radioService: RadioService) {}
 
-    public get currentChannel(): KinkChannel {
-        return this.kinkService.kinkChannels[this.currentChannelIndex];
+    public get nowPlayingChannel(): RadioChannel {
+        return this.radioService.radioChannels[this.nowPlayingChannelIndex];
     }
 
-    public get currentSong(): string {
-        return this.kink.extended[this.currentChannel.apiName].title;
+    public get nowPlayingSong(): string {
+        if (this.nowPlaying instanceof Kink) {
+            return this.nowPlaying.extended[this.nowPlayingChannel.apiRef]
+                .title;
+        }
+
+        if (this.nowPlaying instanceof Flux) {
+            return this.nowPlaying.trackInfo.title;
+        }
+
+        if (this.nowPlaying instanceof DNB) {
+            return this.nowPlaying.title;
+        }
+
+        return '';
     }
 
-    public get currentArtist(): string {
-        return this.kink.extended[this.currentChannel.apiName].artist;
+    public get nowPlayingArtist(): string {
+        if (this.nowPlaying instanceof Kink) {
+            return this.nowPlaying.extended[this.nowPlayingChannel.apiRef]
+                .artist;
+        }
+
+        if (this.nowPlaying instanceof Flux) {
+            return this.nowPlaying.trackInfo.artistCredits;
+        }
+
+        if (this.nowPlaying instanceof DNB) {
+            return this.nowPlaying.artist;
+        }
+
+        return '';
     }
 
     /* istanbul ignore next */
     public startRadio(): void {
         setTimeout(() => {
-            this.radio.nativeElement.src =
-                this.kinkService.fileUrl +
-                this.currentChannel.fileName +
-                this.kinkService.fileFormat;
-            this.radio.nativeElement.volume = 0.5;
-            this.radio.nativeElement.play();
+            this.radioElement.nativeElement.src = this.nowPlayingChannel.file;
+            this.radioElement.nativeElement.volume = 0.5;
+            this.radioElement.nativeElement.play();
         });
     }
 
     public getNowPlaying() {
         clearTimeout(this.getNowPlayingTimeout);
 
-        this.kinkService
-            .getNowPlaying()
+        this.radioService
+            .getNowPlaying(this.nowPlayingChannel)
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((response) => {
-                this.kink = response;
+                this.nowPlaying = response;
             });
 
         this.getNowPlayingTimeout = window.setTimeout(() => {
@@ -70,16 +97,20 @@ export class TvRadioComponent implements OnInit, OnDestroy {
         }, 1000 * 30); // 30 seconds
     }
 
-    public setNextChannel(): void {
+    public setSelectedChannel(selectedChannelIndex: number): void {
         if (
-            this.currentChannelIndex + 1 ===
-            this.kinkService.kinkChannels.length
+            selectedChannelIndex >= this.radioService.radioChannels.length ||
+            selectedChannelIndex < 0
         ) {
-            this.currentChannelIndex = 0;
-        } else {
-            this.currentChannelIndex = this.currentChannelIndex + 1;
+            return;
         }
 
+        this.selectedChannelIndex = selectedChannelIndex;
+    }
+
+    public setNowPlayingChannel(): void {
+        this.nowPlaying = undefined;
+        this.nowPlayingChannelIndex = this.selectedChannelIndex;
         this.startRadio();
         this.getNowPlaying();
     }
@@ -88,8 +119,24 @@ export class TvRadioComponent implements OnInit, OnDestroy {
         this.keyDownSubject
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((key: KeyboardEventKey) => {
+                if (!this.overlay) {
+                    return;
+                }
+
                 if (key === 'Enter') {
-                    this.setNextChannel();
+                    this.setNowPlayingChannel();
+                }
+
+                if (key === 'Backspace') {
+                    this.setSelectedChannel(this.nowPlayingChannelIndex);
+                }
+
+                if (key === 'ArrowUp') {
+                    this.setSelectedChannel(this.selectedChannelIndex - 1);
+                }
+
+                if (key === 'ArrowDown') {
+                    this.setSelectedChannel(this.selectedChannelIndex + 1);
                 }
             });
     }
