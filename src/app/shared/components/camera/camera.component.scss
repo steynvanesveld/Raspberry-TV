@@ -1,15 +1,14 @@
 @import "variables";
 
-:host {
-    display: inline-block;
+:host,
+iframe,
+img {
     position: relative;
+    display: block;
     width: 100%;
+    border: none;
 }
 
-.camera {
-    border: none;
-    width: calc(100% + $global-px * 2);
-    display: block;
-    height: calc(100vh - ($global-px * 5));
-    margin: (-$global-px) 0 0 (-$global-px);
+iframe {
+    height: 100%;
 }

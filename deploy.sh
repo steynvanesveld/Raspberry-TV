@@ -1,8 +1,10 @@
 #!/bin/sh
 USER="pipi"
-CLIENT="192.168.178.2"
+CLIENT="raspberrypi.local"
 
-read -p "Deploy new build to server? (y/n)" -n 1 -r DEPLOY
+read -p "Build new version?  (y/n)" -n 1 -r BUILD
+echo
+read -p "Deploy latest build to server? (y/n)" -n 1 -r DEPLOY
 echo
 read -p "Replace bash folder? (y/n)" -n 1 -r BASH
 echo
@@ -11,14 +13,17 @@ echo
 read -p "Reboot server? (y/n)" -n 1 -r REBOOT
 echo
 
+if [[ $BUILD =~ ^[Yy]$ ]]
+then
+    npm run build
+fi
 
 if [[ $DEPLOY =~ ^[Yy]$ ]]
 then
-    npm run build
     scp -r dist/raspberry/ $USER@$CLIENT:~/
     ssh  -t $USER@$CLIENT '
-        sudo rm -rf ~/lighttpd/*.js ~/lighttpd/*.txt ~/lighttpd/*.html ~/lighttpd/*.css ~/lighttpd/assets/
-        sudo mv -f ~/raspberry/* ~/lighttpd/
+        sudo rm -rf /var/www/html/*.js /var/www/html/*.txt /var/www/html/*.html /var/www/html/*.css /var/www/html/assets/
+        sudo mv -f ~/raspberry/* /var/www/html/
         sudo rm -rf ~/raspberry
     '
 fi
@@ -33,7 +38,7 @@ if [[ $API =~ ^[Yy]$ ]]
 then
     scp -r api/ $USER@$CLIENT:~/
     ssh  -t $USER@$CLIENT '
-        sudo mv -f ~/api/* ~/lighttpd/api/
+        sudo mv -f ~/api/* /var/www/html/api/
         sudo rm -rf ~/api
     '
 fi

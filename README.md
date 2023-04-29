@@ -31,3 +31,24 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 
 Visit `root/coverage/raspberry/index.html` for a detailed coverage report via [istanbul](https://istanbul.js.org/).<br>
 Note that the coverage folder is only created after running a test for the first time, and is hidden by default.
+
+## TV notes
+
+### Requirements
+
+- Rasperry Pi OS Lite (64 bit)
+- lighttpd
+
+### Kiosk
+
+- https://blog.r0b.io/post/minimal-rpi-kiosk/
+
+### HDMI-CEC
+
+- https://ubuntu-mate.community/t/controlling-raspberry-pi-with-tv-remote-using-hdmi-cec/4250
+
+### Sound over HDMI
+
+- Uncomment `hdmi_drive=2` in `/boot/config.txt`
+- sudo apt-get install `alsa-utils pulseaudio`
+- sudo `raspi-config` -> System Options -> Audio -> HDMI/Hifi

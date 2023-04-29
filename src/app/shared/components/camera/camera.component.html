@@ -1,1 +1,4 @@
-<iframe class="camera" [src]="cameraSrc"></iframe>
+<ng-container *ngIf="cameraSrc">
+    <iframe *ngIf="cameraType === 'IFRAME'" [src]="cameraSrc"></iframe>
+    <img *ngIf="cameraType === 'IMG' && localNetwork" [src]="cameraSrc" />
+</ng-container>
