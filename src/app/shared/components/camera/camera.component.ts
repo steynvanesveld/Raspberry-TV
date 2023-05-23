@@ -17,6 +17,7 @@ export class CameraComponent {
         ) as string;
     }
 
+    /* istanbul ignore next */
     public localNetwork(): boolean {
         return (
             window.location.hostname === 'localhost' ||

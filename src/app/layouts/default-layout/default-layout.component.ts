@@ -18,11 +18,6 @@ export class DefaultLayoutComponent {
             internal: true,
         },
         {
-            label: 'About',
-            value: '/about',
-            internal: true,
-        },
-        {
             label: 'Tv',
             value: '/tv',
             internal: true,

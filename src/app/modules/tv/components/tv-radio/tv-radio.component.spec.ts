@@ -1,9 +1,15 @@
+import { Component, Input } from '@angular/core';
 import { TvRadioComponent } from './tv-radio.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RadioService } from 'src/app/data/services/radio.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RadioServiceMock } from 'src/app/data/services/mocks/radio.service.mock';
+
+@Component({ selector: 'app-camera', template: '' })
+class CameraComponent {
+    @Input() public cameraType!: 'IMG' | 'IFRAME';
+}
 
 describe('TvRadioComponent', () => {
     let component: TvRadioComponent;
@@ -18,7 +24,7 @@ describe('TvRadioComponent', () => {
                 { provide: RadioService, useClass: RadioServiceMock },
                 RadioServiceMock,
             ],
-            declarations: [TvRadioComponent],
+            declarations: [TvRadioComponent, CameraComponent],
         }).compileComponents();
     });
 

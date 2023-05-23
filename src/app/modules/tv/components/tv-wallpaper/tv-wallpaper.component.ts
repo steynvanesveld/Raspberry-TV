@@ -19,7 +19,7 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
     public photos: Photos | undefined;
     private photoParameters = '?auto=compress&fit=crop&w=1920&h=1080';
     private gradient =
-        'linear-gradient(to bottom, rgba(105, 67, 45, 0.75), rgba(0, 0, 0, 0.75))';
+        'linear-gradient(to bottom, rgba(81, 68, 33, 0.75), rgba(0, 0, 0, 0.75))';
 
     constructor(private pexelsService: PexelsService) {}
 

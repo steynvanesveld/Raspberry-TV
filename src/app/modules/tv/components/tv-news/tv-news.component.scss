@@ -44,6 +44,14 @@
             }
         }
 
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            padding-top: $global-px * 0.5;
+        }
+
         p,
         div.text {
             font-weight: 400;

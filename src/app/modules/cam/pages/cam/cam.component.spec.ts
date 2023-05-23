@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
 import { CamComponent } from './cam.component';
+import { Component, Input } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 @Component({ selector: 'app-camera', template: '' })
-class CameraComponent {}
+class CameraComponent {
+    @Input() public cameraType!: 'IMG' | 'IFRAME';
+}
 
 describe('CamComponent', () => {
     let component: CamComponent;

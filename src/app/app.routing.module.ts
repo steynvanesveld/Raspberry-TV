@@ -20,14 +20,6 @@ const routes: Routes = [
             }),
     },
     {
-        path: 'about',
-        component: DefaultLayoutComponent,
-        loadChildren: () =>
-            import('src/app/modules/about/about.module').then((m) => {
-                return m.AboutModule;
-            }),
-    },
-    {
         path: 'ovp',
         component: DefaultLayoutComponent,
         loadChildren: () =>
