@@ -14,7 +14,7 @@
 
         <figure>
             <img
-                src="/assets/images/arrow-right.svg"
+                src="/assets/images/feather/navigation-2.svg"
                 class="custom wind"
                 alt="Arrow"
                 [style.transform]="rotation"
@@ -27,20 +27,24 @@
 
         <figure>
             <img
-                src="/assets/images/water-drop.svg"
+                src="/assets/images/feather/droplet.svg"
                 class="custom"
                 alt="Water-drop"
             />
         </figure>
     </section>
 
-    <section *ngIf="sunTime">
+    <section *ngIf="sun">
         <span>
-            {{ sunTime }}
+            {{ sun.time }}
         </span>
 
         <figure>
-            <img src="/assets/images/sun-set.svg" class="custom" alt="Sun" />
+            <img
+                src="/assets/images/feather/{{ sun.type }}.svg"
+                class="custom"
+                alt="Sun"
+            />
         </figure>
     </section>
 </div>

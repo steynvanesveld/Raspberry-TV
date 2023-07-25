@@ -11,11 +11,11 @@ export abstract class CorsProxyService extends HttpService<any> {
         super(httpClient);
 
         const headers = {
-            'x-cors-grida-api-key': environment.cors_bridged_api_key,
+            'x-cors-api-key': environment.cors_bridged_api_key,
         };
 
         this.setHeaders(new HttpHeaders(headers));
 
-        this.setBaseUrl('https://cors.bridged.cc/');
+        this.setBaseUrl('https://proxy.cors.sh/');
     }
 }

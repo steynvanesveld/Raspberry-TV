@@ -7,5 +7,11 @@
         </h6>
         <h1 [innerText]="news.items[currentNewsArticleIndex].title"></h1>
         <p [innerHTML]="news.items[currentNewsArticleIndex].description"></p>
+
+        <h6 class="timestamp">
+            <img src="/assets/images/feather/refresh-cw.svg" alt="sync" />
+
+            {{ timestamp }}
+        </h6>
     </ng-container>
 </article>

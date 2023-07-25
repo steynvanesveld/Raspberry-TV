@@ -11,7 +11,7 @@ import { OpenWeatherService } from 'src/app/data/services/openweather.service';
 })
 export class TvWeatherComponent implements OnInit, OnDestroy {
     public weather: Weather | undefined;
-    public sunTime: string | undefined;
+    public sun: { time?: string; type?: 'sunrise' | 'sunset' } = {};
     public ngUnsubscribe = new Subject<void>();
 
     constructor(private openWeatherService: OpenWeatherService) {}
@@ -40,10 +40,10 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
         return `${this.weather?.current.humidity ?? 0}%`;
     }
 
-    public setSunTime(): void {
+    public setSun(): void {
         if (!this.weather) {
             setTimeout(() => {
-                this.setSunTime();
+                this.setSun();
             });
             return;
         }
@@ -52,20 +52,26 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
         const sunRiseToday = new Date(this.weather.daily[0].sunrise * 1000);
         const sunSetToday = new Date(this.weather.daily[0].sunset * 1000);
         const sunRiseTomorrow = new Date(this.weather.daily[1].sunrise * 1000);
-        const sunTime =
-            now.getTime() <= sunRiseToday.getTime()
-                ? sunRiseToday
-                : now.getTime() <= sunSetToday.getTime()
-                ? sunSetToday
-                : sunRiseTomorrow;
 
-        this.sunTime = sunTime.toLocaleString('nl-NL', {
+        this.sun.type = 'sunrise';
+        let time = sunRiseTomorrow;
+
+        if (now.getTime() <= sunRiseToday.getTime()) {
+            time = sunRiseToday;
+        }
+
+        if (now.getTime() <= sunSetToday.getTime()) {
+            this.sun.type = 'sunset';
+            time = sunSetToday;
+        }
+
+        this.sun.time = time.toLocaleString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
         });
 
         setTimeout(() => {
-            this.setSunTime();
+            this.setSun();
         }, 1000 * 60); // 1 minute
     }
 
@@ -84,7 +90,7 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.getWeather();
-        this.setSunTime();
+        this.setSun();
     }
 
     public ngOnDestroy(): void {

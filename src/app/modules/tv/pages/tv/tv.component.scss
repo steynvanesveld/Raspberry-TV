@@ -16,22 +16,11 @@
         transform: translateX(-20vw);
     }
 
-    @media (orientation: portrait) and (max-width: 767px),
-        (orientation: landscape) and (max-width: 1023px) {
-        padding: $global-px;
-        flex-direction: column;
-    }
-
     &-main {
         overflow: hidden;
         display: flex;
         justify-content: space-between;
         flex: 0 0 auto;
-
-        @media (orientation: portrait) and (max-width: 767px),
-            (orientation: landscape) and (max-width: 1023px) {
-            flex-direction: column;
-        }
     }
 
     &-aside {

@@ -8,12 +8,6 @@
     font-size: $global-px * 2;
     line-height: $global-px * 2 * $golden-ratio;
 
-    @media (orientation: portrait) and (max-width: 767px),
-        (orientation: landscape) and (max-width: 1023px) {
-        font-size: $global-px;
-        line-height: $global-px * $golden-ratio;
-    }
-
     section {
         display: flex;
         align-items: center;
@@ -29,12 +23,6 @@
         width: $global-px * 2.5;
         margin-left: $global-px * 0.5;
 
-        @media (orientation: portrait) and (max-width: 767px),
-            (orientation: landscape) and (max-width: 1023px) {
-            height: $global-px * 1.5;
-            width: $global-px * 1.5;
-        }
-
         img {
             position: absolute;
             object-fit: contain;
@@ -45,10 +33,6 @@
 
             &.custom {
                 max-height: $global-px * 1.5;
-
-                &.wind {
-                    max-height: $global-px * 1.125;
-                }
             }
         }
     }

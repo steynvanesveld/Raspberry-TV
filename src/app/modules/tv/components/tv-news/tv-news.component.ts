@@ -1,5 +1,5 @@
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, combineLatest } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { Rss } from 'src/app/data/models/rss.model';
 import { RssItem } from 'src/app/data/models/rss-item.model';
 import { NewsService } from 'src/app/data/services/news.service';
@@ -24,6 +24,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
 
     @ViewChild('newsArticle') public newsArticle!: ElementRef<HTMLElement>;
 
+    public timestamp!: string;
     public news = new Rss([]);
     public newsLoading = new Rss([]);
     public currentNewsArticleIndex = 0;
@@ -33,91 +34,78 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     constructor(private newsService: NewsService) {}
 
     public getNews(): void {
-        this.getNos();
+        combineLatest([
+            this.newsService.getNos(),
+            this.newsService.getRTVDrenthe(),
+            this.newsService.getHoogeveenscheCourant(),
+        ])
+            .pipe(
+                map((results) => [
+                    { name: 'NOS', rss: results[0] },
+                    {
+                        name: 'RTV Drenthe',
+                        rss: results[1],
+                        getIndividualNewsItem: true,
+                    },
+                    {
+                        name: 'Hoogeveensche Courant',
+                        rss: results[2],
+                        getIndividualNewsItem: true,
+                    },
+                ]),
+                takeUntil(this.ngUnsubscribe)
+            )
+            .subscribe((response) => {
+                this.setNewsItems(response);
+            });
 
         setTimeout(() => {
             this.getNews();
         }, 1000 * 60 * 60); // 60 minutes
     }
 
-    public getNos(): void {
-        this.newsService
-            .getNos()
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((response: Rss) => {
-                this.setNewsItems({
-                    source: 'NOS',
-                    items: response.items,
-                    firstSource: true,
+    public setNewsItems(
+        sources: {
+            name: string;
+            rss: Rss;
+            getIndividualNewsItem?: boolean;
+        }[]
+    ): void {
+        this.newsLoading.items = [];
+
+        sources.forEach((source) => {
+            if (source.getIndividualNewsItem) {
+                source.rss.items.map((item: RssItem) => {
+                    this.newsService
+                        .getNewsItem(item.link ?? '')
+                        .pipe(takeUntil(this.ngUnsubscribe))
+                        .subscribe((response) => {
+                            item.description = response.items[0].description;
+                        });
                 });
-                this.getRTVDrenthe();
-            });
+            }
+
+            source.rss.items.forEach(
+                (item: RssItem) => (item.source = source.name)
+            );
+
+            this.newsLoading.items = this.newsLoading.items
+                .concat(source.rss.items)
+                .filter((item) => item.pubDate !== undefined)
+                .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
+        });
+
+        this.news = { ...this.newsLoading };
+
+        this.timestamp = new Date().toLocaleString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+
+        this.setCurrentNewsArticle();
     }
 
-    public getRTVDrenthe(): void {
-        this.newsService
-            .getRTVDrenthe()
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((response: Rss) => {
-                this.setNewsItems({
-                    source: 'RTV Drenthe',
-                    items: response.items,
-                    getAdditionalDescription: true,
-                });
-                this.getHoogeveenscheCourant();
-            });
-    }
-
-    public getHoogeveenscheCourant(): void {
-        this.newsService
-            .getHoogeveenscheCourant()
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe((response: Rss) => {
-                this.setNewsItems({
-                    source: 'Hoogeveensche Courant',
-                    items: response.items,
-                    getAdditionalDescription: true,
-                    lastSource: true,
-                });
-            });
-    }
-
-    public setNewsItems(payload: {
-        source: string;
-        items: RssItem[];
-        getAdditionalDescription?: boolean;
-        firstSource?: boolean;
-        lastSource?: boolean;
-    }): void {
-        if (payload.firstSource) {
-            this.newsLoading.items = [];
-        }
-
-        if (payload.getAdditionalDescription) {
-            payload.items.map((item: RssItem) => {
-                this.newsService
-                    .getNewsItem(item.link ?? '')
-                    .pipe(takeUntil(this.ngUnsubscribe))
-                    .subscribe((response) => {
-                        item.description = response.items[0].description;
-                    });
-            });
-        }
-
-        payload.items.map((item: RssItem) => (item.source = payload.source));
-
-        this.newsLoading.items = this.newsLoading.items
-            .concat(payload.items)
-            .filter((item) => item.pubDate !== undefined)
-            .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
-
-        if (payload.lastSource) {
-            this.news = { ...this.newsLoading };
-            this.changeNewsArticle();
-        }
-    }
-
-    public changeNewsArticle(action?: 'previous' | 'next'): void {
+    public setCurrentNewsArticle(action?: 'previous' | 'next'): void {
         this.scrollNewsArticle();
 
         if (action === 'previous') {
@@ -167,7 +155,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
         clearTimeout(this.nextNewsItemTimeout);
 
         this.nextNewsItemTimeout = window.setTimeout(() => {
-            this.changeNewsArticle('next');
+            this.setCurrentNewsArticle('next');
         }, 1000 * 60); // 1 minute;
     }
 
@@ -188,11 +176,11 @@ export class TvNewsComponent implements OnInit, OnDestroy {
                 }
 
                 if (key === 'ArrowLeft') {
-                    this.changeNewsArticle('previous');
+                    this.setCurrentNewsArticle('previous');
                 }
 
                 if (key === 'ArrowRight') {
-                    this.changeNewsArticle('next');
+                    this.setCurrentNewsArticle('next');
                 }
             });
     }

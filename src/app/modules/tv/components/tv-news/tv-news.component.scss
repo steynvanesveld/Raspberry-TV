@@ -15,16 +15,23 @@
         font-size: $global-px * 2.5;
         line-height: $global-px * 2.5 * $golden-ratio;
         padding-bottom: $global-px;
+    }
 
-        @media (orientation: portrait) and (max-width: 767px),
-            (orientation: landscape) and (max-width: 1023px) {
-            font-size: $global-px * 1.5;
-            line-height: $global-px * 1.5 * $golden-ratio;
-            padding-bottom: $global-px;
+    .timestamp {
+        display: flex;
+        align-items: center;
+
+        img {
+            margin: 0 $global-px * 0.5;
+            height: $global-px;
+            width: $global-px;
+            object-fit: contain;
+            display: unset;
         }
     }
 
     ::ng-deep {
+        h1,
         h2,
         h3,
         h4,
@@ -36,14 +43,9 @@
             line-height: $global-px * 2 * $golden-ratio;
             padding-bottom: $global-px * 0.5;
             font-weight: 600;
-
-            @media (orientation: portrait) and (max-width: 767px),
-                (orientation: landscape) and (max-width: 1023px) {
-                font-size: $global-px;
-                line-height: $global-px * $golden-ratio;
-            }
         }
 
+        h1,
         h2,
         h3,
         h4,
@@ -74,6 +76,15 @@
             text-decoration: none;
         }
 
+        ul,
+        ol {
+            list-style: none;
+        }
+
+        .container {
+            all: unset;
+        }
+
         .share-article,
         .read-more,
         .signupPlus,
@@ -81,7 +92,8 @@
         div[type="image"],
         div[kind="link"],
         div[type="article-header"],
-        div[type="carousel"] {
+        div[type="carousel"],
+        img {
             display: none;
         }
     }

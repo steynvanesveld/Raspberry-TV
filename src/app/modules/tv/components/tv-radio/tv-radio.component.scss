@@ -20,12 +20,6 @@
         font-size: $global-px * 2.5;
         line-height: $global-px * 2.5 * $golden-ratio;
         min-height: $global-px * 2.5 * $golden-ratio;
-
-        @media (orientation: portrait) and (max-width: 767px),
-            (orientation: landscape) and (max-width: 1023px) {
-            font-size: $global-px * 1.5;
-            line-height: $global-px * 1.5 * $golden-ratio;
-        }
     }
 
     h3 {
@@ -33,12 +27,6 @@
         line-height: $global-px * 2 * $golden-ratio;
         font-weight: 400;
         min-height: $global-px * 2 * $golden-ratio;
-
-        @media (orientation: portrait) and (max-width: 767px),
-            (orientation: landscape) and (max-width: 1023px) {
-            font-size: $global-px;
-            line-height: $global-px * $golden-ratio;
-        }
     }
 }
 
