@@ -238,12 +238,4 @@ describe('TvRadioComponent', () => {
             expect(component.listenForKeyDown).toHaveBeenCalled();
         });
     });
-
-    describe('ngOnDestroy()', () => {
-        it('should unsubscribe to all subscriptions', () => {
-            spyOn(component.ngUnsubscribe, 'complete');
-            component.ngOnDestroy();
-            expect(component.ngUnsubscribe.complete).toHaveBeenCalled();
-        });
-    });
 });

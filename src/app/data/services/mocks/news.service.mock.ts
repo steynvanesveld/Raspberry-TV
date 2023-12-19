@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import { Rss } from '../../models/rss.model';
 import { RssItem } from '../../models/rss-item.model';
 
-const newsItem = new RssItem(
+export const newsItem = new RssItem(
     '<div>Detailed content</div>',
     new Date(0),
     'News item',
@@ -14,6 +14,17 @@ export class NewsServiceMock {
     public getNewsItem(link?: string): Observable<Rss> {
         return of(
             new Rss([new RssItem('<div>Detailed content</div>', new Date(0))])
+        );
+    }
+
+    public getNewsItemPayWall(link?: string): Observable<Rss> {
+        return of(
+            new Rss([
+                new RssItem(
+                    '<div>Detailed content paywall-initial</div>',
+                    new Date(0)
+                ),
+            ])
         );
     }
 

@@ -1,16 +1,18 @@
+import { map } from 'rxjs/operators';
 import { Subject, combineLatest } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
 import { Rss } from 'src/app/data/models/rss.model';
 import { RssItem } from 'src/app/data/models/rss-item.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NewsService } from 'src/app/data/services/news.service';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 import {
     Component,
     ElementRef,
     Input,
-    OnDestroy,
     OnInit,
     ViewChild,
+    DestroyRef,
+    inject,
 } from '@angular/core';
 
 @Component({
@@ -18,7 +20,7 @@ import {
     templateUrl: './tv-news.component.html',
     styleUrls: ['./tv-news.component.scss'],
 })
-export class TvNewsComponent implements OnInit, OnDestroy {
+export class TvNewsComponent implements OnInit {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
     @Input() public overlay!: boolean;
 
@@ -28,7 +30,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     public news = new Rss([]);
     public newsLoading = new Rss([]);
     public currentNewsArticleIndex = 0;
-    public ngUnsubscribe = new Subject<void>();
+    public destroyRef = inject(DestroyRef);
     public nextNewsItemTimeout!: number;
 
     constructor(private newsService: NewsService) {}
@@ -53,7 +55,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
                         getIndividualNewsItem: true,
                     },
                 ]),
-                takeUntil(this.ngUnsubscribe)
+                takeUntilDestroyed(this.destroyRef)
             )
             .subscribe((response) => {
                 this.setNewsItems(response);
@@ -78,8 +80,15 @@ export class TvNewsComponent implements OnInit, OnDestroy {
                 source.rss.items.map((item: RssItem) => {
                     this.newsService
                         .getNewsItem(item.link ?? '')
-                        .pipe(takeUntil(this.ngUnsubscribe))
+                        .pipe(takeUntilDestroyed(this.destroyRef))
                         .subscribe((response) => {
+                            if (
+                                response.items[0].description.includes(
+                                    'paywall-initial'
+                                )
+                            ) {
+                                return;
+                            }
                             item.description = response.items[0].description;
                         });
                 });
@@ -161,7 +170,7 @@ export class TvNewsComponent implements OnInit, OnDestroy {
 
     public listenForKeyDown(): void {
         this.keyDownSubject
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((key: KeyboardEventKey) => {
                 if (this.overlay) {
                     return;
@@ -188,10 +197,5 @@ export class TvNewsComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.getNews();
         this.listenForKeyDown();
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
     }
 }

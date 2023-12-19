@@ -347,18 +347,4 @@ describe('OVPComponent', () => {
             expect(component.listenForSearchChange).toHaveBeenCalled();
         });
     });
-
-    describe('ngOnDestroy()', () => {
-        beforeEach(() => {
-            fixture = TestBed.createComponent(OVPComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-        });
-
-        it('should unsubscribe to all subscriptions', () => {
-            spyOn(component.ngUnsubscribe, 'complete');
-            component.ngOnDestroy();
-            expect(component.ngUnsubscribe.complete).toHaveBeenCalled();
-        });
-    });
 });

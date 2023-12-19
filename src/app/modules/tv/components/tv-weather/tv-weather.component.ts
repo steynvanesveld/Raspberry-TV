@@ -1,7 +1,6 @@
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Weather } from 'src/app/data/models/weather.model';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { OpenWeatherService } from 'src/app/data/services/openweather.service';
 
 @Component({
@@ -9,10 +8,10 @@ import { OpenWeatherService } from 'src/app/data/services/openweather.service';
     templateUrl: './tv-weather.component.html',
     styleUrls: ['./tv-weather.component.scss'],
 })
-export class TvWeatherComponent implements OnInit, OnDestroy {
+export class TvWeatherComponent implements OnInit {
     public weather: Weather | undefined;
     public sun: { time?: string; type?: 'sunrise' | 'sunset' } = {};
-    public ngUnsubscribe = new Subject<void>();
+    public destroyRef = inject(DestroyRef);
 
     constructor(private openWeatherService: OpenWeatherService) {}
 
@@ -78,7 +77,7 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
     public getWeather(): void {
         this.openWeatherService
             .getWeather()
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((response) => {
                 this.weather = response;
             });
@@ -91,10 +90,5 @@ export class TvWeatherComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.getWeather();
         this.setSun();
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
     }
 }

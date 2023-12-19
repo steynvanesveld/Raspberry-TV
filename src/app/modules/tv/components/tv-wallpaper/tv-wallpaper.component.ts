@@ -1,21 +1,20 @@
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Photos } from 'src/app/data/models/photos.model';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PexelsService } from 'src/app/data/services/pexels.service';
+import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 
 @Component({
     selector: 'app-tv-wallpaper',
     templateUrl: './tv-wallpaper.component.html',
     styleUrls: ['./tv-wallpaper.component.scss'],
 })
-export class TvWallpaperComponent implements OnInit, OnDestroy {
+export class TvWallpaperComponent implements OnInit {
     @Input() public idle!: boolean;
     @Input() public hidden!: boolean;
     @Input() public overlay!: boolean;
 
     public dayIndex = 0;
-    public ngUnsubscribe = new Subject<void>();
+    public destroyRef = inject(DestroyRef);
     public photos: Photos | undefined;
     private photoParameters = '?auto=compress&fit=crop&w=1920&h=1080';
     private gradient =
@@ -41,7 +40,7 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
 
         this.pexelsService
             .getPhotos(`${season} nature forest wallpaper`)
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
                 this.photos = result;
             });
@@ -63,10 +62,5 @@ export class TvWallpaperComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.getPhotos();
         this.setCurrentDay();
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
     }
 }

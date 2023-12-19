@@ -3,7 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NewsService } from 'src/app/data/services/news.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NewsServiceMock } from 'src/app/data/services/mocks/news.service.mock';
+import {
+    NewsServiceMock,
+    newsItem,
+} from 'src/app/data/services/mocks/news.service.mock';
+import { Rss } from 'src/app/data/models/rss.model';
 
 describe('TvNewsComponent', () => {
     let component: TvNewsComponent;
@@ -30,12 +34,24 @@ describe('TvNewsComponent', () => {
     });
 
     describe('getNews()', () => {
-        it('should call getNos()', () => {
-            spyOn(component, 'getNos').and.callThrough();
+        it('should call multiple newsServices', () => {
+            spyOn(newsService, 'getNos').and.callThrough();
+            spyOn(newsService, 'getRTVDrenthe').and.callThrough();
+            spyOn(newsService, 'getHoogeveenscheCourant').and.callThrough();
 
             component.getNews();
 
-            expect(component.getNos).toHaveBeenCalled();
+            expect(newsService.getNos).toHaveBeenCalled();
+            expect(newsService.getRTVDrenthe).toHaveBeenCalled();
+            expect(newsService.getHoogeveenscheCourant).toHaveBeenCalled();
+        });
+
+        it('should call setNewsItems()', () => {
+            spyOn(component, 'setNewsItems');
+
+            component.getNews();
+
+            expect(component.setNewsItems).toHaveBeenCalled();
         });
 
         it('should call itself after 60 minutes', () => {
@@ -52,141 +68,119 @@ describe('TvNewsComponent', () => {
         });
     });
 
-    describe('getNos()', () => {
-        it('should call newsService.getNos()', () => {
-            spyOn(newsService, 'getNos').and.callThrough();
-
-            component.getNos();
-
-            expect(newsService.getNos).toHaveBeenCalled();
-        });
-
-        it('should call setNewsItems()', () => {
-            spyOn(component, 'setNewsItems').and.callThrough();
-
-            component.getNos();
-
-            expect(component.setNewsItems).toHaveBeenCalled();
-        });
-
-        it('should call getRTVDrenthe()', () => {
-            spyOn(newsService, 'getRTVDrenthe').and.callThrough();
-
-            component.getNos();
-
-            expect(newsService.getRTVDrenthe).toHaveBeenCalled();
-        });
-    });
-
-    describe('getRTVDrenthe()', () => {
-        it('should call newsService.getRTVDrenthe()', () => {
-            spyOn(newsService, 'getRTVDrenthe').and.callThrough();
-
-            component.getRTVDrenthe();
-
-            expect(newsService.getRTVDrenthe).toHaveBeenCalled();
-        });
-
-        it('should call setNewsItems()', () => {
-            spyOn(component, 'setNewsItems').and.callThrough();
-
-            component.getRTVDrenthe();
-
-            expect(component.setNewsItems).toHaveBeenCalled();
-        });
-
-        it('should call getHoogeveenscheCourant()', () => {
-            spyOn(newsService, 'getHoogeveenscheCourant').and.callThrough();
-
-            component.getRTVDrenthe();
-
-            expect(newsService.getHoogeveenscheCourant).toHaveBeenCalled();
-        });
-    });
-
-    describe('getHoogeveenscheCourant()', () => {
-        it('should call newsService.getHoogeveenscheCourant()', () => {
-            spyOn(newsService, 'getHoogeveenscheCourant').and.callThrough();
-
-            component.getHoogeveenscheCourant();
-
-            expect(newsService.getHoogeveenscheCourant).toHaveBeenCalled();
-        });
-
-        it('should call setNewsItems()', () => {
-            spyOn(component, 'setNewsItems').and.callThrough();
-
-            component.getHoogeveenscheCourant();
-
-            expect(component.setNewsItems).toHaveBeenCalled();
-        });
-    });
-
     describe('setNewsItems()', () => {
-        it('should reset newsLoading.items when firstSource is true', () => {
+        it('should reset newsLoading.items', () => {
             expect(component.newsLoading.items).not.toEqual([]);
-            component.setNewsItems({
-                source: 'Foo',
-                items: [],
-                firstSource: true,
-            });
+
+            component.setNewsItems([
+                {
+                    name: 'Name',
+                    rss: new Rss([]),
+                    getIndividualNewsItem: false,
+                },
+            ]);
+
             expect(component.newsLoading.items).toEqual([]);
         });
 
-        it('should call newsService.getNewsItem() when getAdditionalDescription is true', () => {
-            const link = 'url-of-news-item';
-            component.news.items[0].link = link;
-            spyOn(newsService, 'getNewsItem').and.callThrough();
+        it('should set items descripton when getIndividualNewsItem is true', () => {
+            component.setNewsItems([
+                {
+                    name: 'Name',
+                    rss: new Rss(component.newsLoading.items),
+                    getIndividualNewsItem: true,
+                },
+            ]);
 
-            component.setNewsItems({
-                source: 'Foo',
-                items: component.news.items,
-                getAdditionalDescription: true,
-            });
-
-            expect(newsService.getNewsItem).toHaveBeenCalledWith(link);
+            expect(component.news.items[0].description).toEqual(
+                newsItem.description
+            );
         });
 
-        it('should call newsService.getNewsItem() with fallback when getAdditionalDescription is true and link is undefined', () => {
-            const link = undefined;
-            component.news.items[0].link = link;
-            spyOn(newsService, 'getNewsItem').and.callThrough();
+        it('should not set items descripton when it contains a paywall', () => {
+            spyOn(newsService, 'getNewsItem').and.returnValue(
+                new NewsServiceMock().getNewsItemPayWall()
+            );
 
-            component.setNewsItems({
-                source: 'Foo',
-                items: component.news.items,
-                getAdditionalDescription: true,
-            });
+            component.setNewsItems([
+                {
+                    name: 'Name',
+                    rss: new Rss(component.newsLoading.items),
+                    getIndividualNewsItem: true,
+                },
+            ]);
 
-            expect(newsService.getNewsItem).toHaveBeenCalledWith('');
+            expect(component.news.items[0].description).not.toContain(
+                'paywall-initial'
+            );
+        });
+
+        it('should set the source of every item to the source name', () => {
+            component.news.items[0].source = '';
+
+            component.setNewsItems([
+                {
+                    name: 'SourceName',
+                    rss: new Rss(component.newsLoading.items),
+                    getIndividualNewsItem: false,
+                },
+            ]);
+
+            expect(component.news.items[0].source).toEqual('SourceName');
         });
 
         it('should copy newsLoading to news when lastSource is true', () => {
             component.news.items = [];
-            component.setNewsItems({
-                source: 'Foo',
-                items: component.newsLoading.items,
-                lastSource: true,
-            });
+
+            component.setNewsItems([
+                {
+                    name: 'Name',
+                    rss: new Rss(component.newsLoading.items),
+                    getIndividualNewsItem: false,
+                },
+            ]);
+
             expect(component.news.items).toEqual(component.newsLoading.items);
         });
 
-        it('should call changeNewsArticle when lastSource is true', () => {
-            spyOn(component, 'changeNewsArticle').and.callThrough();
-            component.setNewsItems({
-                source: 'Foo',
-                items: [],
-                lastSource: true,
+        it('should set timestamp to current time', () => {
+            const now = new Date();
+            const time = now.toLocaleString('nl-NL', {
+                hour: '2-digit',
+                minute: '2-digit',
             });
-            expect(component.changeNewsArticle).toHaveBeenCalled();
+
+            component.setNewsItems([
+                {
+                    name: 'Name',
+                    rss: new Rss([]),
+                    getIndividualNewsItem: false,
+                },
+            ]);
+
+            expect(component.timestamp).toEqual(time);
+        });
+
+        it('should call setCurrentNewsArticle', () => {
+            spyOn(component, 'setCurrentNewsArticle').and.callThrough();
+
+            component.setNewsItems([
+                {
+                    name: 'Name',
+                    rss: new Rss([]),
+                    getIndividualNewsItem: false,
+                },
+            ]);
+
+            expect(component.setCurrentNewsArticle).toHaveBeenCalled();
         });
     });
 
-    describe('changeNewsArticle()', () => {
+    describe('setCurrentNewsArticle()', () => {
         it('should call scrollNewsArticle()', () => {
             spyOn(component, 'scrollNewsArticle').and.callThrough();
 
-            component.changeNewsArticle();
+            component.setCurrentNewsArticle();
 
             expect(component.scrollNewsArticle).toHaveBeenCalled();
         });
@@ -194,7 +188,7 @@ describe('TvNewsComponent', () => {
         it('should reset currentNewsArticleIndex when argument is not given', () => {
             component.currentNewsArticleIndex = 1;
 
-            component.changeNewsArticle();
+            component.setCurrentNewsArticle();
 
             expect(component.currentNewsArticleIndex).toEqual(0);
         });
@@ -202,7 +196,7 @@ describe('TvNewsComponent', () => {
         it('should decrease currentNewsArticleIndex when argument is "previous"', () => {
             component.currentNewsArticleIndex = 1;
 
-            component.changeNewsArticle('previous');
+            component.setCurrentNewsArticle('previous');
 
             expect(component.currentNewsArticleIndex).toEqual(0);
         });
@@ -210,7 +204,7 @@ describe('TvNewsComponent', () => {
         it('should set currentNewsArticleIndex to maximum possible when argument is "previous" and current is 0', () => {
             component.currentNewsArticleIndex = 0;
 
-            component.changeNewsArticle('previous');
+            component.setCurrentNewsArticle('previous');
 
             expect(component.currentNewsArticleIndex).toEqual(5);
         });
@@ -218,7 +212,7 @@ describe('TvNewsComponent', () => {
         it('should increase currentNewsArticleIndex when argument is "next"', () => {
             component.currentNewsArticleIndex = 1;
 
-            component.changeNewsArticle('next');
+            component.setCurrentNewsArticle('next');
 
             expect(component.currentNewsArticleIndex).toEqual(2);
         });
@@ -226,7 +220,7 @@ describe('TvNewsComponent', () => {
         it('should reset currentNewsArticleIndex when argument is "next" and reached the end', () => {
             component.currentNewsArticleIndex = 5;
 
-            component.changeNewsArticle('next');
+            component.setCurrentNewsArticle('next');
 
             expect(component.currentNewsArticleIndex).toEqual(0);
         });
@@ -243,15 +237,17 @@ describe('TvNewsComponent', () => {
     });
 
     describe('setNextNewsItemTimeout()', () => {
-        it('should call changeNewsArticle() after 1 minute', () => {
+        it('should call setCurrentNewsArticle() after 1 minute', () => {
             jasmine.clock().install();
-            spyOn(component, 'changeNewsArticle').and.callThrough();
+            spyOn(component, 'setCurrentNewsArticle').and.callThrough();
 
             component.setNextNewsItemTimeout();
 
             jasmine.clock().tick(1000 * 60);
 
-            expect(component.changeNewsArticle).toHaveBeenCalledWith('next');
+            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
+                'next'
+            );
 
             jasmine.clock().uninstall();
         });
@@ -290,26 +286,28 @@ describe('TvNewsComponent', () => {
             expect(component.scrollNewsArticle).toHaveBeenCalledWith('up');
         });
 
-        it('should call changeNewsArticle() on key "ArrowLeft"', () => {
-            spyOn(component, 'changeNewsArticle').and.callThrough();
+        it('should call setCurrentNewsArticle() on key "ArrowLeft"', () => {
+            spyOn(component, 'setCurrentNewsArticle').and.callThrough();
 
             component.listenForKeyDown();
 
             component.keyDownSubject.next('ArrowLeft');
 
-            expect(component.changeNewsArticle).toHaveBeenCalledWith(
+            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
                 'previous'
             );
         });
 
-        it('should call changeNewsArticle() on key "ArrowRight"', () => {
-            spyOn(component, 'changeNewsArticle').and.callThrough();
+        it('should call setCurrentNewsArticle() on key "ArrowRight"', () => {
+            spyOn(component, 'setCurrentNewsArticle').and.callThrough();
 
             component.listenForKeyDown();
 
             component.keyDownSubject.next('ArrowRight');
 
-            expect(component.changeNewsArticle).toHaveBeenCalledWith('next');
+            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
+                'next'
+            );
         });
     });
 
@@ -324,14 +322,6 @@ describe('TvNewsComponent', () => {
             spyOn(component, 'listenForKeyDown').and.callThrough();
             component.ngOnInit();
             expect(component.listenForKeyDown).toHaveBeenCalled();
-        });
-    });
-
-    describe('ngOnDestroy()', () => {
-        it('should unsubscribe to all subscriptions', () => {
-            spyOn(component.ngUnsubscribe, 'complete');
-            component.ngOnDestroy();
-            expect(component.ngUnsubscribe.complete).toHaveBeenCalled();
         });
     });
 });

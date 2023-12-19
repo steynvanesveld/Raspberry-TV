@@ -1,24 +1,23 @@
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { OVP } from 'src/app/data/models/ovp.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OVPService } from 'src/app/data/services/ovp.service';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Favorites } from 'src/app/data/models/favorites.model';
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
 import { RaspberryService } from 'src/app/data/services/raspberry.service';
+import { Component, NgZone, OnInit, DestroyRef, inject } from '@angular/core';
 
 @Component({
     selector: 'app-ovp',
     templateUrl: './ovp.component.html',
     styleUrls: ['./ovp.component.scss'],
 })
-export class OVPComponent implements OnInit, OnDestroy {
+export class OVPComponent implements OnInit {
     public ovp!: OVP;
     public playing = false;
     public ovpVideoThumbTimeout!: number;
-    public ngUnsubscribe = new Subject<void>();
+    public destroyRef = inject(DestroyRef);
     public query!: string | null;
     public order!: string;
     public page!: number;
@@ -65,7 +64,7 @@ export class OVPComponent implements OnInit, OnDestroy {
     public searchOVP(order: string, page: number, query?: string): void {
         this.ovpService
             .searchOVP(order, page, query ?? '')
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
                 this.ovp = result;
 
@@ -108,7 +107,7 @@ export class OVPComponent implements OnInit, OnDestroy {
 
     public listenForSearchChange(): void {
         this.activatedRoute.queryParamMap
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((queryParams) => {
                 this.order =
                     queryParams.get('order') ?? ('top-weekly' as string);
@@ -131,7 +130,7 @@ export class OVPComponent implements OnInit, OnDestroy {
     public getFavorites(): void {
         this.raspberryService
             .getFavorites()
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
                 this.favorites = result;
                 this.getFavoriteVideos();
@@ -150,7 +149,7 @@ export class OVPComponent implements OnInit, OnDestroy {
 
             this.ovpVideoService
                 .getOVPVideo(favoriteId)
-                .pipe(takeUntil(this.ngUnsubscribe))
+                .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe((result) => {
                     this.favoriteVideos[index] = result;
                 });
@@ -162,7 +161,7 @@ export class OVPComponent implements OnInit, OnDestroy {
 
         this.raspberryService
             .setFavorite(ovpVideo.id)
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
                 this.favorites = result;
             });
@@ -174,10 +173,5 @@ export class OVPComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.listenForSearchChange();
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
     }
 }

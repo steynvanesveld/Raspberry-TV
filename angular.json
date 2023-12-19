@@ -74,10 +74,10 @@
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "raspberry:build:production"
+                            "buildTarget": "raspberry:build:production"
                         },
                         "development": {
-                            "browserTarget": "raspberry:build:development"
+                            "buildTarget": "raspberry:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -85,7 +85,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "raspberry:build"
+                        "buildTarget": "raspberry:build"
                     }
                 },
                 "test": {
@@ -108,6 +108,5 @@
                 }
             }
         }
-    },
-    "defaultProject": "raspberry"
+    }
 }

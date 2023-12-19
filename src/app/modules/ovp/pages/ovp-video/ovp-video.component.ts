@@ -1,21 +1,20 @@
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OVPVideo } from 'src/app/data/models/ovp-video.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Favorites } from 'src/app/data/models/favorites.model';
-import { OnInit, Component, Input, OnDestroy } from '@angular/core';
 import { OVPVideoService } from 'src/app/data/services/ovpvideo.service';
 import { RaspberryService } from 'src/app/data/services/raspberry.service';
+import { OnInit, Component, Input, DestroyRef, inject } from '@angular/core';
 
 @Component({
     selector: 'app-ovp-video',
     templateUrl: './ovp-video.component.html',
     styleUrls: ['./ovp-video.component.scss'],
 })
-export class OVPVideoComponent implements OnInit, OnDestroy {
+export class OVPVideoComponent implements OnInit {
     public ovpVideo: OVPVideo | undefined;
-    public ngUnsubscribe = new Subject<void>();
+    public destroyRef = inject(DestroyRef);
     @Input() public favorites: Favorites | undefined;
 
     constructor(
@@ -28,7 +27,7 @@ export class OVPVideoComponent implements OnInit, OnDestroy {
     public getOVPVideo(id: string): void {
         this.ovpVideoService
             .getOVPVideo(id)
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
                 this.ovpVideo = result;
             });
@@ -36,12 +35,12 @@ export class OVPVideoComponent implements OnInit, OnDestroy {
 
     public getRouteData(): void {
         this.activatedRoute.queryParamMap
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((queryParams) => {
                 const redirect = queryParams.get('redirect') as string;
 
                 this.activatedRoute.params
-                    .pipe(takeUntil(this.ngUnsubscribe))
+                    .pipe(takeUntilDestroyed(this.destroyRef))
                     .subscribe((params) => {
                         if (redirect) {
                             this.reloadPage(`/#/ovp/${params['id']}`);
@@ -65,7 +64,7 @@ export class OVPVideoComponent implements OnInit, OnDestroy {
     public getFavorites(): void {
         this.raspberryService
             .getFavorites()
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
                 this.favorites = result;
             });
@@ -74,7 +73,7 @@ export class OVPVideoComponent implements OnInit, OnDestroy {
     public setFavorite(ovpVideo: OVPVideo): void {
         this.raspberryService
             .setFavorite(ovpVideo.id)
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
                 this.favorites = result;
             });
@@ -83,10 +82,5 @@ export class OVPVideoComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.getRouteData();
         this.getFavorites();
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
     }
 }

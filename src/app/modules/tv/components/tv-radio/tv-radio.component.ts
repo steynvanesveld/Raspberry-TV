@@ -1,18 +1,19 @@
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { DNB } from 'src/app/data/models/dnb.model';
 import { Kink } from 'src/app/data/models/kink.model';
 import { Flux } from 'src/app/data/models/flux.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RadioService } from 'src/app/data/services/radio.service';
 import { RadioChannel } from 'src/app/data/models/radio-channel.model';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 import {
     Component,
+    DestroyRef,
     ElementRef,
     Input,
-    OnDestroy,
     OnInit,
     ViewChild,
+    inject,
 } from '@angular/core';
 
 @Component({
@@ -20,14 +21,14 @@ import {
     templateUrl: './tv-radio.component.html',
     styleUrls: ['./tv-radio.component.scss'],
 })
-export class TvRadioComponent implements OnInit, OnDestroy {
+export class TvRadioComponent implements OnInit {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
     @Input() public overlay!: boolean;
 
     @ViewChild('radioElement')
     public radioElement!: ElementRef<HTMLAudioElement>;
 
-    public ngUnsubscribe = new Subject<void>();
+    public destroyRef = inject(DestroyRef);
     public nowPlaying: Kink | Flux | DNB | undefined = undefined;
     public nowPlayingChannelIndex = 0;
     public getNowPlayingTimeout!: number;
@@ -87,7 +88,7 @@ export class TvRadioComponent implements OnInit, OnDestroy {
 
         this.radioService
             .getNowPlaying(this.nowPlayingChannel)
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((response) => {
                 this.nowPlaying = response;
             });
@@ -117,7 +118,7 @@ export class TvRadioComponent implements OnInit, OnDestroy {
 
     public listenForKeyDown(): void {
         this.keyDownSubject
-            .pipe(takeUntil(this.ngUnsubscribe))
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((key: KeyboardEventKey) => {
                 if (!this.overlay) {
                     return;
@@ -145,10 +146,5 @@ export class TvRadioComponent implements OnInit, OnDestroy {
         this.startRadio();
         this.getNowPlaying();
         this.listenForKeyDown();
-    }
-
-    public ngOnDestroy(): void {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
     }
 }

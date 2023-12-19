@@ -91,8 +91,23 @@ describe('TvWeatherComponent', () => {
         });
     });
 
-    describe('setSunTime()', () => {
-        it('should set the sunTime variable to todays sunrise if sunrise has yet to come', () => {
+    describe('setSun()', () => {
+        it('should call itself if weather is undefined', () => {
+            jasmine.clock().install();
+
+            spyOn(component, 'setSun').and.callThrough();
+            component.weather = undefined;
+
+            component.setSun();
+
+            jasmine.clock().tick(0);
+
+            expect(component.setSun).toHaveBeenCalledTimes(2);
+
+            jasmine.clock().uninstall();
+        });
+
+        it('should set the sun variable to todays sunrise if sunrise has yet to come', () => {
             const now = new Date();
             const time = now.toLocaleString('nl-NL', {
                 hour: '2-digit',
@@ -101,66 +116,61 @@ describe('TvWeatherComponent', () => {
 
             component.weather!.daily[0].sunrise = now.getTime() / 1000;
 
-            component.setSunTime();
+            component.setSun();
 
-            expect(component.sunTime).toEqual(time);
+            expect(component.sun).toEqual({
+                time,
+                type: 'sunrise',
+            });
         });
 
-        it('should set the sunTime variable to todays sunset if sunrise has passed', () => {
+        it('should set the sun variable to todays sunset if todays sunrise has passed', () => {
             const now = new Date();
             const time = now.toLocaleString('nl-NL', {
                 hour: '2-digit',
                 minute: '2-digit',
             });
+
             component.weather!.daily[0].sunrise = (now.getTime() - 1000) / 1000;
             component.weather!.daily[0].sunset = now.getTime() / 1000;
 
-            component.setSunTime();
+            component.setSun();
 
-            expect(component.sunTime).toEqual(time);
+            expect(component.sun).toEqual({
+                time,
+                type: 'sunset',
+            });
         });
 
-        it('should set the sunTime variable to tomorrows sunrise if sunset has passed', () => {
+        it('should set the sun variable to tomorrows sunrise if todays sunrise and sunset have passed', () => {
             const now = new Date();
             const time = now.toLocaleString('nl-NL', {
                 hour: '2-digit',
                 minute: '2-digit',
             });
+
+            component.weather!.daily[1].sunset = now.getTime() / 1000;
             component.weather!.daily[0].sunrise = (now.getTime() - 1000) / 1000;
             component.weather!.daily[0].sunset = (now.getTime() - 1000) / 1000;
-            component.weather!.daily[1].sunset = now.getTime() / 1000;
 
-            component.setSunTime();
+            component.setSun();
 
-            expect(component.sunTime).toEqual(time);
-        });
-
-        it('should call itself if weather is undefined', () => {
-            jasmine.clock().install();
-
-            spyOn(component, 'setSunTime').and.callThrough();
-
-            component.weather = undefined;
-
-            component.setSunTime();
-
-            jasmine.clock().tick(0);
-
-            expect(component.setSunTime).toHaveBeenCalledTimes(2);
-
-            jasmine.clock().uninstall();
+            expect(component.sun).toEqual({
+                time,
+                type: 'sunrise',
+            });
         });
 
         it('should call itself after 1 minute', () => {
             jasmine.clock().install();
 
-            spyOn(component, 'setSunTime').and.callThrough();
+            spyOn(component, 'setSun').and.callThrough();
 
-            component.setSunTime();
+            component.setSun();
 
             jasmine.clock().tick(1000 * 60);
 
-            expect(component.setSunTime).toHaveBeenCalledTimes(2);
+            expect(component.setSun).toHaveBeenCalledTimes(2);
 
             jasmine.clock().uninstall();
         });
@@ -194,14 +204,6 @@ describe('TvWeatherComponent', () => {
             spyOn(component, 'getWeather').and.callThrough();
             component.ngOnInit();
             expect(component.getWeather).toHaveBeenCalled();
-        });
-    });
-
-    describe('ngOnDestroy()', () => {
-        it('should unsubscribe to all subscriptions', () => {
-            spyOn(component.ngUnsubscribe, 'complete');
-            component.ngOnDestroy();
-            expect(component.ngUnsubscribe.complete).toHaveBeenCalled();
         });
     });
 });
