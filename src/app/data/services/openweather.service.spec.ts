@@ -1,10 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { OpenWeatherService } from './openweather.service';
 import { environment } from 'src/environments/environment';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('OpenWeatherService', () => {
     let service: OpenWeatherService;

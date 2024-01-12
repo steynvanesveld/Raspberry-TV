@@ -6,15 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RadioService } from 'src/app/data/services/radio.service';
 import { RadioChannel } from 'src/app/data/models/radio-channel.model';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
-import {
-    Component,
-    DestroyRef,
-    ElementRef,
-    Input,
-    OnInit,
-    ViewChild,
-    inject,
-} from '@angular/core';
+import { Component, DestroyRef, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 
 @Component({
     selector: 'app-tv-radio',
@@ -42,8 +34,7 @@ export class TvRadioComponent implements OnInit {
 
     public get nowPlayingSong(): string {
         if (this.nowPlaying instanceof Kink) {
-            return this.nowPlaying.extended[this.nowPlayingChannel.apiRef]
-                .title;
+            return this.nowPlaying.extended[this.nowPlayingChannel.apiRef].title;
         }
 
         if (this.nowPlaying instanceof Flux) {
@@ -59,8 +50,7 @@ export class TvRadioComponent implements OnInit {
 
     public get nowPlayingArtist(): string {
         if (this.nowPlaying instanceof Kink) {
-            return this.nowPlaying.extended[this.nowPlayingChannel.apiRef]
-                .artist;
+            return this.nowPlaying.extended[this.nowPlayingChannel.apiRef].artist;
         }
 
         if (this.nowPlaying instanceof Flux) {

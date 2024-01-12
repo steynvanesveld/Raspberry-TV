@@ -42,23 +42,9 @@ export class OpenWeatherServiceMock {
     getWeather(): Observable<Weather> {
         return of(
             new Weather(
-                new WeatherCurrent(
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10,
-                    11,
-                    12,
-                    13,
-                    14,
-                    [new WeatherWeather(801, 'Clouds', 'Cloudy', '02d')],
-                ),
+                new WeatherCurrent(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, [
+                    new WeatherWeather(801, 'Clouds', 'Cloudy', '02d'),
+                ]),
                 weatherDailyArray(),
             ),
         );

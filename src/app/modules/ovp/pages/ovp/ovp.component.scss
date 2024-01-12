@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .ovp-wrapper {
     position: relative;
@@ -26,7 +26,7 @@
         border: none;
         outline: none;
         padding: ($global-px * 0.5) $global-px;
-        font-family: "Wix Madefor Display", "Helvetica Neue", sans-serif;
+        font-family: 'Wix Madefor Display', 'Helvetica Neue', sans-serif;
         font-size: $global-px;
         line-height: $global-px * $golden-ratio;
         all: unset;
@@ -135,11 +135,11 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center center;
-            background-image: url("/assets/images/star-grey.svg");
+            background-image: url('/assets/images/star-grey.svg');
             z-index: 2;
 
             &.favorite {
-                background-image: url("/assets/images/star-gold.svg");
+                background-image: url('/assets/images/star-gold.svg');
             }
         }
 
@@ -181,7 +181,7 @@
     padding: $global-px 0;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
     all: unset;
     position: fixed;
     top: 0;
@@ -197,6 +197,6 @@ input[type="checkbox"] {
     z-index: 9;
 
     &.active {
-        background-image: url("/assets/images/star-gold.svg");
+        background-image: url('/assets/images/star-gold.svg');
     }
 }

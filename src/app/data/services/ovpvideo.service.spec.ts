@@ -1,10 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { OVPVideoService } from './ovpvideo.service';
 import { environment } from 'src/environments/environment';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('OVPVideoService', () => {
     let service: OVPVideoService;

@@ -25,33 +25,24 @@
                         <option value="top-rated">Top Rated</option>
                         <option value="latest">Latest</option>
                     </select>
-                    <select
-                        [(ngModel)]="orientation"
-                        (change)="routerNavigate()"
-                    >
+                    <select [(ngModel)]="orientation" (change)="routerNavigate()">
                         <option value="portrait">Portrait</option>
                         <option value="landscape">Landscape</option>
                     </select>
                 </div>
             </nav>
             @if (
-                (showFavorites && favoriteVideos.length) ||
-                (!showFavorites && ovp.videos.length)
+                (showFavorites && favoriteVideos.length) || (!showFavorites && ovp.videos.length)
             ) {
                 <main class="ovp" #main>
                     <ng-template [ngTemplateOutlet]="pagination"></ng-template>
-                    @for (
-                        video of showFavorites ? favoriteVideos : ovp.videos;
-                        track video
-                    ) {
+                    @for (video of showFavorites ? favoriteVideos : ovp.videos; track video) {
                         @if (
                             video?.current_thumb?.src &&
-                            ((orientation === "portrait" &&
-                                video.default_thumb.height >
-                                    video.default_thumb.width) ||
-                                (orientation === "landscape" &&
-                                    video.default_thumb.width >
-                                        video.default_thumb.height))
+                            ((orientation === 'portrait' &&
+                                video.default_thumb.height > video.default_thumb.width) ||
+                                (orientation === 'landscape' &&
+                                    video.default_thumb.width > video.default_thumb.height))
                         ) {
                             <a
                                 (touchstart)="setNewThumbnail(video)"
@@ -63,9 +54,7 @@
                                 <button
                                     [ngClass]="[
                                         'favorite-button',
-                                        favorites?.favorites?.includes(video.id)
-                                            ? 'favorite'
-                                            : ''
+                                        favorites?.favorites?.includes(video.id) ? 'favorite' : ''
                                     ]"
                                     (click)="setFavorite($event, video)"
                                 ></button>
@@ -73,20 +62,16 @@
                                     <img
                                         class="thumb"
                                         [src]="video.current_thumb.src"
-                                        (load)="
-                                            showFavoriteButton($event.target)
-                                        "
+                                        (load)="showFavoriteButton($event.target)"
                                         [style.aspect-ratio]="
-                                            video.current_thumb.width /
-                                            video.current_thumb.height
+                                            video.current_thumb.width / video.current_thumb.height
                                         "
                                     />
                                     <img
                                         class="background"
                                         [src]="video.current_thumb.src"
                                         [style.aspect-ratio]="
-                                            video.current_thumb.width /
-                                            video.current_thumb.height
+                                            video.current_thumb.width / video.current_thumb.height
                                         "
                                     />
                                 </figure>
@@ -103,8 +88,7 @@
                 @if (ovp.total_pages > 1 && !showFavorites) {
                     <ul class="ovp-pagination">
                         @for (
-                            item of [].constructor(ovp.total_pages)
-                                | slice: 0 : 10;
+                            item of [].constructor(ovp.total_pages) | slice: 0 : 10;
                             track item;
                             let index = $index
                         ) {

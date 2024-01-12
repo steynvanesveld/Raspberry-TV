@@ -16,11 +16,7 @@ export class OVPService extends HttpService<OVP> {
         this.setBaseUrl(environment.ovp_api_url);
     }
 
-    public searchOVP(
-        order: string,
-        page: number,
-        query: string,
-    ): Observable<OVP> {
+    public searchOVP(order: string, page: number, query: string): Observable<OVP> {
         this.setResource('/search/');
 
         const httpParams = {

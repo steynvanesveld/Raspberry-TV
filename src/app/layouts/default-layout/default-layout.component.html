@@ -1,15 +1,9 @@
-<section
-    class="wrapper"
-    [ngClass]="navVisible ? 'mobile-navigation-visible' : ''"
->
+<section class="wrapper" [ngClass]="navVisible ? 'mobile-navigation-visible' : ''">
     <section class="header">
         <div class="container">
             <header>
                 <figure routerLink="/">
-                    <img
-                        src="/assets/images/logo.svg"
-                        alt="Raspberry Pi logo"
-                    />
+                    <img src="/assets/images/logo.svg" alt="Raspberry Pi logo" />
                 </figure>
 
                 <nav class="nav">
@@ -18,7 +12,7 @@
                             <li>
                                 @if (item.internal) {
                                     @if (
-                                        item.label !== "OVP" ||
+                                        item.label !== 'OVP' ||
                                         showOVP ||
                                         router.isActive(item.value, false)
                                     ) {

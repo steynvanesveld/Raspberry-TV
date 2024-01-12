@@ -34,17 +34,12 @@ export class RssSerializer {
 
     public findItems(items: string): RssItem[] {
         if (items.includes('<?xml')) {
-            const xml = new window.DOMParser().parseFromString(
-                items,
-                'text/xml',
-            );
+            const xml = new window.DOMParser().parseFromString(items, 'text/xml');
 
             return Array.from(xml.querySelectorAll('item'))
                 .slice(0, 20)
                 .map((item) => {
-                    const date = new Date(
-                        this.getTextFromElement(item, 'pubDate') ?? 0,
-                    );
+                    const date = new Date(this.getTextFromElement(item, 'pubDate') ?? 0);
 
                     return new RssItem(
                         this.getTextFromElement(item, 'description') ?? '',
@@ -68,10 +63,7 @@ export class RssSerializer {
         ];
     }
 
-    public getTextFromElement(
-        element: Element | Document,
-        selector: string,
-    ): string | undefined {
+    public getTextFromElement(element: Element | Document, selector: string): string | undefined {
         return element
             .querySelector(selector)
             ?.innerHTML.replace('<![CDATA[', '')

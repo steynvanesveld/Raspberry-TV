@@ -5,25 +5,19 @@
                 <button
                     [ngClass]="[
                         'favorite-button',
-                        favorites?.favorites?.includes(ovpVideo.id)
-                            ? 'favorite'
-                            : ''
+                        favorites?.favorites?.includes(ovpVideo.id) ? 'favorite' : ''
                     ]"
                     (click)="setFavorite(ovpVideo)"
                 ></button>
                 <iframe
-                    [src]="
-                        domSanitizer.bypassSecurityTrustResourceUrl(
-                            ovpVideo.embed
-                        )
-                    "
+                    [src]="domSanitizer.bypassSecurityTrustResourceUrl(ovpVideo.embed)"
                     allow="fullscreen"
                 ></iframe>
             </article>
         }
 
         <div class="tags">
-            @for (keyword of ovpVideo?.keywords?.split(","); track keyword) {
+            @for (keyword of ovpVideo?.keywords?.split(','); track keyword) {
                 @if (keyword) {
                     <a href="{{ url(keyword) }}">
                         {{ keyword.trim() }}

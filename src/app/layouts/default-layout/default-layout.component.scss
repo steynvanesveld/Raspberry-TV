@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .header {
     position: sticky;
@@ -111,36 +111,30 @@
                 &:before,
                 &:after {
                     position: absolute;
-                    content: "";
+                    content: '';
                     width: $global-px * 2;
                     transition: all 0.2s linear;
                 }
 
                 &:before {
                     box-shadow:
-                        ($global-px * 1.25) ($global-px * 1.625) 0 1px
-                            currentColor,
-                        ($global-px * 1.25) ($global-px * 2.1875) 0 1px
-                            currentColor;
+                        ($global-px * 1.25) ($global-px * 1.625) 0 1px currentColor,
+                        ($global-px * 1.25) ($global-px * 2.1875) 0 1px currentColor;
                 }
 
                 &:after {
-                    box-shadow: ($global-px * 1.25) ($global-px * 2.75) 0 1px
-                        currentColor;
+                    box-shadow: ($global-px * 1.25) ($global-px * 2.75) 0 1px currentColor;
                 }
 
                 .mobile-navigation-visible & {
                     &:before {
                         box-shadow:
-                            ($global-px * 2.5) ($global-px * 0.75) 0 1px
-                                currentColor,
-                            ($global-px * 2.5) ($global-px * 0.75) 0 1px
-                                transparent;
+                            ($global-px * 2.5) ($global-px * 0.75) 0 1px currentColor,
+                            ($global-px * 2.5) ($global-px * 0.75) 0 1px transparent;
                         transform: rotate(45deg);
                     }
                     &:after {
-                        box-shadow: -($global-px * 0.75) ($global-px * 2.5) 0 1px
-                            currentColor;
+                        box-shadow: -($global-px * 0.75) ($global-px * 2.5) 0 1px currentColor;
                         transform: rotate(-45deg);
                     }
                 }

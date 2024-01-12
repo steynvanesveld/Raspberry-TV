@@ -22,20 +22,13 @@ export class RadioServiceMock {
     );
 
     public fluxResponse = new Flux(
-        new FluxTrackInfo('flux_song', 'flux_artistCredits', [
-            new FluxArtist('flux_artist'),
-        ]),
+        new FluxTrackInfo('flux_song', 'flux_artistCredits', [new FluxArtist('flux_artist')]),
     );
 
     public dnbResponse = new DNB('dnb_song', 'dnb_artist');
 
     public radioChannels = [
-        new RadioChannel(
-            'http://website.com/api/KINK.mp3',
-            'KINK',
-            'KINK',
-            'kink',
-        ),
+        new RadioChannel('http://website.com/api/KINK.mp3', 'KINK', 'KINK', 'kink'),
         new RadioChannel(
             'http://website.com/api/flux.mp3',
             'FLUX',
@@ -46,9 +39,7 @@ export class RadioServiceMock {
         new RadioChannel('http://website.com/api/none.mp3', 'NONE', 'NONE', ''),
     ];
 
-    public getNowPlaying(
-        _radioChannel: RadioChannel,
-    ): Observable<Kink | Flux | DNB> {
+    public getNowPlaying(_radioChannel: RadioChannel): Observable<Kink | Flux | DNB> {
         return this.getNowPlayingKink();
     }
 

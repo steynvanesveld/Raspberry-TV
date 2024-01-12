@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { PexelsService } from './pexels.service';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpErrorResponse } from '@angular/common/http';
 
 describe('PexelsService', () => {

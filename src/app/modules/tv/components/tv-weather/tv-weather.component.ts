@@ -26,9 +26,7 @@ export class TvWeatherComponent implements OnInit {
     }
 
     public get wind(): string {
-        return `${Math.round(
-            Number(this.weather?.current.wind_speed ?? 0 * 3.6),
-        )} km/u`;
+        return `${Math.round(Number(this.weather?.current.wind_speed ?? 0 * 3.6))} km/u`;
     }
 
     public get rotation(): string {

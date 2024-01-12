@@ -1,10 +1,7 @@
 import { OVPService } from './ovp.service';
 import { TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('OVPService', () => {
     let service: OVPService;
@@ -36,16 +33,13 @@ describe('OVPService', () => {
                 expect(abstractMethod).toHaveBeenCalled();
             });
 
-            let query =
-                '?query=query&per_page=500&page=1&thumbsize=big&order=order';
+            let query = '?query=query&per_page=500&page=1&thumbsize=big&order=order';
 
             Object.entries(environment.ovp_api_params).forEach((param) => {
                 query += `&${param[0]}=${param[1]}`;
             });
 
-            const request = httpMock.expectOne(
-                `${environment.ovp_api_url}/search/${query}`,
-            );
+            const request = httpMock.expectOne(`${environment.ovp_api_url}/search/${query}`);
 
             expect(request.request.method).toBe('GET');
 

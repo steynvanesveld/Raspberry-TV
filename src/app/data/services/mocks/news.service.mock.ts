@@ -12,19 +12,12 @@ export const newsItem = new RssItem(
 
 export class NewsServiceMock {
     public getNewsItem(link?: string): Observable<Rss> {
-        return of(
-            new Rss([new RssItem('<div>Detailed content</div>', new Date(0))]),
-        );
+        return of(new Rss([new RssItem('<div>Detailed content</div>', new Date(0))]));
     }
 
     public getNewsItemPayWall(link?: string): Observable<Rss> {
         return of(
-            new Rss([
-                new RssItem(
-                    '<div>Detailed content paywall-initial</div>',
-                    new Date(0),
-                ),
-            ]),
+            new Rss([new RssItem('<div>Detailed content paywall-initial</div>', new Date(0))]),
         );
     }
 

@@ -39,12 +39,7 @@ export class RadioService extends HttpService<Kink | Flux | DNB> {
             'FLUX',
             '4885aa15-eecb-49ed-9958-106ce4c95191',
         ),
-        new RadioChannel(
-            'https://dnbradio.nl/dnbradio_main.mp3',
-            "Drum 'n Bass",
-            'DNB',
-            '',
-        ),
+        new RadioChannel('https://dnbradio.nl/dnbradio_main.mp3', "Drum 'n Bass", 'DNB', ''),
         new RadioChannel(
             'https://fluxmusic.api.radiosphere.io/channels/b-funk/stream.mp3',
             'Funk',
@@ -87,9 +82,7 @@ export class RadioService extends HttpService<Kink | Flux | DNB> {
         super(httpClient);
     }
 
-    public getNowPlaying(
-        radioChannel: RadioChannel,
-    ): Observable<Kink | Flux | DNB> {
+    public getNowPlaying(radioChannel: RadioChannel): Observable<Kink | Flux | DNB> {
         if (radioChannel.apiSrc === 'KINK') {
             return this.getNowPlayingKink();
         }
@@ -112,9 +105,7 @@ export class RadioService extends HttpService<Kink | Flux | DNB> {
         return this.read();
     }
 
-    public getNowPlayingFlux(
-        channel: string,
-    ): Observable<Kink | Flux | DNB | DNB> {
+    public getNowPlayingFlux(channel: string): Observable<Kink | Flux | DNB | DNB> {
         this.setSerializer(new FluxSerializer());
         this.setBaseUrl('https://fluxmusic.api.radiosphere.io/channels/');
         this.setResource(`${channel}/current-track`);

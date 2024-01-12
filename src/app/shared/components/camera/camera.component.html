@@ -1,8 +1,8 @@
 @if (cameraSrc) {
-    @if (cameraType === "IFRAME") {
+    @if (cameraType === 'IFRAME') {
         <iframe [src]="cameraSrc"></iframe>
     }
-    @if (cameraType === "IMG" && localNetwork()) {
+    @if (cameraType === 'IMG' && localNetwork()) {
         <img [src]="cameraSrc" />
     }
 }

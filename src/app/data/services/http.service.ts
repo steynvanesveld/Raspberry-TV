@@ -3,11 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Serializer } from '../serializers/serializer';
 import { AbstractModel } from '../models/abstract.model';
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root',
@@ -16,11 +12,7 @@ export abstract class HttpService<T extends AbstractModel> {
     public headers: HttpHeaders | undefined;
     public params:
         | {
-              [param: string]:
-                  | string
-                  | number
-                  | boolean
-                  | ReadonlyArray<string | number | boolean>;
+              [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
           }
         | undefined;
     public baseUrl!: string;
@@ -69,11 +61,7 @@ export abstract class HttpService<T extends AbstractModel> {
     }
 
     public setParams(params: {
-        [param: string]:
-            | string
-            | number
-            | boolean
-            | ReadonlyArray<string | number | boolean>;
+        [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
     }): void {
         this.params = params;
     }

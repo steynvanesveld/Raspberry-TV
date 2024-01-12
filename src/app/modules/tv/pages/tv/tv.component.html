@@ -1,16 +1,10 @@
 <app-tv-wallpaper [idle]="idle" [hidden]="hidden" [overlay]="overlay">
     <section class="tv" [ngClass]="overlay ? 'overlay' : ''">
         <main class="tv-main">
-            <app-tv-news
-                [keyDownSubject]="keyDownSubject"
-                [overlay]="overlay"
-            />
+            <app-tv-news [keyDownSubject]="keyDownSubject" [overlay]="overlay" />
         </main>
         <aside class="tv-aside">
-            <app-tv-radio
-                [keyDownSubject]="keyDownSubject"
-                [overlay]="overlay"
-            />
+            <app-tv-radio [keyDownSubject]="keyDownSubject" [overlay]="overlay" />
             <app-tv-weather />
             <app-tv-clock />
         </aside>

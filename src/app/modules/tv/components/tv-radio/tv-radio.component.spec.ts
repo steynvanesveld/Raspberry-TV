@@ -20,10 +20,7 @@ describe('TvRadioComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [RouterTestingModule, HttpClientTestingModule],
-            providers: [
-                { provide: RadioService, useClass: RadioServiceMock },
-                RadioServiceMock,
-            ],
+            providers: [{ provide: RadioService, useClass: RadioServiceMock }, RadioServiceMock],
             declarations: [TvRadioComponent, CameraComponent],
         }).compileComponents();
     });
@@ -45,9 +42,7 @@ describe('TvRadioComponent', () => {
     describe('nowPlayingChannel()', () => {
         it('should return the now playing channel', () => {
             expect(component.nowPlayingChannel).toEqual(
-                component.radioService.radioChannels[
-                    component.nowPlayingChannelIndex
-                ],
+                component.radioService.radioChannels[component.nowPlayingChannelIndex],
             );
         });
     });

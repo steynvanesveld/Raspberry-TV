@@ -80,11 +80,7 @@ export class OVPComponent implements OnInit {
             });
     }
 
-    public setNewThumbnail(
-        ovpVideo: OVPVideo,
-        clearOVPVideoThumbTimeout = true,
-        index = 0,
-    ) {
+    public setNewThumbnail(ovpVideo: OVPVideo, clearOVPVideoThumbTimeout = true, index = 0) {
         if (clearOVPVideoThumbTimeout) {
             clearTimeout(this.ovpVideoThumbTimeout);
         }
@@ -109,19 +105,15 @@ export class OVPComponent implements OnInit {
         this.activatedRoute.queryParamMap
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((queryParams) => {
-                this.order =
-                    queryParams.get('order') ?? ('top-weekly' as string);
+                this.order = queryParams.get('order') ?? ('top-weekly' as string);
                 this.page = Number(queryParams.get('page') ?? (1 as number));
                 this.query = queryParams.get('search') as string;
-                this.showFavorites =
-                    queryParams.get('showFavorites') === 'true' ? true : false;
+                this.showFavorites = queryParams.get('showFavorites') === 'true' ? true : false;
 
                 if (/Android/i.test(navigator.userAgent)) {
-                    this.orientation =
-                        queryParams.get('orientation') ?? 'portrait';
+                    this.orientation = queryParams.get('orientation') ?? 'portrait';
                 } else {
-                    this.orientation =
-                        queryParams.get('orientation') ?? 'landscape';
+                    this.orientation = queryParams.get('orientation') ?? 'landscape';
                 }
                 this.searchOVP(this.order, this.page, this.query);
             });

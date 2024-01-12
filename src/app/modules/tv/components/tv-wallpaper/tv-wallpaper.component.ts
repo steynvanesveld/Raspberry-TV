@@ -17,8 +17,7 @@ export class TvWallpaperComponent implements OnInit {
     public destroyRef = inject(DestroyRef);
     public photos: Photos | undefined;
     private photoParameters = '?auto=compress&fit=crop&w=1920&h=1080';
-    private gradient =
-        'linear-gradient(to bottom, rgba(81, 68, 33, 0.75), rgba(0, 0, 0, 0.75))';
+    private gradient = 'linear-gradient(to bottom, rgba(81, 68, 33, 0.75), rgba(0, 0, 0, 0.75))';
 
     constructor(private pexelsService: PexelsService) {}
 

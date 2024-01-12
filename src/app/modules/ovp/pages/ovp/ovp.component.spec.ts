@@ -28,11 +28,7 @@ describe('OVPComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                FormsModule,
-                RouterTestingModule,
-                HttpClientTestingModule,
-            ],
+            imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
             providers: [
                 { provide: OVPService, useClass: OVPServiceMock },
                 { provide: OVPVideoService, useClass: OVPVideoServiceMock },
@@ -99,11 +95,7 @@ describe('OVPComponent', () => {
         it('should call ovpService.searchOVP()', () => {
             spyOn(ovpService, 'searchOVP').and.callThrough();
             component.searchOVP('order', 0, 'query');
-            expect(ovpService.searchOVP).toHaveBeenCalledWith(
-                'order',
-                0,
-                'query',
-            );
+            expect(ovpService.searchOVP).toHaveBeenCalledWith('order', 0, 'query');
         });
 
         it('should call getFavorites()', () => {
@@ -175,9 +167,7 @@ describe('OVPComponent', () => {
         it('should set the orientation variable to the fallback if no queryParams are present on Android ', () => {
             fixture = TestBed.createComponent(OVPComponent);
             component = fixture.componentInstance;
-            spyOnProperty(window.navigator, 'userAgent').and.returnValue(
-                'Android',
-            );
+            spyOnProperty(window.navigator, 'userAgent').and.returnValue('Android');
             fixture.detectChanges();
 
             component.listenForSearchChange();
@@ -222,9 +212,7 @@ describe('OVPComponent', () => {
 
             fixture = TestBed.createComponent(OVPComponent);
             component = fixture.componentInstance;
-            spyOnProperty(window.navigator, 'userAgent').and.returnValue(
-                'Android',
-            );
+            spyOnProperty(window.navigator, 'userAgent').and.returnValue('Android');
             fixture.detectChanges();
 
             component.listenForSearchChange();
@@ -298,9 +286,7 @@ describe('OVPComponent', () => {
         it('should call raspberryService.setFavorite()', () => {
             spyOn(raspberryService, 'setFavorite').and.callThrough();
             component.setFavorite(new Event('click'), ovpVideoMock);
-            expect(raspberryService.setFavorite).toHaveBeenCalledWith(
-                ovpVideoMock.id,
-            );
+            expect(raspberryService.setFavorite).toHaveBeenCalledWith(ovpVideoMock.id);
         });
 
         it('should set the favorites variable', () => {
@@ -328,9 +314,9 @@ describe('OVPComponent', () => {
 
             component.showFavoriteButton(target);
 
-            expect(
-                target.parentElement.parentElement.classList.remove,
-            ).toHaveBeenCalledWith('hidden');
+            expect(target.parentElement.parentElement.classList.remove).toHaveBeenCalledWith(
+                'hidden',
+            );
         });
     });
 

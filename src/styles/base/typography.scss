@@ -1,7 +1,7 @@
-@import "variables";
+@import 'variables';
 
 html {
-    font-family: "Wix Madefor Display", "Helvetica Neue", sans-serif;
+    font-family: 'Wix Madefor Display', 'Helvetica Neue', sans-serif;
     font-size: $global-px;
     line-height: $global-px * $golden-ratio;
     color: #cccccc;

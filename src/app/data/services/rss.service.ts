@@ -15,13 +15,9 @@ export abstract class RssService extends CorsProxyService {
         this.setSerializer(new RssSerializer());
     }
 
-    public override catchError(
-        error: HttpErrorResponse,
-    ): Observable<AbstractModel | undefined> {
+    public override catchError(error: HttpErrorResponse): Observable<AbstractModel | undefined> {
         const response = error.error.text;
 
-        return of(response).pipe(
-            map((data: object) => this.serializer.fromJson(data)),
-        );
+        return of(response).pipe(map((data: object) => this.serializer.fromJson(data)));
     }
 }

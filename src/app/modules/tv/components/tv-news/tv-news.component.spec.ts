@@ -4,10 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NewsService } from 'src/app/data/services/news.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
-    NewsServiceMock,
-    newsItem,
-} from 'src/app/data/services/mocks/news.service.mock';
+import { NewsServiceMock, newsItem } from 'src/app/data/services/mocks/news.service.mock';
 
 describe('TvNewsComponent', () => {
     let component: TvNewsComponent;
@@ -92,9 +89,7 @@ describe('TvNewsComponent', () => {
                 },
             ]);
 
-            expect(component.news.items[0].description).toEqual(
-                newsItem.description,
-            );
+            expect(component.news.items[0].description).toEqual(newsItem.description);
         });
 
         it('should not set items descripton when it contains a paywall', () => {
@@ -110,9 +105,7 @@ describe('TvNewsComponent', () => {
                 },
             ]);
 
-            expect(component.news.items[0].description).not.toContain(
-                'paywall-initial',
-            );
+            expect(component.news.items[0].description).not.toContain('paywall-initial');
         });
 
         it('should set the source of every item to the source name', () => {
@@ -245,9 +238,7 @@ describe('TvNewsComponent', () => {
 
             jasmine.clock().tick(1000 * 60);
 
-            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
-                'next',
-            );
+            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith('next');
 
             jasmine.clock().uninstall();
         });
@@ -293,9 +284,7 @@ describe('TvNewsComponent', () => {
 
             component.keyDownSubject.next('ArrowLeft');
 
-            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
-                'previous',
-            );
+            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith('previous');
         });
 
         it('should call setCurrentNewsArticle() on key "ArrowRight"', () => {
@@ -305,9 +294,7 @@ describe('TvNewsComponent', () => {
 
             component.keyDownSubject.next('ArrowRight');
 
-            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
-                'next',
-            );
+            expect(component.setCurrentNewsArticle).toHaveBeenCalledWith('next');
         });
     });
 

@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .ovp-video {
     iframe {
@@ -14,10 +14,10 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
-        background-image: url("/assets/images/star-grey.svg");
+        background-image: url('/assets/images/star-grey.svg');
 
         &.favorite {
-            background-image: url("/assets/images/star-gold.svg");
+            background-image: url('/assets/images/star-gold.svg');
         }
     }
 }

@@ -1,7 +1,4 @@
-import {
-    HttpTestingController,
-    HttpClientTestingModule,
-} from '@angular/common/http/testing';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpService } from './http.service';
 import { TestBed } from '@angular/core/testing';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';

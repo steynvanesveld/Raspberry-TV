@@ -36,9 +36,7 @@ describe('TvWeatherComponent', () => {
 
     describe('icon()', () => {
         it('should return current icon', () => {
-            expect(component.icon).toEqual(
-                'http://openweathermap.org/img/wn/02d@2x.png',
-            );
+            expect(component.icon).toEqual('http://openweathermap.org/img/wn/02d@2x.png');
         });
 
         it('should return empty string is weather is undefined', () => {

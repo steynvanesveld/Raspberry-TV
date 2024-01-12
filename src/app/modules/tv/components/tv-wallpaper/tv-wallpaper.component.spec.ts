@@ -13,9 +13,7 @@ describe('TvWallpaperComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [RouterTestingModule, HttpClientTestingModule],
-            providers: [
-                { provide: PexelsService, useClass: PexelsServiceMock },
-            ],
+            providers: [{ provide: PexelsService, useClass: PexelsServiceMock }],
             declarations: [TvWallpaperComponent],
         }).compileComponents();
     });

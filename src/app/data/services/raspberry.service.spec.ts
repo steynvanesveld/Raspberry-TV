@@ -1,10 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RaspberryService } from './raspberry.service';
 import { environment } from 'src/environments/environment';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('RaspberryService', () => {
     let service: RaspberryService;
@@ -36,9 +33,7 @@ describe('RaspberryService', () => {
                 expect(abstractMethod).toHaveBeenCalled();
             });
 
-            const request = httpMock.expectOne(
-                `${environment.raspberry_host}/api/system.php`,
-            );
+            const request = httpMock.expectOne(`${environment.raspberry_host}/api/system.php`);
 
             expect(request.request.method).toBe('GET');
 
@@ -54,9 +49,7 @@ describe('RaspberryService', () => {
                 expect(abstractMethod).toHaveBeenCalled();
             });
 
-            const request = httpMock.expectOne(
-                `${environment.raspberry_host}/api/favorites.php`,
-            );
+            const request = httpMock.expectOne(`${environment.raspberry_host}/api/favorites.php`);
 
             expect(request.request.method).toBe('GET');
 
@@ -72,9 +65,7 @@ describe('RaspberryService', () => {
                 expect(abstractMethod).toHaveBeenCalled();
             });
 
-            const request = httpMock.expectOne(
-                `${environment.raspberry_host}/api/favorites.php`,
-            );
+            const request = httpMock.expectOne(`${environment.raspberry_host}/api/favorites.php`);
 
             expect(request.request.method).toBe('POST');
 

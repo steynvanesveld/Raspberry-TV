@@ -29,9 +29,7 @@ describe('RssSerializer', () => {
     });
 
     it('should return empty RSS on faulty input', () => {
-        expect(serializer.fromJson(null as unknown as Rss)).toEqual(
-            new Rss([]),
-        );
+        expect(serializer.fromJson(null as unknown as Rss)).toEqual(new Rss([]));
     });
 
     it('should serialize from model to json', () => {
@@ -129,22 +127,17 @@ describe('RssSerializer', () => {
         });
 
         it('should have fallback for an empty HTML', () => {
-            expect(serializer.findItems(mock.htmlEmpty)).toEqual([
-                new RssItem('', new Date(0)),
-            ]);
+            expect(serializer.findItems(mock.htmlEmpty)).toEqual([new RssItem('', new Date(0))]);
         });
     });
 
     describe('getTextFromElement()', () => {
         it('should strip description from html and/or xml', () => {
-            const html = new window.DOMParser().parseFromString(
-                mock.htmlVersion1,
-                'text/html',
-            );
+            const html = new window.DOMParser().parseFromString(mock.htmlVersion1, 'text/html');
 
-            expect(
-                serializer.getTextFromElement(html, '.article-page__body'),
-            ).toEqual('<p>Description</p>');
+            expect(serializer.getTextFromElement(html, '.article-page__body')).toEqual(
+                '<p>Description</p>',
+            );
         });
     });
 });

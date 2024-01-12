@@ -2,10 +2,7 @@ import { Observable } from 'rxjs';
 import { RadioService } from './radio.service';
 import { TestBed } from '@angular/core/testing';
 import { RadioChannel } from '../models/radio-channel.model';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('RadioService', () => {
     let service: RadioService;
@@ -35,9 +32,7 @@ describe('RadioService', () => {
                 (channel) => channel.apiSrc === 'NONE',
             ) as unknown as RadioChannel;
 
-            expect(service.getNowPlaying(radioChannel)).toEqual(
-                new Observable(),
-            );
+            expect(service.getNowPlaying(radioChannel)).toEqual(new Observable());
         });
     });
 
@@ -53,9 +48,7 @@ describe('RadioService', () => {
                 expect(abstractMethod).toHaveBeenCalled();
             });
 
-            const request = httpMock.expectOne(
-                'https://api.kink.nl/static/now-playing.json',
-            );
+            const request = httpMock.expectOne('https://api.kink.nl/static/now-playing.json');
 
             expect(request.request.method).toBe('GET');
 
@@ -97,9 +90,7 @@ describe('RadioService', () => {
                 expect(abstractMethod).toHaveBeenCalled();
             });
 
-            const request = httpMock.expectOne(
-                'https://api.dnbradio.nl/now_playing',
-            );
+            const request = httpMock.expectOne('https://api.dnbradio.nl/now_playing');
 
             expect(request.request.method).toBe('GET');
 

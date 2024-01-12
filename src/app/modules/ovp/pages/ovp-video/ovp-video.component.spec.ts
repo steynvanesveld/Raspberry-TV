@@ -72,9 +72,7 @@ describe('OVPVideoComponent', () => {
 
             component.getRouteData();
 
-            expect(component.getOVPVideo).toHaveBeenCalledWith(
-                undefined as unknown as string,
-            );
+            expect(component.getOVPVideo).toHaveBeenCalledWith(undefined as unknown as string);
         });
 
         it('should call reloadPage() when redirect queryParam exists', () => {
@@ -101,9 +99,7 @@ describe('OVPVideoComponent', () => {
 
             component.getRouteData();
 
-            expect(component.reloadPage).toHaveBeenCalledWith(
-                '/#/ovp/undefined',
-            );
+            expect(component.reloadPage).toHaveBeenCalledWith('/#/ovp/undefined');
         });
     });
 
@@ -153,9 +149,7 @@ describe('OVPVideoComponent', () => {
         it('should call raspberryService.setFavorite()', () => {
             spyOn(raspberryService, 'setFavorite').and.callThrough();
             component.setFavorite(ovpVideoMock);
-            expect(raspberryService.setFavorite).toHaveBeenCalledWith(
-                ovpVideoMock.id,
-            );
+            expect(raspberryService.setFavorite).toHaveBeenCalledWith(ovpVideoMock.id);
         });
 
         it('should set the favorites variable', () => {

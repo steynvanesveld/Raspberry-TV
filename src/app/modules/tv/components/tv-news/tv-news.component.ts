@@ -5,15 +5,7 @@ import { RssItem } from 'src/app/data/models/rss-item.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NewsService } from 'src/app/data/services/news.service';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
-import {
-    Component,
-    ElementRef,
-    Input,
-    OnInit,
-    ViewChild,
-    DestroyRef,
-    inject,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, DestroyRef, inject } from '@angular/core';
 
 @Component({
     selector: 'app-tv-news',
@@ -85,11 +77,7 @@ export class TvNewsComponent implements OnInit {
                         .getNewsItem(item.link ?? '')
                         .pipe(takeUntilDestroyed(this.destroyRef))
                         .subscribe((response) => {
-                            if (
-                                response.items[0].description.includes(
-                                    'paywall-initial',
-                                )
-                            ) {
+                            if (response.items[0].description.includes('paywall-initial')) {
                                 return;
                             }
                             item.description = response.items[0].description;
@@ -97,9 +85,7 @@ export class TvNewsComponent implements OnInit {
                 });
             }
 
-            source.rss.items.forEach(
-                (item: RssItem) => (item.source = source.name),
-            );
+            source.rss.items.forEach((item: RssItem) => (item.source = source.name));
 
             this.newsLoading.items = this.newsLoading.items
                 .concat(source.rss.items)

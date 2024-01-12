@@ -8,11 +8,7 @@
 
 <section class="channels">
     <ul>
-        @for (
-            channel of radioService.radioChannels;
-            track channel;
-            let i = $index
-        ) {
+        @for (channel of radioService.radioChannels; track channel; let i = $index) {
             <li
                 [ngClass]="i === selectedChannelIndex ? 'selected' : ''"
                 [innerHTML]="channel.visibleName"

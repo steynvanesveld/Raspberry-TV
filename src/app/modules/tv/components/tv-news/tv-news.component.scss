@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .news-article {
     width: 100%;
@@ -89,10 +89,10 @@
         .read-more,
         .signupPlus,
         .startPayWall ~ div,
-        div[type="image"],
-        div[kind="link"],
-        div[type="article-header"],
-        div[type="carousel"],
+        div[type='image'],
+        div[kind='link'],
+        div[type='article-header'],
+        div[type='carousel'],
         img {
             display: none;
         }
