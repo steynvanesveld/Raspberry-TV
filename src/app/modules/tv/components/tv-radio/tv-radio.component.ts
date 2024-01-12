@@ -19,7 +19,7 @@ import {
 @Component({
     selector: 'app-tv-radio',
     templateUrl: './tv-radio.component.html',
-    styleUrls: ['./tv-radio.component.scss'],
+    styleUrl: './tv-radio.component.scss',
 })
 export class TvRadioComponent implements OnInit {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();

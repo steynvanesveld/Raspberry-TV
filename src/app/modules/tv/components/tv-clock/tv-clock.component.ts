@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'app-tv-clock',
     templateUrl: './tv-clock.component.html',
-    styleUrls: ['./tv-clock.component.scss'],
+    styleUrl: './tv-clock.component.scss',
 })
 export class TvClockComponent implements OnInit {
     public date = '';

@@ -5,7 +5,7 @@ export class OVPVideoThumb extends AbstractModel {
         public size: number,
         public width: number,
         public height: number,
-        public src: string
+        public src: string,
     ) {
         super();
     }

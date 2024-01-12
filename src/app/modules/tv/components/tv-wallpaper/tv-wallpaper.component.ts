@@ -6,7 +6,7 @@ import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 @Component({
     selector: 'app-tv-wallpaper',
     templateUrl: './tv-wallpaper.component.html',
-    styleUrls: ['./tv-wallpaper.component.scss'],
+    styleUrl: './tv-wallpaper.component.scss',
 })
 export class TvWallpaperComponent implements OnInit {
     @Input() public idle!: boolean;
@@ -45,18 +45,24 @@ export class TvWallpaperComponent implements OnInit {
                 this.photos = result;
             });
 
-        setTimeout(() => {
-            this.getPhotos();
-        }, 1000 * 60 * 24 * 7); // 1 week
+        setTimeout(
+            () => {
+                this.getPhotos();
+            },
+            1000 * 60 * 24 * 7,
+        ); // 1 week
     }
 
     public setCurrentDay(): void {
         const today = new Date();
         this.dayIndex = today.getDate();
 
-        setTimeout(() => {
-            this.setCurrentDay();
-        }, 1000 * 60 * 6); // 6 hours
+        setTimeout(
+            () => {
+                this.setCurrentDay();
+            },
+            1000 * 60 * 6,
+        ); // 6 hours
     }
 
     public ngOnInit(): void {

@@ -44,7 +44,7 @@ describe('OVPService', () => {
             });
 
             const request = httpMock.expectOne(
-                `${environment.ovp_api_url}/search/${query}`
+                `${environment.ovp_api_url}/search/${query}`,
             );
 
             expect(request.request.method).toBe('GET');

@@ -24,7 +24,7 @@ const weatherDaily = new WeatherDaily(
     13,
     14,
     15,
-    16
+    16,
 );
 
 const weatherDailyArray = () => {
@@ -57,10 +57,10 @@ export class OpenWeatherServiceMock {
                     12,
                     13,
                     14,
-                    [new WeatherWeather(801, 'Clouds', 'Cloudy', '02d')]
+                    [new WeatherWeather(801, 'Clouds', 'Cloudy', '02d')],
                 ),
-                weatherDailyArray()
-            )
+                weatherDailyArray(),
+            ),
         );
     }
 }

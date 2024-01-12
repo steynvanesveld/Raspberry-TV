@@ -16,12 +16,12 @@ export abstract class RssService extends CorsProxyService {
     }
 
     public override catchError(
-        error: HttpErrorResponse
+        error: HttpErrorResponse,
     ): Observable<AbstractModel | undefined> {
         const response = error.error.text;
 
         return of(response).pipe(
-            map((data: object) => this.serializer.fromJson(data))
+            map((data: object) => this.serializer.fromJson(data)),
         );
     }
 }

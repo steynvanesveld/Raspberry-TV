@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
     selector: 'app-camera',
     templateUrl: './camera.component.html',
-    styleUrls: ['./camera.component.scss'],
+    styleUrl: './camera.component.scss',
 })
 export class CameraComponent {
     @Input() public cameraType!: 'IMG' | 'IFRAME';
@@ -13,7 +13,7 @@ export class CameraComponent {
 
     public get cameraSrc(): string {
         return this.sanitizer.bypassSecurityTrustResourceUrl(
-            this.host() + this.port()
+            this.host() + this.port(),
         ) as string;
     }
 
@@ -29,8 +29,8 @@ export class CameraComponent {
         return this.cameraType === 'IMG'
             ? ':1339'
             : !this.localNetwork()
-            ? ':1336'
-            : '';
+              ? ':1336'
+              : '';
     }
 
     public host(): string {

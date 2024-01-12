@@ -16,7 +16,7 @@ export class OVPSerializer {
             json.time_ms,
             json.total_count,
             json.total_pages,
-            this.setVideos(json.videos)
+            this.setVideos(json.videos),
         );
     }
 

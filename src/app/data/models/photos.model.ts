@@ -7,7 +7,7 @@ export class Photos extends AbstractModel {
         public page: number,
         public per_page: number,
         public photos: PhotosPhoto[],
-        public next_page: string
+        public next_page: string,
     ) {
         super();
     }

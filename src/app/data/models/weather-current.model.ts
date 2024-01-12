@@ -17,7 +17,7 @@ export class WeatherCurrent extends AbstractModel {
         public wind_speed: number,
         public wind_deg: number,
         public wind_gust: number,
-        public weather: WeatherWeather[]
+        public weather: WeatherWeather[],
     ) {
         super();
     }

@@ -10,7 +10,7 @@ import { OnInit, Component, Input, DestroyRef, inject } from '@angular/core';
 @Component({
     selector: 'app-ovp-video',
     templateUrl: './ovp-video.component.html',
-    styleUrls: ['./ovp-video.component.scss'],
+    styleUrl: './ovp-video.component.scss',
 })
 export class OVPVideoComponent implements OnInit {
     public ovpVideo: OVPVideo | undefined;
@@ -21,7 +21,7 @@ export class OVPVideoComponent implements OnInit {
         private ovpVideoService: OVPVideoService,
         private raspberryService: RaspberryService,
         public activatedRoute: ActivatedRoute,
-        public domSanitizer: DomSanitizer
+        public domSanitizer: DomSanitizer,
     ) {}
 
     public getOVPVideo(id: string): void {

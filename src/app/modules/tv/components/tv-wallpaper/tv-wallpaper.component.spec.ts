@@ -34,7 +34,7 @@ describe('TvWallpaperComponent', () => {
     describe('currentBackgroundImage()', () => {
         it('should return todays photo with a gradient overlay', () => {
             expect(component.currentBackgroundImage).toEqual(
-                "linear-gradient(to bottom, rgba(81, 68, 33, 0.75), rgba(0, 0, 0, 0.75)), url('original.jpg?auto=compress&fit=crop&w=1920&h=1080')"
+                "linear-gradient(to bottom, rgba(81, 68, 33, 0.75), rgba(0, 0, 0, 0.75)), url('original.jpg?auto=compress&fit=crop&w=1920&h=1080')",
             );
         });
 
@@ -42,7 +42,7 @@ describe('TvWallpaperComponent', () => {
             component.photos = undefined;
 
             expect(component.currentBackgroundImage).toEqual(
-                'linear-gradient(to bottom, rgba(81, 68, 33, 0.75), rgba(0, 0, 0, 0.75))'
+                'linear-gradient(to bottom, rgba(81, 68, 33, 0.75), rgba(0, 0, 0, 0.75))',
             );
         });
     });
@@ -58,7 +58,7 @@ describe('TvWallpaperComponent', () => {
             component.getPhotos();
 
             expect(pexelsService.getPhotos).toHaveBeenCalledWith(
-                `${season} nature forest wallpaper`
+                `${season} nature forest wallpaper`,
             );
         });
 

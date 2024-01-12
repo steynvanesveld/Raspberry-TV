@@ -7,7 +7,7 @@ export class PhotosSerializer {
             json.page,
             json.per_page,
             json.photos,
-            json.next_page
+            json.next_page,
         );
     }
 

@@ -15,7 +15,7 @@ export class OVPVideoSerializer {
             json.embed,
             json.default_thumb,
             json.thumbs,
-            json.current_thumb
+            json.current_thumb,
         );
     }
 

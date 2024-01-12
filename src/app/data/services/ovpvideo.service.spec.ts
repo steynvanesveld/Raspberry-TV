@@ -37,7 +37,7 @@ describe('OVPVideoService', () => {
             });
 
             const request = httpMock.expectOne(
-                `${environment.ovp_api_url}/id/?id=id&thumbsize=big`
+                `${environment.ovp_api_url}/id/?id=id&thumbsize=big`,
             );
 
             expect(request.request.method).toBe('GET');

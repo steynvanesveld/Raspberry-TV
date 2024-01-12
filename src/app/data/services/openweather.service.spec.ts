@@ -37,7 +37,7 @@ describe('OpenWeatherService', () => {
             });
 
             const request = httpMock.expectOne(
-                `https://api.openweathermap.org/data/2.5/onecall?lat=${environment.open_weather_lat}&lon=${environment.open_weather_lon}&appid=${environment.open_weather_api_key}&units=metric&lang=nl&exclude=minutely,hourly,alerts`
+                `https://api.openweathermap.org/data/2.5/onecall?lat=${environment.open_weather_lat}&lon=${environment.open_weather_lon}&appid=${environment.open_weather_api_key}&units=metric&lang=nl&exclude=minutely,hourly,alerts`,
             );
 
             expect(request.request.method).toBe('GET');

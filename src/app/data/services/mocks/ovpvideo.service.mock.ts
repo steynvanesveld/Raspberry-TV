@@ -17,7 +17,7 @@ export const ovpVideoMock = new OVPVideo(
     'embed',
     ovpVideoThumb,
     [ovpVideoThumb, ovpVideoThumb],
-    ovpVideoThumb
+    ovpVideoThumb,
 );
 
 export class OVPVideoServiceMock {

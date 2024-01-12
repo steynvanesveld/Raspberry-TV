@@ -102,7 +102,7 @@ describe('OVPComponent', () => {
             expect(ovpService.searchOVP).toHaveBeenCalledWith(
                 'order',
                 0,
-                'query'
+                'query',
             );
         });
 
@@ -176,7 +176,7 @@ describe('OVPComponent', () => {
             fixture = TestBed.createComponent(OVPComponent);
             component = fixture.componentInstance;
             spyOnProperty(window.navigator, 'userAgent').and.returnValue(
-                'Android'
+                'Android',
             );
             fixture.detectChanges();
 
@@ -223,7 +223,7 @@ describe('OVPComponent', () => {
             fixture = TestBed.createComponent(OVPComponent);
             component = fixture.componentInstance;
             spyOnProperty(window.navigator, 'userAgent').and.returnValue(
-                'Android'
+                'Android',
             );
             fixture.detectChanges();
 
@@ -299,7 +299,7 @@ describe('OVPComponent', () => {
             spyOn(raspberryService, 'setFavorite').and.callThrough();
             component.setFavorite(new Event('click'), ovpVideoMock);
             expect(raspberryService.setFavorite).toHaveBeenCalledWith(
-                ovpVideoMock.id
+                ovpVideoMock.id,
             );
         });
 
@@ -329,7 +329,7 @@ describe('OVPComponent', () => {
             component.showFavoriteButton(target);
 
             expect(
-                target.parentElement.parentElement.classList.remove
+                target.parentElement.parentElement.classList.remove,
             ).toHaveBeenCalledWith('hidden');
         });
     });

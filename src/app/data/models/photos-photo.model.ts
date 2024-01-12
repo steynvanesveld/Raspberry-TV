@@ -12,7 +12,7 @@ export class PhotosPhoto extends AbstractModel {
         public avg_color: string,
         public src: PhotosPhotoSrc,
         public liked: boolean,
-        public alt: string
+        public alt: string,
     ) {
         super();
     }

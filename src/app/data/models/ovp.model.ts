@@ -10,7 +10,7 @@ export class OVP extends AbstractModel {
         public time_ms: number,
         public total_count: number,
         public total_pages: number,
-        public videos: OVPVideo[]
+        public videos: OVPVideo[],
     ) {
         super();
     }

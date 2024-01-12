@@ -32,11 +32,11 @@ describe('RadioService', () => {
     describe('getNowPlaying()', () => {
         it('should return an observable', () => {
             const radioChannel = service.radioChannels.find(
-                (channel) => channel.apiSrc === 'NONE'
+                (channel) => channel.apiSrc === 'NONE',
             ) as unknown as RadioChannel;
 
             expect(service.getNowPlaying(radioChannel)).toEqual(
-                new Observable()
+                new Observable(),
             );
         });
     });
@@ -46,7 +46,7 @@ describe('RadioService', () => {
             const abstractMethod = spyOn(service, 'read').and.callThrough();
 
             const radioChannel = service.radioChannels.find(
-                (channel) => channel.apiSrc === 'KINK'
+                (channel) => channel.apiSrc === 'KINK',
             ) as unknown as RadioChannel;
 
             service.getNowPlaying(radioChannel).subscribe(() => {
@@ -54,7 +54,7 @@ describe('RadioService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://api.kink.nl/static/now-playing.json'
+                'https://api.kink.nl/static/now-playing.json',
             );
 
             expect(request.request.method).toBe('GET');
@@ -68,7 +68,7 @@ describe('RadioService', () => {
             const abstractMethod = spyOn(service, 'read').and.callThrough();
 
             const radioChannel = service.radioChannels.find(
-                (channel) => channel.apiSrc === 'FLUX'
+                (channel) => channel.apiSrc === 'FLUX',
             ) as unknown as RadioChannel;
 
             service.getNowPlaying(radioChannel).subscribe(() => {
@@ -76,7 +76,7 @@ describe('RadioService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://fluxmusic.api.radiosphere.io/channels/4885aa15-eecb-49ed-9958-106ce4c95191/current-track'
+                'https://fluxmusic.api.radiosphere.io/channels/4885aa15-eecb-49ed-9958-106ce4c95191/current-track',
             );
 
             expect(request.request.method).toBe('GET');
@@ -90,7 +90,7 @@ describe('RadioService', () => {
             const abstractMethod = spyOn(service, 'read').and.callThrough();
 
             const radioChannel = service.radioChannels.find(
-                (channel) => channel.apiSrc === 'DNB'
+                (channel) => channel.apiSrc === 'DNB',
             ) as unknown as RadioChannel;
 
             service.getNowPlaying(radioChannel).subscribe(() => {
@@ -98,7 +98,7 @@ describe('RadioService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://api.dnbradio.nl/now_playing'
+                'https://api.dnbradio.nl/now_playing',
             );
 
             expect(request.request.method).toBe('GET');

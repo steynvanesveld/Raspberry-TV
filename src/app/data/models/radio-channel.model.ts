@@ -5,7 +5,7 @@ export class RadioChannel extends AbstractModel {
         public file: string,
         public visibleName: string,
         public apiSrc: 'KINK' | 'FLUX' | 'DNB' | 'NONE',
-        public apiRef: string
+        public apiRef: string,
     ) {
         super();
     }

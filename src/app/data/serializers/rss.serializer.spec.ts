@@ -30,7 +30,7 @@ describe('RssSerializer', () => {
 
     it('should return empty RSS on faulty input', () => {
         expect(serializer.fromJson(null as unknown as Rss)).toEqual(
-            new Rss([])
+            new Rss([]),
         );
     });
 
@@ -92,7 +92,7 @@ describe('RssSerializer', () => {
                 `${date.toLocaleDateString('nl-NL', {
                     day: 'numeric',
                     month: 'short',
-                })} ${time}`
+                })} ${time}`,
             );
         });
     });
@@ -105,7 +105,7 @@ describe('RssSerializer', () => {
                     new Date(0),
                     'Item title',
                     'https://item.link',
-                    '1 jan om 01:00'
+                    '1 jan om 01:00',
                 ),
             ]);
         });
@@ -139,11 +139,11 @@ describe('RssSerializer', () => {
         it('should strip description from html and/or xml', () => {
             const html = new window.DOMParser().parseFromString(
                 mock.htmlVersion1,
-                'text/html'
+                'text/html',
             );
 
             expect(
-                serializer.getTextFromElement(html, '.article-page__body')
+                serializer.getTextFromElement(html, '.article-page__body'),
             ).toEqual('<p>Description</p>');
         });
     });

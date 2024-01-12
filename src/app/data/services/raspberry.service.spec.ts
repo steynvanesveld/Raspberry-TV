@@ -37,7 +37,7 @@ describe('RaspberryService', () => {
             });
 
             const request = httpMock.expectOne(
-                `${environment.raspberry_host}/api/system.php`
+                `${environment.raspberry_host}/api/system.php`,
             );
 
             expect(request.request.method).toBe('GET');
@@ -55,7 +55,7 @@ describe('RaspberryService', () => {
             });
 
             const request = httpMock.expectOne(
-                `${environment.raspberry_host}/api/favorites.php`
+                `${environment.raspberry_host}/api/favorites.php`,
             );
 
             expect(request.request.method).toBe('GET');
@@ -73,7 +73,7 @@ describe('RaspberryService', () => {
             });
 
             const request = httpMock.expectOne(
-                `${environment.raspberry_host}/api/favorites.php`
+                `${environment.raspberry_host}/api/favorites.php`,
             );
 
             expect(request.request.method).toBe('POST');

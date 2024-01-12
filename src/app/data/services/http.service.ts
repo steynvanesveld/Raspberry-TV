@@ -39,7 +39,7 @@ export abstract class HttpService<T extends AbstractModel> {
             })
             .pipe(
                 map((data: object) => this.serializer.fromJson(data) as T),
-                catchError((error) => this.catchError(error))
+                catchError((error) => this.catchError(error)),
             );
     }
 

@@ -6,7 +6,7 @@ import { OpenWeatherService } from 'src/app/data/services/openweather.service';
 @Component({
     selector: 'app-tv-weather',
     templateUrl: './tv-weather.component.html',
-    styleUrls: ['./tv-weather.component.scss'],
+    styleUrl: './tv-weather.component.scss',
 })
 export class TvWeatherComponent implements OnInit {
     public weather: Weather | undefined;
@@ -27,7 +27,7 @@ export class TvWeatherComponent implements OnInit {
 
     public get wind(): string {
         return `${Math.round(
-            Number(this.weather?.current.wind_speed ?? 0 * 3.6)
+            Number(this.weather?.current.wind_speed ?? 0 * 3.6),
         )} km/u`;
     }
 
@@ -82,9 +82,12 @@ export class TvWeatherComponent implements OnInit {
                 this.weather = response;
             });
 
-        setTimeout(() => {
-            this.getWeather();
-        }, 1000 * 60 * 5); // 5 minutes
+        setTimeout(
+            () => {
+                this.getWeather();
+            },
+            1000 * 60 * 5,
+        ); // 5 minutes
     }
 
     public ngOnInit(): void {

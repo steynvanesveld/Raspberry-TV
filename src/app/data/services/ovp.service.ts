@@ -19,7 +19,7 @@ export class OVPService extends HttpService<OVP> {
     public searchOVP(
         order: string,
         page: number,
-        query: string
+        query: string,
     ): Observable<OVP> {
         this.setResource('/search/');
 

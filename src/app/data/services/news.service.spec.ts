@@ -52,7 +52,7 @@ describe('NewsService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://proxy.cors.sh/http://feeds.nos.nl/nosnieuwsalgemeen?format=xml'
+                'https://proxy.cors.sh/http://feeds.nos.nl/nosnieuwsalgemeen?format=xml',
             );
 
             expect(request.request.method).toBe('GET');
@@ -70,7 +70,7 @@ describe('NewsService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://proxy.cors.sh/https://hoogeveenschecourant.nl/api/feed/rss'
+                'https://proxy.cors.sh/https://hoogeveenschecourant.nl/api/feed/rss',
             );
 
             expect(request.request.method).toBe('GET');
@@ -88,7 +88,7 @@ describe('NewsService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://proxy.cors.sh/https://www.rtvdrenthe.nl/rss/index.xml'
+                'https://proxy.cors.sh/https://www.rtvdrenthe.nl/rss/index.xml',
             );
 
             expect(request.request.method).toBe('GET');

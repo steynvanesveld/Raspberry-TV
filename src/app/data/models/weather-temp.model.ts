@@ -7,7 +7,7 @@ export class WeatherTemp extends AbstractModel {
         public max: number,
         public night: number,
         public eve: number,
-        public morn: number
+        public morn: number,
     ) {
         super();
     }

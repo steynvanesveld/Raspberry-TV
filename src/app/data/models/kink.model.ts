@@ -5,7 +5,7 @@ export class Kink extends AbstractModel {
         public stations: any, // API has illigal dashes in it, can't properly define
         public playing: string,
         public extended: any, // API has illigal dashes in it, can't properly define
-        public hitlist: boolean
+        public hitlist: boolean,
     ) {
         super();
     }

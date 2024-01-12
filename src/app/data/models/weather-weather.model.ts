@@ -5,7 +5,7 @@ export class WeatherWeather extends AbstractModel {
         public override id: number,
         public main: string,
         public description: string,
-        public icon: string
+        public icon: string,
     ) {
         super();
     }

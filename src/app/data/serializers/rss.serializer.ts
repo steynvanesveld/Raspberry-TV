@@ -36,14 +36,14 @@ export class RssSerializer {
         if (items.includes('<?xml')) {
             const xml = new window.DOMParser().parseFromString(
                 items,
-                'text/xml'
+                'text/xml',
             );
 
             return Array.from(xml.querySelectorAll('item'))
                 .slice(0, 20)
                 .map((item) => {
                     const date = new Date(
-                        this.getTextFromElement(item, 'pubDate') ?? 0
+                        this.getTextFromElement(item, 'pubDate') ?? 0,
                     );
 
                     return new RssItem(
@@ -51,7 +51,7 @@ export class RssSerializer {
                         date,
                         this.getTextFromElement(item, 'title') ?? '',
                         this.getTextFromElement(item, 'link') ?? '',
-                        this.dateTime(date)
+                        this.dateTime(date),
                     );
                 });
         }
@@ -63,14 +63,14 @@ export class RssSerializer {
                 this.getTextFromElement(html, '.article-page__body') ??
                     this.getTextFromElement(html, '.article-content') ??
                     '',
-                new Date(0)
+                new Date(0),
             ),
         ];
     }
 
     public getTextFromElement(
         element: Element | Document,
-        selector: string
+        selector: string,
     ): string | undefined {
         return element
             .querySelector(selector)

@@ -5,7 +5,7 @@ export class System extends AbstractModel {
         public model: string,
         public ram_usage: string,
         public load: string,
-        public temp: string
+        public temp: string,
     ) {
         super();
     }

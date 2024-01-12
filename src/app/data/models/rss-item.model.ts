@@ -7,7 +7,7 @@ export class RssItem extends AbstractModel {
         public title?: string,
         public link?: string,
         public readablePubDate?: string,
-        public source?: string
+        public source?: string,
     ) {
         super();
     }

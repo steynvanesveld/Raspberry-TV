@@ -36,8 +36,8 @@ describe('CameraComponent', () => {
         it('should return a sanitized combination of host and port', () => {
             expect(component.cameraSrc).toEqual(
                 sanitizer.bypassSecurityTrustResourceUrl(
-                    component.host() + component.port()
-                ) as string
+                    component.host() + component.port(),
+                ) as string,
             );
         });
     });

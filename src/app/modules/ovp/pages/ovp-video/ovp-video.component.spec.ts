@@ -73,7 +73,7 @@ describe('OVPVideoComponent', () => {
             component.getRouteData();
 
             expect(component.getOVPVideo).toHaveBeenCalledWith(
-                undefined as unknown as string
+                undefined as unknown as string,
             );
         });
 
@@ -102,7 +102,7 @@ describe('OVPVideoComponent', () => {
             component.getRouteData();
 
             expect(component.reloadPage).toHaveBeenCalledWith(
-                '/#/ovp/undefined'
+                '/#/ovp/undefined',
             );
         });
     });
@@ -116,7 +116,7 @@ describe('OVPVideoComponent', () => {
 
         it('should return an url encoded string', () => {
             expect(component.url('keyword, with, commas')).toEqual(
-                '/#/ovp?search=keyword%2C%20with%2C%20commas'
+                '/#/ovp?search=keyword%2C%20with%2C%20commas',
             );
         });
     });
@@ -154,7 +154,7 @@ describe('OVPVideoComponent', () => {
             spyOn(raspberryService, 'setFavorite').and.callThrough();
             component.setFavorite(ovpVideoMock);
             expect(raspberryService.setFavorite).toHaveBeenCalledWith(
-                ovpVideoMock.id
+                ovpVideoMock.id,
             );
         });
 

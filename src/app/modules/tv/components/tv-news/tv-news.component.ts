@@ -18,7 +18,7 @@ import {
 @Component({
     selector: 'app-tv-news',
     templateUrl: './tv-news.component.html',
-    styleUrls: ['./tv-news.component.scss'],
+    styleUrl: './tv-news.component.scss',
 })
 export class TvNewsComponent implements OnInit {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
@@ -55,15 +55,18 @@ export class TvNewsComponent implements OnInit {
                         getIndividualNewsItem: true,
                     },
                 ]),
-                takeUntilDestroyed(this.destroyRef)
+                takeUntilDestroyed(this.destroyRef),
             )
             .subscribe((response) => {
                 this.setNewsItems(response);
             });
 
-        setTimeout(() => {
-            this.getNews();
-        }, 1000 * 60 * 60); // 60 minutes
+        setTimeout(
+            () => {
+                this.getNews();
+            },
+            1000 * 60 * 60,
+        ); // 60 minutes
     }
 
     public setNewsItems(
@@ -71,7 +74,7 @@ export class TvNewsComponent implements OnInit {
             name: string;
             rss: Rss;
             getIndividualNewsItem?: boolean;
-        }[]
+        }[],
     ): void {
         this.newsLoading.items = [];
 
@@ -84,7 +87,7 @@ export class TvNewsComponent implements OnInit {
                         .subscribe((response) => {
                             if (
                                 response.items[0].description.includes(
-                                    'paywall-initial'
+                                    'paywall-initial',
                                 )
                             ) {
                                 return;
@@ -95,7 +98,7 @@ export class TvNewsComponent implements OnInit {
             }
 
             source.rss.items.forEach(
-                (item: RssItem) => (item.source = source.name)
+                (item: RssItem) => (item.source = source.name),
             );
 
             this.newsLoading.items = this.newsLoading.items

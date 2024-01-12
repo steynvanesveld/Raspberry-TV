@@ -1,3 +1,4 @@
+import { Rss } from 'src/app/data/models/rss.model';
 import { TvNewsComponent } from './tv-news.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NewsService } from 'src/app/data/services/news.service';
@@ -7,7 +8,6 @@ import {
     NewsServiceMock,
     newsItem,
 } from 'src/app/data/services/mocks/news.service.mock';
-import { Rss } from 'src/app/data/models/rss.model';
 
 describe('TvNewsComponent', () => {
     let component: TvNewsComponent;
@@ -93,13 +93,13 @@ describe('TvNewsComponent', () => {
             ]);
 
             expect(component.news.items[0].description).toEqual(
-                newsItem.description
+                newsItem.description,
             );
         });
 
         it('should not set items descripton when it contains a paywall', () => {
             spyOn(newsService, 'getNewsItem').and.returnValue(
-                new NewsServiceMock().getNewsItemPayWall()
+                new NewsServiceMock().getNewsItemPayWall(),
             );
 
             component.setNewsItems([
@@ -111,7 +111,7 @@ describe('TvNewsComponent', () => {
             ]);
 
             expect(component.news.items[0].description).not.toContain(
-                'paywall-initial'
+                'paywall-initial',
             );
         });
 
@@ -246,7 +246,7 @@ describe('TvNewsComponent', () => {
             jasmine.clock().tick(1000 * 60);
 
             expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
-                'next'
+                'next',
             );
 
             jasmine.clock().uninstall();
@@ -294,7 +294,7 @@ describe('TvNewsComponent', () => {
             component.keyDownSubject.next('ArrowLeft');
 
             expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
-                'previous'
+                'previous',
             );
         });
 
@@ -306,7 +306,7 @@ describe('TvNewsComponent', () => {
             component.keyDownSubject.next('ArrowRight');
 
             expect(component.setCurrentNewsArticle).toHaveBeenCalledWith(
-                'next'
+                'next',
             );
         });
     });

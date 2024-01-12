@@ -19,67 +19,67 @@ export class RadioService extends HttpService<Kink | Flux | DNB> {
             'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK.mp3',
             '<i>K</i>INK',
             'KINK',
-            'kink'
+            'kink',
         ),
         new RadioChannel(
             'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK_DNA.mp3',
             '<i>K</i>INK Classics',
             'KINK',
-            'kink-dna'
+            'kink-dna',
         ),
         new RadioChannel(
             'http://playerservices.streamtheworld.com/api/livestream-redirect/KINK_DISTORTION.mp3',
             '<i>K</i>INK Distortion',
             'KINK',
-            'kink-distortion'
+            'kink-distortion',
         ),
         new RadioChannel(
             'https://fluxmusic.api.radiosphere.io/channels/alternative/stream.mp3',
             'Alt',
             'FLUX',
-            '4885aa15-eecb-49ed-9958-106ce4c95191'
+            '4885aa15-eecb-49ed-9958-106ce4c95191',
         ),
         new RadioChannel(
             'https://dnbradio.nl/dnbradio_main.mp3',
             "Drum 'n Bass",
             'DNB',
-            ''
+            '',
         ),
         new RadioChannel(
             'https://fluxmusic.api.radiosphere.io/channels/b-funk/stream.mp3',
             'Funk',
             'FLUX',
-            '85f323a6-e066-49ab-9a3d-fb74030adfae'
+            '85f323a6-e066-49ab-9a3d-fb74030adfae',
         ),
         new RadioChannel(
             'https://fluxmusic.api.radiosphere.io/channels/boom-fm-classics/stream.mp3',
             'HipHop',
             'FLUX',
-            '15b5625a-fdbc-4d08-8b7c-9c9b331e1977'
+            '15b5625a-fdbc-4d08-8b7c-9c9b331e1977',
         ),
         new RadioChannel(
             'https://fluxmusic.api.radiosphere.io/channels/indiedisco/stream.mp3',
             'Indie',
             'FLUX',
-            'cbc089f5-b834-40ca-9438-0b2f4bfb915f'
+            'cbc089f5-b834-40ca-9438-0b2f4bfb915f',
         ),
         new RadioChannel(
             'https://fluxmusic.api.radiosphere.io/channels/chillhop/stream.mp3',
             'LoFi',
             'FLUX',
-            'e3d6cb48-55bb-41c5-ab72-9def83aa3ca8'
+            'e3d6cb48-55bb-41c5-ab72-9def83aa3ca8',
         ),
         new RadioChannel(
             'https://fluxmusic.api.radiosphere.io/channels/metal-fm/stream.mp3',
             'Metal',
             'FLUX',
-            'c07531b0-a882-42f2-ae6d-645435c634db'
+            'c07531b0-a882-42f2-ae6d-645435c634db',
         ),
         new RadioChannel(
             'http://streams.fluxfm.de/dubradio/mp3-128/streams.fluxfm.de/',
             'Reggae',
             'NONE',
-            ''
+            '',
         ),
     ];
 
@@ -88,7 +88,7 @@ export class RadioService extends HttpService<Kink | Flux | DNB> {
     }
 
     public getNowPlaying(
-        radioChannel: RadioChannel
+        radioChannel: RadioChannel,
     ): Observable<Kink | Flux | DNB> {
         if (radioChannel.apiSrc === 'KINK') {
             return this.getNowPlayingKink();
@@ -113,7 +113,7 @@ export class RadioService extends HttpService<Kink | Flux | DNB> {
     }
 
     public getNowPlayingFlux(
-        channel: string
+        channel: string,
     ): Observable<Kink | Flux | DNB | DNB> {
         this.setSerializer(new FluxSerializer());
         this.setBaseUrl('https://fluxmusic.api.radiosphere.io/channels/');

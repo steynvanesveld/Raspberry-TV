@@ -5,7 +5,7 @@ import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 @Component({
     selector: 'app-tv',
     templateUrl: './tv.component.html',
-    styleUrls: ['./tv.component.scss'],
+    styleUrl: './tv.component.scss',
 })
 export class TvComponent implements OnInit {
     private idleTimeout = 0;

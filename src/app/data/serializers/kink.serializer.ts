@@ -6,7 +6,7 @@ export class KinkSerializer {
             json.stations,
             json.playing,
             json.extended,
-            json.hitlist
+            json.hitlist,
         );
     }
 

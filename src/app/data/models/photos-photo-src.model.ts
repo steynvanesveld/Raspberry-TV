@@ -9,7 +9,7 @@ export class PhotosPhotoSrc extends AbstractModel {
         public small: string,
         public portrait: string,
         public landscape: string,
-        public tiny: string
+        public tiny: string,
     ) {
         super();
     }

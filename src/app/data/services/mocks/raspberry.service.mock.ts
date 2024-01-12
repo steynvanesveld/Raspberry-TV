@@ -7,7 +7,7 @@ export const favorites = new Favorites(['', 'foo', 'bar']);
 export class RaspberryServiceMock {
     getSystem(): Observable<System> {
         return of(
-            new System('Raspberry Pi 3', '10%', '0.1, 0.5, 1.0', '69&deg;C')
+            new System('Raspberry Pi 3', '10%', '0.1, 0.5, 1.0', '69&deg;C'),
         );
     }
 

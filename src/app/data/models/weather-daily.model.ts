@@ -22,7 +22,7 @@ export class WeatherDaily extends AbstractModel {
         public clouds: number,
         public pop: number,
         public rain: number,
-        public uvi: number
+        public uvi: number,
     ) {
         super();
     }

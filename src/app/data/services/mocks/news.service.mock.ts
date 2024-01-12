@@ -7,13 +7,13 @@ export const newsItem = new RssItem(
     new Date(0),
     'News item',
     'http://link',
-    '01/01 om 00:00'
+    '01/01 om 00:00',
 );
 
 export class NewsServiceMock {
     public getNewsItem(link?: string): Observable<Rss> {
         return of(
-            new Rss([new RssItem('<div>Detailed content</div>', new Date(0))])
+            new Rss([new RssItem('<div>Detailed content</div>', new Date(0))]),
         );
     }
 
@@ -22,9 +22,9 @@ export class NewsServiceMock {
             new Rss([
                 new RssItem(
                     '<div>Detailed content paywall-initial</div>',
-                    new Date(0)
+                    new Date(0),
                 ),
-            ])
+            ]),
         );
     }
 

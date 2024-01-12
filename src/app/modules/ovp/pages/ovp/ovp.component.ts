@@ -11,7 +11,7 @@ import { Component, NgZone, OnInit, DestroyRef, inject } from '@angular/core';
 @Component({
     selector: 'app-ovp',
     templateUrl: './ovp.component.html',
-    styleUrls: ['./ovp.component.scss'],
+    styleUrl: './ovp.component.scss',
 })
 export class OVPComponent implements OnInit {
     public ovp!: OVP;
@@ -32,7 +32,7 @@ export class OVPComponent implements OnInit {
         private ngZone: NgZone,
         private raspberryService: RaspberryService,
         public activatedRoute: ActivatedRoute,
-        public router: Router
+        public router: Router,
     ) {}
 
     public routerNavigate(event?: Event, page = 1): void {
@@ -56,7 +56,7 @@ export class OVPComponent implements OnInit {
                         orientation: this.orientation,
                     },
                     queryParamsHandling: 'merge',
-                })
+                }),
             )
             .then();
     }
@@ -83,7 +83,7 @@ export class OVPComponent implements OnInit {
     public setNewThumbnail(
         ovpVideo: OVPVideo,
         clearOVPVideoThumbTimeout = true,
-        index = 0
+        index = 0,
     ) {
         if (clearOVPVideoThumbTimeout) {
             clearTimeout(this.ovpVideoThumbTimeout);
@@ -95,7 +95,7 @@ export class OVPComponent implements OnInit {
             this.setNewThumbnail(
                 ovpVideo,
                 false,
-                index + 1 >= ovpVideo.thumbs.length ? 0 : index + 1
+                index + 1 >= ovpVideo.thumbs.length ? 0 : index + 1,
             );
         }, 750);
     }

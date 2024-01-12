@@ -90,7 +90,7 @@ describe('HttpService', () => {
             service.setHeaders(
                 new HttpHeaders({
                     foo: 'bar',
-                })
+                }),
             );
             expect(service.headers).toEqual(jasmine.any(HttpHeaders));
         });

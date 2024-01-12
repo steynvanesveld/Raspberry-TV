@@ -1,50 +1,47 @@
-<div class="weather" *ngIf="weather">
-    <section>
-        <span>
-            {{ temperature }}
-        </span>
-
-        <figure>
-            <img [src]="icon" />
-        </figure>
-    </section>
-
-    <section>
-        <span> {{ wind }} </span>
-
-        <figure>
-            <img
-                src="/assets/images/feather/navigation-2.svg"
-                class="custom wind"
-                alt="Arrow"
-                [style.transform]="rotation"
-            />
-        </figure>
-    </section>
-
-    <section>
-        <span> {{ humidity }} </span>
-
-        <figure>
-            <img
-                src="/assets/images/feather/droplet.svg"
-                class="custom"
-                alt="Water-drop"
-            />
-        </figure>
-    </section>
-
-    <section *ngIf="sun">
-        <span>
-            {{ sun.time }}
-        </span>
-
-        <figure>
-            <img
-                src="/assets/images/feather/{{ sun.type }}.svg"
-                class="custom"
-                alt="Sun"
-            />
-        </figure>
-    </section>
-</div>
+@if (weather) {
+    <div class="weather">
+        <section>
+            <span>
+                {{ temperature }}
+            </span>
+            <figure>
+                <img [src]="icon" />
+            </figure>
+        </section>
+        <section>
+            <span> {{ wind }} </span>
+            <figure>
+                <img
+                    src="/assets/images/feather/navigation-2.svg"
+                    class="custom wind"
+                    alt="Arrow"
+                    [style.transform]="rotation"
+                />
+            </figure>
+        </section>
+        <section>
+            <span> {{ humidity }} </span>
+            <figure>
+                <img
+                    src="/assets/images/feather/droplet.svg"
+                    class="custom"
+                    alt="Water-drop"
+                />
+            </figure>
+        </section>
+        @if (sun) {
+            <section>
+                <span>
+                    {{ sun.time }}
+                </span>
+                <figure>
+                    <img
+                        src="/assets/images/feather/{{ sun.type }}.svg"
+                        class="custom"
+                        alt="Sun"
+                    />
+                </figure>
+            </section>
+        }
+    </div>
+}

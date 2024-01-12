@@ -15,7 +15,7 @@ export class OVPVideo extends AbstractModel {
         public embed: string,
         public default_thumb: OVPVideoThumb,
         public thumbs: OVPVideoThumb[],
-        public current_thumb: OVPVideoThumb
+        public current_thumb: OVPVideoThumb,
     ) {
         super(id);
         this.current_thumb = this.default_thumb;

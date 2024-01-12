@@ -1,31 +1,35 @@
 <main class="content">
     <div class="container">
-        <article class="ovp-video" *ngIf="ovpVideo">
-            <button
-                [ngClass]="[
-                    'favorite-button',
-                    favorites?.favorites?.includes(ovpVideo.id)
-                        ? 'favorite'
-                        : ''
-                ]"
-                (click)="setFavorite(ovpVideo)"
-            ></button>
-            <iframe
-                [src]="
-                    domSanitizer.bypassSecurityTrustResourceUrl(ovpVideo.embed)
-                "
-                allow="fullscreen"
-            ></iframe>
-        </article>
+        @if (ovpVideo) {
+            <article class="ovp-video">
+                <button
+                    [ngClass]="[
+                        'favorite-button',
+                        favorites?.favorites?.includes(ovpVideo.id)
+                            ? 'favorite'
+                            : ''
+                    ]"
+                    (click)="setFavorite(ovpVideo)"
+                ></button>
+                <iframe
+                    [src]="
+                        domSanitizer.bypassSecurityTrustResourceUrl(
+                            ovpVideo.embed
+                        )
+                    "
+                    allow="fullscreen"
+                ></iframe>
+            </article>
+        }
 
         <div class="tags">
-            <ng-container
-                *ngFor="let keyword of ovpVideo?.keywords?.split(',')"
-            >
-                <a *ngIf="keyword" href="{{ url(keyword) }}">
-                    {{ keyword.trim() }}
-                </a>
-            </ng-container>
+            @for (keyword of ovpVideo?.keywords?.split(","); track keyword) {
+                @if (keyword) {
+                    <a href="{{ url(keyword) }}">
+                        {{ keyword.trim() }}
+                    </a>
+                }
+            }
         </div>
     </div>
 </main>

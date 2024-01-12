@@ -37,7 +37,7 @@ describe('PexelsService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://api.pexels.com/v1/search?query=query&orientation=landscape&per_page=60&size=large'
+                'https://api.pexels.com/v1/search?query=query&orientation=landscape&per_page=60&size=large',
             );
 
             expect(request.request.method).toBe('GET');

@@ -19,10 +19,10 @@ const pexelsPhoto = new PhotosPhoto(
         'smalljpg',
         'portrait.jpg',
         'landscape.jog',
-        'tiny.jpg'
+        'tiny.jpg',
     ),
     false,
-    'Photo alt'
+    'Photo alt',
 );
 
 const pexelsPhotoArray = () => {

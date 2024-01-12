@@ -1,5 +1,5 @@
 <article class="news-article" #newsArticle>
-    <ng-container *ngIf="news?.items?.length">
+    @if (news.items.length) {
         <h6>
             {{ currentNewsArticleIndex + 1 }}/{{ news.items.length }} -
             {{ news.items[currentNewsArticleIndex].readablePubDate }} door
@@ -7,11 +7,9 @@
         </h6>
         <h1 [innerText]="news.items[currentNewsArticleIndex].title"></h1>
         <p [innerHTML]="news.items[currentNewsArticleIndex].description"></p>
-
         <h6 class="timestamp">
             <img src="/assets/images/feather/refresh-cw.svg" alt="sync" />
-
             {{ timestamp }}
         </h6>
-    </ng-container>
+    }
 </article>

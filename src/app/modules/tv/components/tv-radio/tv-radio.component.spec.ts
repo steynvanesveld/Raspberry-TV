@@ -47,7 +47,7 @@ describe('TvRadioComponent', () => {
             expect(component.nowPlayingChannel).toEqual(
                 component.radioService.radioChannels[
                     component.nowPlayingChannelIndex
-                ]
+                ],
             );
         });
     });
@@ -192,7 +192,7 @@ describe('TvRadioComponent', () => {
             component.keyDownSubject.next('Backspace');
 
             expect(component.setSelectedChannel).toHaveBeenCalledWith(
-                component.nowPlayingChannelIndex
+                component.nowPlayingChannelIndex,
             );
         });
 
