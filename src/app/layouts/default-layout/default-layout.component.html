@@ -34,11 +34,16 @@
                                 }
                             </li>
                         }
-                        <li (click)="toggleOVP()"></li>
+                        <li (click)="toggleOVP()" (keydown)="toggleOVP()" tabindex="0"></li>
                     </ul>
                 </nav>
 
-                <span class="nav-toggle" (click)="navToggle()"></span>
+                <span
+                    class="nav-toggle"
+                    (click)="navToggle()"
+                    (keydown)="navToggle()"
+                    tabindex="0"
+                ></span>
             </header>
         </div>
     </section>

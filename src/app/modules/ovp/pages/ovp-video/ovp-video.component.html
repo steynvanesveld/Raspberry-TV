@@ -8,7 +8,9 @@
                         favorites?.favorites?.includes(ovpVideo.id) ? 'favorite' : ''
                     ]"
                     (click)="setFavorite(ovpVideo)"
-                ></button>
+                >
+                    &nbsp;
+                </button>
                 <iframe
                     [src]="domSanitizer.bypassSecurityTrustResourceUrl(ovpVideo.embed)"
                     allow="fullscreen"

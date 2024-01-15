@@ -1,3 +1,4 @@
+import { Kink } from '../models/kink.model';
 import { TestBed } from '@angular/core/testing';
 import { KinkSerializer } from './kink.serializer';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -21,14 +22,14 @@ describe('KinkSerializer', () => {
     });
 
     it('should serialize from json to model', () => {
-        mock.getNowPlayingKink().subscribe((data: any) => {
-            expect(serializer.fromJson(data)).toEqual(data);
+        mock.getNowPlayingKink().subscribe((data) => {
+            expect(serializer.fromJson(data as Kink)).toEqual(data as Kink);
         });
     });
 
     it('should serialize from model to json', () => {
-        mock.getNowPlayingKink().subscribe((data: any) => {
-            expect(typeof serializer.toJson(data)).toBe('object');
+        mock.getNowPlayingKink().subscribe((data) => {
+            expect(typeof serializer.toJson(data as Kink)).toBe('object');
         });
     });
 });

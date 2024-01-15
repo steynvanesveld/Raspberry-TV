@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Observable, of } from 'rxjs';
 import { Rss } from '../../models/rss.model';
 import { RssItem } from '../../models/rss-item.model';

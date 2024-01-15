@@ -11,7 +11,7 @@ import { FavoritesSerializer } from '../serializers/favorites.serializer';
 @Injectable({
     providedIn: 'root',
 })
-export class RaspberryService extends HttpService<any> {
+export class RaspberryService extends HttpService<System | Favorites> {
     constructor(httpClient: HttpClient) {
         super(httpClient);
 
@@ -23,19 +23,19 @@ export class RaspberryService extends HttpService<any> {
         this.setBaseUrl(environment.raspberry_host + '/api/');
     }
 
-    public getSystem(): Observable<System> {
+    public getSystem(): Observable<System | Favorites> {
         this.setSerializer(new SystemSerializer());
         this.setResource('system.php');
         return this.read();
     }
 
-    public getFavorites(): Observable<Favorites> {
+    public getFavorites(): Observable<System | Favorites> {
         this.setSerializer(new FavoritesSerializer());
         this.setResource('favorites.php');
         return this.read();
     }
 
-    public setFavorite(id: string): Observable<Favorites> {
+    public setFavorite(id: string): Observable<System | Favorites> {
         this.setSerializer(new FavoritesSerializer());
         this.setResource('favorites.php');
         const body = new URLSearchParams();

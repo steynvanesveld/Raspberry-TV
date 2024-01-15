@@ -57,10 +57,13 @@
                                         favorites?.favorites?.includes(video.id) ? 'favorite' : ''
                                     ]"
                                     (click)="setFavorite($event, video)"
-                                ></button>
+                                >
+                                    &nbsp;
+                                </button>
                                 <figure>
                                     <img
                                         class="thumb"
+                                        alt="thumbnail"
                                         [src]="video.current_thumb.src"
                                         (load)="showFavoriteButton($event.target)"
                                         [style.aspect-ratio]="
@@ -69,6 +72,7 @@
                                     />
                                     <img
                                         class="background"
+                                        alt="background"
                                         [src]="video.current_thumb.src"
                                         [style.aspect-ratio]="
                                             video.current_thumb.width / video.current_thumb.height
@@ -95,6 +99,8 @@
                             <li
                                 [ngClass]="index + 1 === page ? 'active' : ''"
                                 (click)="routerNavigate(undefined, index + 1)"
+                                (keydown)="routerNavigate(undefined, index + 1)"
+                                [tabindex]="index"
                             >
                                 {{ index + 1 }}
                             </li>

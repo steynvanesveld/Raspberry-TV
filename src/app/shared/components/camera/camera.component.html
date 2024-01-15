@@ -3,6 +3,6 @@
         <iframe [src]="cameraSrc"></iframe>
     }
     @if (cameraType === 'IMG' && localNetwork()) {
-        <img [src]="cameraSrc" />
+        <img [src]="cameraSrc" alt="camera" />
     }
 }

@@ -66,7 +66,7 @@ export class OVPVideoComponent implements OnInit {
             .getFavorites()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
-                this.favorites = result;
+                this.favorites = result as Favorites;
             });
     }
 
@@ -75,7 +75,7 @@ export class OVPVideoComponent implements OnInit {
             .setFavorite(ovpVideo.id)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
-                this.favorites = result;
+                this.favorites = result as Favorites;
             });
     }
 

@@ -9,7 +9,7 @@ import { OVPVideoSerializer } from '../serializers/ovp-video.serializer';
 @Injectable({
     providedIn: 'root',
 })
-export class OVPVideoService extends HttpService<any> {
+export class OVPVideoService extends HttpService<OVPVideo> {
     constructor(httpClient: HttpClient) {
         super(httpClient);
 

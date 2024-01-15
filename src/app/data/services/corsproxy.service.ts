@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
     providedIn: 'root',
 })
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export abstract class CorsProxyService extends HttpService<any> {
     constructor(httpClient: HttpClient) {
         super(httpClient);

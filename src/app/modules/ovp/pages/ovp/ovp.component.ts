@@ -124,7 +124,7 @@ export class OVPComponent implements OnInit {
             .getFavorites()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
-                this.favorites = result;
+                this.favorites = result as Favorites;
                 this.getFavoriteVideos();
             });
     }
@@ -155,12 +155,12 @@ export class OVPComponent implements OnInit {
             .setFavorite(ovpVideo.id)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
-                this.favorites = result;
+                this.favorites = result as Favorites;
             });
     }
 
-    public showFavoriteButton(target: any): void {
-        target.parentElement.parentElement.classList.remove('hidden');
+    public showFavoriteButton(target: EventTarget | null): void {
+        (target as HTMLElement)?.parentElement?.parentElement?.classList.remove('hidden');
     }
 
     public ngOnInit(): void {

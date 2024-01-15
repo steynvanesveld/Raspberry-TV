@@ -1,3 +1,4 @@
+import { Flux } from '../models/flux.model';
 import { TestBed } from '@angular/core/testing';
 import { FluxSerializer } from './flux.serializer';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -21,14 +22,14 @@ describe('FluxSerializer', () => {
     });
 
     it('should serialize from json to model', () => {
-        mock.getNowPlayingFlux('apiRef').subscribe((data: any) => {
-            expect(serializer.fromJson(data)).toEqual(data);
+        mock.getNowPlayingFlux('apiRef').subscribe((data) => {
+            expect(serializer.fromJson(data as Flux)).toEqual(data as Flux);
         });
     });
 
     it('should serialize from model to json', () => {
-        mock.getNowPlayingFlux('').subscribe((data: any) => {
-            expect(typeof serializer.toJson(data)).toBe('object');
+        mock.getNowPlayingFlux('').subscribe((data) => {
+            expect(typeof serializer.toJson(data as Flux)).toBe('object');
         });
     });
 });

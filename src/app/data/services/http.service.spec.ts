@@ -1,10 +1,9 @@
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpService } from './http.service';
 import { TestBed } from '@angular/core/testing';
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { AbstractModel } from '../models/abstract.model';
 import { PhotosSerializer } from '../serializers/photos.serializer';
-import { throwError, of, catchError } from 'rxjs';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HttpService', () => {
     let service: HttpService<AbstractModel>;
@@ -53,9 +52,10 @@ describe('HttpService', () => {
     describe('read()', () => {
         it('should call catchError() on bad call', () => {
             spyOn(service, 'catchError').and.callThrough();
-            let errResponse: any;
+            let errResponse: never;
 
             service.read().subscribe({
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 error: (err) => (err = errResponse),
             });
 

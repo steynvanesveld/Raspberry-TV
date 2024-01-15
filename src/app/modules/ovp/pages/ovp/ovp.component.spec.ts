@@ -308,15 +308,18 @@ describe('OVPComponent', () => {
                 parentElement: {
                     parentElement: { classList: { remove: () => {} } },
                 },
-            } as any;
+            } as unknown as EventTarget;
 
-            spyOn(target.parentElement.parentElement.classList, 'remove');
+            spyOn(
+                (target as HTMLElement)?.parentElement?.parentElement?.classList,
+                'remove' as never,
+            );
 
             component.showFavoriteButton(target);
 
-            expect(target.parentElement.parentElement.classList.remove).toHaveBeenCalledWith(
-                'hidden',
-            );
+            expect(
+                (target as HTMLElement)?.parentElement?.parentElement?.classList.remove,
+            ).toHaveBeenCalledWith('hidden');
         });
     });
 

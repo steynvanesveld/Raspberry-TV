@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Observable, of } from 'rxjs';
 import { DNB } from '../../models/dnb.model';
 import { Kink } from '../../models/kink.model';
@@ -39,7 +40,7 @@ export class RadioServiceMock {
         new RadioChannel('http://website.com/api/none.mp3', 'NONE', 'NONE', ''),
     ];
 
-    public getNowPlaying(_radioChannel: RadioChannel): Observable<Kink | Flux | DNB> {
+    public getNowPlaying(radioChannel: RadioChannel): Observable<Kink | Flux | DNB> {
         return this.getNowPlayingKink();
     }
 
@@ -47,7 +48,7 @@ export class RadioServiceMock {
         return of(this.kinkResponse);
     }
 
-    public getNowPlayingFlux(_channel: string): Observable<Kink | Flux | DNB> {
+    public getNowPlayingFlux(channel: string): Observable<Kink | Flux | DNB> {
         return of(this.fluxResponse);
     }
     public getNowPlayingDNB(): Observable<Kink | Flux | DNB> {
