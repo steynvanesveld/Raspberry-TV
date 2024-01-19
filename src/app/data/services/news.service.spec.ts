@@ -40,6 +40,24 @@ describe('NewsService', () => {
         });
     });
 
+    describe('getEasterEggNews()', () => {
+        it('should make a GET request via the abstract http class', () => {
+            const abstractMethod = spyOn(service, 'read').and.callThrough();
+
+            service.getEasterEggNews().subscribe(() => {
+                expect(abstractMethod).toHaveBeenCalled();
+            });
+
+            const request = httpMock.expectOne(
+                'https://proxy.cors.sh/http://vanesveld.ddns.net:1337/assets/easterEgg/news.xml',
+            );
+
+            expect(request.request.method).toBe('GET');
+
+            request.flush([]);
+        });
+    });
+
     describe('getNos()', () => {
         it('should make a GET request via the abstract http class', () => {
             const abstractMethod = spyOn(service, 'read').and.callThrough();

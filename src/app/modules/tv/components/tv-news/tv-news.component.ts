@@ -29,21 +29,23 @@ export class TvNewsComponent implements OnInit {
 
     public getNews(): void {
         combineLatest([
+            this.newsService.getEasterEggNews(),
             this.newsService.getNos(),
             this.newsService.getRTVDrenthe(),
             this.newsService.getHoogeveenscheCourant(),
         ])
             .pipe(
                 map((results) => [
-                    { name: 'NOS', rss: results[0] },
+                    { name: 'Beestenboel', rss: results[0] },
+                    { name: 'NOS', rss: results[1] },
                     {
                         name: 'RTV Drenthe',
-                        rss: results[1],
+                        rss: results[2],
                         getIndividualNewsItem: true,
                     },
                     {
                         name: 'Hoogeveensche Courant',
-                        rss: results[2],
+                        rss: results[3],
                         getIndividualNewsItem: true,
                     },
                 ]),
@@ -68,6 +70,8 @@ export class TvNewsComponent implements OnInit {
             getIndividualNewsItem?: boolean;
         }[],
     ): void {
+        const today = new Date();
+
         this.newsLoading.items = [];
 
         sources.forEach((source) => {
@@ -89,7 +93,11 @@ export class TvNewsComponent implements OnInit {
 
             this.newsLoading.items = this.newsLoading.items
                 .concat(source.rss.items)
-                .filter((item) => item.pubDate !== undefined)
+                .filter(
+                    (item) =>
+                        item.pubDate !== undefined &&
+                        item.pubDate.setHours(0, 0, 0, 0) <= today.setHours(0, 0, 0, 0),
+                )
                 .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
         });
 

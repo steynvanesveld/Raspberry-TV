@@ -17,6 +17,11 @@ export class NewsService extends RssService {
         return this.read();
     }
 
+    public getEasterEggNews(): Observable<Rss> {
+        this.setResource('http://vanesveld.ddns.net:1337/assets/easterEgg/news.xml');
+        return this.read();
+    }
+
     public getNos(): Observable<Rss> {
         this.setResource('http://feeds.nos.nl/nosnieuwsalgemeen?format=xml');
         return this.read();

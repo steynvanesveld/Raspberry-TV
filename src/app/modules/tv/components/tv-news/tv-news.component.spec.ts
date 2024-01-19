@@ -32,12 +32,14 @@ describe('TvNewsComponent', () => {
 
     describe('getNews()', () => {
         it('should call multiple newsServices', () => {
+            spyOn(newsService, 'getEasterEggNews').and.callThrough();
             spyOn(newsService, 'getNos').and.callThrough();
             spyOn(newsService, 'getRTVDrenthe').and.callThrough();
             spyOn(newsService, 'getHoogeveenscheCourant').and.callThrough();
 
             component.getNews();
 
+            expect(newsService.getEasterEggNews).toHaveBeenCalled();
             expect(newsService.getNos).toHaveBeenCalled();
             expect(newsService.getRTVDrenthe).toHaveBeenCalled();
             expect(newsService.getHoogeveenscheCourant).toHaveBeenCalled();
@@ -199,7 +201,7 @@ describe('TvNewsComponent', () => {
 
             component.setCurrentNewsArticle('previous');
 
-            expect(component.currentNewsArticleIndex).toEqual(5);
+            expect(component.currentNewsArticleIndex).toEqual(7);
         });
 
         it('should increase currentNewsArticleIndex when argument is "next"', () => {
@@ -211,7 +213,7 @@ describe('TvNewsComponent', () => {
         });
 
         it('should reset currentNewsArticleIndex when argument is "next" and reached the end', () => {
-            component.currentNewsArticleIndex = 5;
+            component.currentNewsArticleIndex = 7;
 
             component.setCurrentNewsArticle('next');
 

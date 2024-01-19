@@ -22,6 +22,10 @@ export class NewsServiceMock {
         );
     }
 
+    public getEasterEggNews(): Observable<Rss> {
+        return of(new Rss([newsItem, newsItem]));
+    }
+
     public getNos(): Observable<Rss> {
         return of(new Rss([newsItem, newsItem]));
     }
