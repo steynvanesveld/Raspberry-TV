@@ -18,12 +18,16 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/raspberry",
+                        "outputPath": {
+                            "base": "dist/raspberry",
+                            "browser": "",
+                            "media": "assets"
+                        },
                         "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "browser": "src/main.ts",
+                        "polyfills": ["src/polyfills.ts"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.png", "src/assets"],
@@ -56,9 +60,7 @@
                             "outputHashing": "all"
                         },
                         "development": {
-                            "buildOptimizer": false,
                             "optimization": false,
-                            "vendorChunk": true,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
@@ -70,7 +72,8 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
                         "host": "0.0.0.0",
-                        "port": 1337
+                        "port": 1337,
+                        "disableHostCheck": true
                     },
                     "configurations": {
                         "production": {
