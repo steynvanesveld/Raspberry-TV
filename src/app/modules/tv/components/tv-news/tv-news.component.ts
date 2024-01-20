@@ -71,6 +71,8 @@ export class TvNewsComponent implements OnInit {
         }[],
     ): void {
         const today = new Date();
+        const twoDaysAgo = new Date();
+        twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
 
         this.newsLoading.items = [];
 
@@ -96,7 +98,8 @@ export class TvNewsComponent implements OnInit {
                 .filter(
                     (item) =>
                         item.pubDate !== undefined &&
-                        item.pubDate.setHours(0, 0, 0, 0) <= today.setHours(0, 0, 0, 0),
+                        item.pubDate.setHours(0, 0, 0, 0) <= today.setHours(0, 0, 0, 0) &&
+                        item.pubDate.setHours(0, 0, 0, 0) >= twoDaysAgo.setHours(0, 0, 0, 0),
                 )
                 .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
         });
