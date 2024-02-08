@@ -70,9 +70,10 @@ export class TvNewsComponent implements OnInit {
             getIndividualNewsItem?: boolean;
         }[],
     ): void {
-        const today = new Date();
+        const todayMidnight = new Date().setHours(0, 0, 0, 0);
         const twoDaysAgo = new Date();
         twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+        const twoDaysAgoMidnight = twoDaysAgo.setHours(0, 0, 0, 0);
 
         this.newsLoading.items = [];
 
@@ -95,12 +96,15 @@ export class TvNewsComponent implements OnInit {
 
             this.newsLoading.items = this.newsLoading.items
                 .concat(source.rss.items)
-                .filter(
-                    (item) =>
+                .filter((item) => {
+                    const pubDateMidnight = structuredClone(item).pubDate.setHours(0, 0, 0, 0);
+
+                    return (
                         item.pubDate !== undefined &&
-                        item.pubDate.setHours(0, 0, 0, 0) <= today.setHours(0, 0, 0, 0) &&
-                        item.pubDate.setHours(0, 0, 0, 0) >= twoDaysAgo.setHours(0, 0, 0, 0),
-                )
+                        pubDateMidnight <= todayMidnight &&
+                        pubDateMidnight >= twoDaysAgoMidnight
+                    );
+                })
                 .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
         });
 

@@ -25,17 +25,7 @@ export class TvWallpaperComponent implements OnInit {
         let url = '';
 
         if (this.photos?.photos.length) {
-            let photo = this.photos.photos[this.dayIndex].src.original;
-
-            // TEMP
-            const birthDay = new Date('01/27/2024').setHours(0, 0, 0, 0);
-            const today = new Date().setHours(0, 0, 0, 0);
-
-            if (birthDay === today) {
-                photo =
-                    'https://images.pexels.com/photos/15065486/pexels-photo-15065486/free-photo-of-rainbow-birthday-cake-in-close-up-view.jpeg';
-            }
-            // END TEMP
+            const photo = this.photos.photos[this.dayIndex].src.original;
 
             url = `, url('${photo}${this.photoParameters}')`;
         }
