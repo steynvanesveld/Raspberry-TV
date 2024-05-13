@@ -1,6 +1,6 @@
 import { AbstractModel } from './abstract.model';
 
-export class WeatherTemp extends AbstractModel {
+export class OpenWeatherTemp extends AbstractModel {
     constructor(
         public day: number,
         public min: number,

@@ -1,8 +1,8 @@
 import { AbstractModel } from './abstract.model';
-import { WeatherTemp } from './weather-temp.model';
-import { WeatherWeather } from './weather-weather.model';
+import { OpenWeatherTemp } from './openweather-temp.model';
+import { OpenWeatherWeather } from './openweather-weather.model';
 
-export class WeatherDaily extends AbstractModel {
+export class OpenWeatherDaily extends AbstractModel {
     constructor(
         public dt: number,
         public sunrise: number,
@@ -10,15 +10,15 @@ export class WeatherDaily extends AbstractModel {
         public moonrise: number,
         public moonset: number,
         public moon_phase: number,
-        public temp: WeatherTemp,
-        public feels_like: WeatherTemp,
+        public temp: OpenWeatherTemp,
+        public feels_like: OpenWeatherTemp,
         public pressure: number,
         public humidity: number,
         public dew_point: number,
         public wind_speed: number,
         public wind_deg: number,
         public wind_gust: number,
-        public weather: WeatherWeather[],
+        public weather: OpenWeatherWeather[],
         public clouds: number,
         public pop: number,
         public rain: number,

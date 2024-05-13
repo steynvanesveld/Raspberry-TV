@@ -1,20 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { Weather } from '../models/weather.model';
-import { WeatherSerializer } from './weather.serializer';
+import { OpenWeather } from '../models/openweather.model';
 import { RouterTestingModule } from '@angular/router/testing';
+import { OpenWeatherSerializer } from './openweather.serializer';
 import { OpenWeatherServiceMock } from '../services/mocks/openweather.service.mock';
 
-describe('WeatherSerializer', () => {
-    let serializer: WeatherSerializer;
+describe('OpenWeatherSerializer', () => {
+    let serializer: OpenWeatherSerializer;
     const mock = new OpenWeatherServiceMock();
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule],
-            providers: [WeatherSerializer],
+            providers: [OpenWeatherSerializer],
         });
 
-        serializer = TestBed.inject(WeatherSerializer);
+        serializer = TestBed.inject(OpenWeatherSerializer);
     });
 
     it('should be created', () => {
@@ -22,13 +22,13 @@ describe('WeatherSerializer', () => {
     });
 
     it('should serialize from json to model', () => {
-        mock.getWeather().subscribe((data: Weather) => {
+        mock.getWeather().subscribe((data: OpenWeather) => {
             expect(serializer.fromJson(data)).toEqual(data);
         });
     });
 
     it('should serialize from model to json', () => {
-        mock.getWeather().subscribe((data: Weather) => {
+        mock.getWeather().subscribe((data: OpenWeather) => {
             expect(typeof serializer.toJson(data)).toBe('object');
         });
     });

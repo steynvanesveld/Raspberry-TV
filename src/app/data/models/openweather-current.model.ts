@@ -1,7 +1,7 @@
 import { AbstractModel } from './abstract.model';
-import { WeatherWeather } from './weather-weather.model';
+import { OpenWeatherWeather } from './openweather-weather.model';
 
-export class WeatherCurrent extends AbstractModel {
+export class OpenWeatherCurrent extends AbstractModel {
     constructor(
         public dt: number,
         public sunrise: number,
@@ -17,7 +17,7 @@ export class WeatherCurrent extends AbstractModel {
         public wind_speed: number,
         public wind_deg: number,
         public wind_gust: number,
-        public weather: WeatherWeather[],
+        public weather: OpenWeatherWeather[],
     ) {
         super();
     }

@@ -1,5 +1,5 @@
-import { Weather } from 'src/app/data/models/weather.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { OpenWeather } from 'src/app/data/models/openweather.model';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { OpenWeatherService } from 'src/app/data/services/openweather.service';
 
@@ -9,7 +9,7 @@ import { OpenWeatherService } from 'src/app/data/services/openweather.service';
     styleUrl: './tv-weather.component.scss',
 })
 export class TvWeatherComponent implements OnInit {
-    public weather: Weather | undefined;
+    public weather: OpenWeather | undefined;
     public sun: { time?: string; type?: 'sunrise' | 'sunset' } = {};
     public destroyRef = inject(DestroyRef);
 

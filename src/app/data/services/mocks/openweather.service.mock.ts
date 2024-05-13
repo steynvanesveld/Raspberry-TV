@@ -1,51 +1,51 @@
 import { Observable, of } from 'rxjs';
-import { Weather } from '../../models/weather.model';
-import { WeatherTemp } from '../../models/weather-temp.model';
-import { WeatherDaily } from '../../models/weather-daily.model';
-import { WeatherCurrent } from '../../models/weather-current.model';
-import { WeatherWeather } from '../../models/weather-weather.model';
+import { OpenWeather } from '../../models/openweather.model';
+import { OpenWeatherTemp } from '../../models/openweather-temp.model';
+import { OpenWeatherDaily } from '../../models/openweather-daily.model';
+import { OpenWeatherCurrent } from '../../models/openweather-current.model';
+import { OpenWeatherWeather } from '../../models/openweather-weather.model';
 
-const weatherDaily = new WeatherDaily(
+const openweatherDaily = new OpenWeatherDaily(
     1,
     2,
     3,
     4,
     5,
     6,
-    new WeatherTemp(1, 2, 3, 4, 5, 6),
-    new WeatherTemp(1, 2, 3, 4, 5, 6),
+    new OpenWeatherTemp(1, 2, 3, 4, 5, 6),
+    new OpenWeatherTemp(1, 2, 3, 4, 5, 6),
     7,
     8,
     9,
     10,
     11,
     12,
-    [new WeatherWeather(801, 'Clouds', 'Cloudy', '02d')],
+    [new OpenWeatherWeather(801, 'Clouds', 'Cloudy', '02d')],
     13,
     14,
     15,
     16,
 );
 
-const weatherDailyArray = () => {
+const openweatherDailyArray = () => {
     const daysInWeek = 7;
     const array = [];
 
     for (let i = 0; i <= daysInWeek; i++) {
-        array.push(weatherDaily);
+        array.push(openweatherDaily);
     }
 
     return array;
 };
 
 export class OpenWeatherServiceMock {
-    getWeather(): Observable<Weather> {
+    getWeather(): Observable<OpenWeather> {
         return of(
-            new Weather(
-                new WeatherCurrent(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, [
-                    new WeatherWeather(801, 'Clouds', 'Cloudy', '02d'),
+            new OpenWeather(
+                new OpenWeatherCurrent(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, [
+                    new OpenWeatherWeather(801, 'Clouds', 'Cloudy', '02d'),
                 ]),
-                weatherDailyArray(),
+                openweatherDailyArray(),
             ),
         );
     }

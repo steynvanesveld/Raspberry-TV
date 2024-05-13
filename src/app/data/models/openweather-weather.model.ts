@@ -1,6 +1,6 @@
 import { AbstractModel } from './abstract.model';
 
-export class WeatherWeather extends AbstractModel {
+export class OpenWeatherWeather extends AbstractModel {
     constructor(
         public override id: number,
         public main: string,
