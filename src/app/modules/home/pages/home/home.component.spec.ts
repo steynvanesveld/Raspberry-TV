@@ -1,4 +1,4 @@
-import { CamComponent } from './cam.component';
+import { HomeComponent } from './home.component';
 import { Component, Input } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -8,19 +8,19 @@ class CameraComponent {
     @Input() public cameraType!: 'IMG' | 'IFRAME';
 }
 
-describe('CamComponent', () => {
-    let component: CamComponent;
-    let fixture: ComponentFixture<CamComponent>;
+describe('HomeComponent', () => {
+    let component: HomeComponent;
+    let fixture: ComponentFixture<HomeComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [RouterTestingModule],
-            declarations: [CamComponent, CameraComponent],
+            declarations: [HomeComponent, CameraComponent],
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CamComponent);
+        fixture = TestBed.createComponent(HomeComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

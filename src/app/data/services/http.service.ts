@@ -35,15 +35,6 @@ export abstract class HttpService<T extends AbstractModel> {
             );
     }
 
-    public create(body: object): Observable<T> {
-        return this.http
-            .post(`${this.baseUrl}${this.resource}`, body, {
-                headers: this.headers,
-                params: this.params,
-            })
-            .pipe(map((data: object) => this.serializer.fromJson(data) as T));
-    }
-
     public catchError(error: HttpErrorResponse): Observable<T> {
         return throwError(() => error);
     }

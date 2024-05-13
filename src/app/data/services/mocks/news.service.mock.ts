@@ -5,7 +5,7 @@ import { RssItem } from '../../models/rss-item.model';
 
 export const newsItem = new RssItem(
     '<div>Detailed content</div>',
-    new Date(0),
+    new Date(),
     'News item',
     'http://link',
     '01/01 om 00:00',
@@ -13,12 +13,12 @@ export const newsItem = new RssItem(
 
 export class NewsServiceMock {
     public getNewsItem(link?: string): Observable<Rss> {
-        return of(new Rss([new RssItem('<div>Detailed content</div>', new Date(0))]));
+        return of(new Rss([new RssItem('<div>Detailed content</div>', new Date())]));
     }
 
     public getNewsItemPayWall(link?: string): Observable<Rss> {
         return of(
-            new Rss([new RssItem('<div>Detailed content paywall-initial</div>', new Date(0))]),
+            new Rss([new RssItem('<div>Detailed content paywall-initial</div>', new Date())]),
         );
     }
 

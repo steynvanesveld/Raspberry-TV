@@ -7,8 +7,8 @@ const routes: Routes = [
         path: '',
         component: DefaultLayoutComponent,
         loadChildren: () =>
-            import('src/app/modules/cam/cam.module').then((m) => {
-                return m.CamModule;
+            import('src/app/modules/home/home.module').then((m) => {
+                return m.HomeModule;
             }),
     },
     {
@@ -17,14 +17,6 @@ const routes: Routes = [
         loadChildren: () =>
             import('src/app/modules/tv/tv.module').then((m) => {
                 return m.TvModule;
-            }),
-    },
-    {
-        path: 'ovp',
-        component: DefaultLayoutComponent,
-        loadChildren: () =>
-            import('src/app/modules/ovp/ovp.module').then((m) => {
-                return m.OVPModule;
             }),
     },
 ];

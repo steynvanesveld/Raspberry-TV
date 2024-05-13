@@ -10,31 +10,15 @@
                     <ul>
                         @for (item of navItems; track item) {
                             <li>
-                                @if (item.internal) {
-                                    @if (
-                                        item.label !== 'OVP' ||
-                                        showOVP ||
-                                        router.isActive(item.value, false)
-                                    ) {
-                                        <a
-                                            [routerLink]="item.value"
-                                            [routerLinkActiveOptions]="{
-                                                exact: true
-                                            }"
-                                            (click)="navToggle()"
-                                            routerLinkActive="active"
-                                        >
-                                            {{ item.label }}
-                                        </a>
-                                    }
-                                } @else {
-                                    <a [href]="item.value">
-                                        {{ item.label }}
-                                    </a>
-                                }
+                                <a
+                                    [routerLink]="item.value"
+                                    (click)="navToggle()"
+                                    routerLinkActive="active"
+                                >
+                                    {{ item.label }}
+                                </a>
                             </li>
                         }
-                        <li (click)="toggleOVP()" (keydown)="toggleOVP()" tabindex="0"></li>
                     </ul>
                 </nav>
 

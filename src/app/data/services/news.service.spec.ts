@@ -49,7 +49,7 @@ describe('NewsService', () => {
             });
 
             const request = httpMock.expectOne(
-                'https://proxy.cors.sh/http://vanesveld.ddns.net:1337/assets/easterEgg/news.xml',
+                'https://proxy.cors.sh/http://192.168.178.2/assets/easterEgg/news.xml',
             );
 
             expect(request.request.method).toBe('GET');

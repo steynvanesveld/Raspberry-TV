@@ -8,24 +8,15 @@ import { Component } from '@angular/core';
 })
 export class DefaultLayoutComponent {
     public navVisible = false;
-    public showOVP = false;
-    public showOVPClicks = 0;
 
     public navItems = [
         {
-            label: 'Camera',
+            label: 'Home',
             value: '/',
-            internal: true,
         },
         {
             label: 'Tv',
             value: '/tv',
-            internal: true,
-        },
-        {
-            label: 'OVP',
-            value: '/ovp',
-            internal: true,
         },
     ];
 
@@ -33,14 +24,5 @@ export class DefaultLayoutComponent {
 
     public navToggle(): void {
         this.navVisible = !this.navVisible;
-    }
-
-    public toggleOVP(): void {
-        if (this.showOVPClicks < 6) {
-            this.showOVPClicks++;
-            return;
-        }
-
-        this.showOVP = !this.showOVP;
     }
 }

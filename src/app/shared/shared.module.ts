@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CameraComponent } from './components/camera/camera.component';
 
 @NgModule({
-    declarations: [CameraComponent],
+    declarations: [],
     imports: [CommonModule],
-    exports: [CameraComponent],
+    exports: [],
 })
 export class SharedModule {}
