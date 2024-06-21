@@ -84,7 +84,10 @@ export class TvNewsComponent implements OnInit {
                         .getNewsItem(item.link ?? '')
                         .pipe(takeUntilDestroyed(this.destroyRef))
                         .subscribe((response) => {
-                            if (response.items[0].description.includes('paywall-initial')) {
+                            if (
+                                response.items[0].description.includes('paywall-initial') ||
+                                response.items[0].description.includes('subscribe-only-article')
+                            ) {
                                 return;
                             }
                             item.description = response.items[0].description;
