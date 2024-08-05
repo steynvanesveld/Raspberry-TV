@@ -8,8 +8,8 @@ This project can be downloaded and modified by anyone interested.
 
 ### Requirements
 
-- Download and install [Node.js](https://nodejs.org/). Node 16.17 LTS or higher recommended
-- Install Angular CLI globally `npm install -g @angular/cli`. Angular 14 is recommended.
+- Download and install [Node.js](https://nodejs.org/). Node 20 LTS or higher recommended
+- Install Angular CLI globally `npm install -g @angular/cli`. Angular 18 is recommended.
 
 ### Setup
 
