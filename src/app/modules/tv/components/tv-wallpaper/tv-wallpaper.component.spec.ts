@@ -1,8 +1,8 @@
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { TvWallpaperComponent } from './tv-wallpaper.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PexelsService } from 'src/app/data/services/pexels.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { PexelsServiceMock } from 'src/app/data/services/mocks/pexels.service.mock';
 
 describe('TvWallpaperComponent', () => {
@@ -12,8 +12,11 @@ describe('TvWallpaperComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule, HttpClientTestingModule],
-            providers: [{ provide: PexelsService, useClass: PexelsServiceMock }],
+            providers: [
+                provideHttpClient(),
+                provideHttpClientTesting(),
+                { provide: PexelsService, useClass: PexelsServiceMock },
+            ],
             declarations: [TvWallpaperComponent],
         }).compileComponents();
     });

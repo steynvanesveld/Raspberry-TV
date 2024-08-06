@@ -1,5 +1,4 @@
 import { TvClockComponent } from './tv-clock.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe('TvClockComponent', () => {
@@ -8,7 +7,6 @@ describe('TvClockComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             declarations: [TvClockComponent],
         }).compileComponents();
     });

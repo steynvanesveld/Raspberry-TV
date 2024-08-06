@@ -35,6 +35,12 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['Chrome'],
+        customLaunchers: {
+            ChromeWithFlags: {
+                base: 'Chrome',
+                flags: ['--disable-search-engine-choice-screen'],
+            },
+        },
         singleRun: false,
         restartOnFileChange: true,
     });

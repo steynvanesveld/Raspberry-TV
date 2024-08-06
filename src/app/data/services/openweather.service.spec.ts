@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { OpenWeatherService } from './openweather.service';
 import { environment } from 'src/environments/environment';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('OpenWeatherService', () => {
     let service: OpenWeatherService;
@@ -9,8 +10,7 @@ describe('OpenWeatherService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [OpenWeatherService],
+            providers: [provideHttpClient(), provideHttpClientTesting()],
         });
 
         service = TestBed.inject(OpenWeatherService);

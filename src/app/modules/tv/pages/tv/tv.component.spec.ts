@@ -1,9 +1,9 @@
 import { Subject } from 'rxjs';
 import { TvComponent } from './tv.component';
 import { Component, Input } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
 
 @Component({ selector: 'app-tv-news', template: '' })
@@ -36,7 +36,7 @@ describe('TvComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule, HttpClientTestingModule],
+            providers: [provideHttpClient(), provideHttpClientTesting()],
             declarations: [
                 TvComponent,
                 TvNewsComponent,

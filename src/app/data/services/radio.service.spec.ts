@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { RadioService } from './radio.service';
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { RadioChannel } from '../models/radio-channel.model';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('RadioService', () => {
     let service: RadioService;
@@ -10,8 +11,7 @@ describe('RadioService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [RadioService],
+            providers: [provideHttpClient(), provideHttpClientTesting()],
         });
 
         service = TestBed.inject(RadioService);

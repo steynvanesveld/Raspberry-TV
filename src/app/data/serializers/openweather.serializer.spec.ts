@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { OpenWeather } from '../models/openweather.model';
-import { RouterTestingModule } from '@angular/router/testing';
 import { OpenWeatherSerializer } from './openweather.serializer';
 import { OpenWeatherServiceMock } from '../services/mocks/openweather.service.mock';
 
@@ -10,7 +9,6 @@ describe('OpenWeatherSerializer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [OpenWeatherSerializer],
         });
 

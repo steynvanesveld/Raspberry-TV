@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { TvRadioComponent } from './tv-radio.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RadioService } from 'src/app/data/services/radio.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RadioServiceMock } from 'src/app/data/services/mocks/radio.service.mock';
 
 @Component({ selector: 'app-camera', template: '' })
@@ -19,8 +19,12 @@ describe('TvRadioComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule, HttpClientTestingModule],
-            providers: [{ provide: RadioService, useClass: RadioServiceMock }, RadioServiceMock],
+            providers: [
+                provideHttpClient(),
+                provideHttpClientTesting(),
+                { provide: RadioService, useClass: RadioServiceMock },
+                RadioServiceMock,
+            ],
             declarations: [TvRadioComponent, CameraComponent],
         }).compileComponents();
     });

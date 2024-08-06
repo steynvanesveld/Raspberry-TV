@@ -1,7 +1,6 @@
 import { DNB } from '../models/dnb.model';
 import { TestBed } from '@angular/core/testing';
 import { DNBSerializer } from './dnb.serializer';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RadioServiceMock } from '../services/mocks/radio.service.mock';
 
 describe('DNBSerializer', () => {
@@ -10,7 +9,6 @@ describe('DNBSerializer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [DNBSerializer],
         });
 

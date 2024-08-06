@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Photos } from '../models/photos.model';
 import { PhotosSerializer } from './photos.serializer';
-import { RouterTestingModule } from '@angular/router/testing';
 import { PexelsServiceMock } from '../services/mocks/pexels.service.mock';
 
 describe('PhotosSerializer', () => {
@@ -10,7 +9,6 @@ describe('PhotosSerializer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [PhotosSerializer],
         });
 

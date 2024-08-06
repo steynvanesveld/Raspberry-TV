@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { PexelsService } from './pexels.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('PexelsService', () => {
     let service: PexelsService;
@@ -8,8 +9,7 @@ describe('PexelsService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [PexelsService],
+            providers: [provideHttpClient(), provideHttpClientTesting()],
         });
 
         service = TestBed.inject(PexelsService);

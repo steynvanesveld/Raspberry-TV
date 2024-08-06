@@ -1,7 +1,7 @@
+import { provideHttpClient } from '@angular/common/http';
 import { TvWeatherComponent } from './tv-weather.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { OpenWeatherService } from 'src/app/data/services/openweather.service';
 import { OpenWeatherServiceMock } from 'src/app/data/services/mocks/openweather.service.mock';
 
@@ -12,8 +12,9 @@ describe('TvWeatherComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule, HttpClientTestingModule],
             providers: [
+                provideHttpClient(),
+                provideHttpClientTesting(),
                 {
                     provide: OpenWeatherService,
                     useClass: OpenWeatherServiceMock,

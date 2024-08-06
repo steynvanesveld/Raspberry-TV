@@ -2,7 +2,6 @@ import { Rss } from '../models/rss.model';
 import { TestBed } from '@angular/core/testing';
 import { RssSerializer } from './rss.serializer';
 import { RssItem } from '../models/rss-item.model';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RssServiceMock } from '../services/mocks/rss.service.mock';
 
 describe('RssSerializer', () => {
@@ -11,7 +10,6 @@ describe('RssSerializer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [RssSerializer],
         });
 

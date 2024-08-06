@@ -1,7 +1,6 @@
 import { Kink } from '../models/kink.model';
 import { TestBed } from '@angular/core/testing';
 import { KinkSerializer } from './kink.serializer';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RadioServiceMock } from '../services/mocks/radio.service.mock';
 
 describe('KinkSerializer', () => {
@@ -10,7 +9,6 @@ describe('KinkSerializer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [KinkSerializer],
         });
 

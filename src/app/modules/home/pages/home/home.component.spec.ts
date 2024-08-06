@@ -1,6 +1,5 @@
 import { HomeComponent } from './home.component';
 import { Component, Input } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 @Component({ selector: 'app-camera', template: '' })
@@ -14,7 +13,6 @@ describe('HomeComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             declarations: [HomeComponent, CameraComponent],
         }).compileComponents();
     });

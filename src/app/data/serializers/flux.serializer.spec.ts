@@ -1,7 +1,6 @@
 import { Flux } from '../models/flux.model';
 import { TestBed } from '@angular/core/testing';
 import { FluxSerializer } from './flux.serializer';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RadioServiceMock } from '../services/mocks/radio.service.mock';
 
 describe('FluxSerializer', () => {
@@ -10,7 +9,6 @@ describe('FluxSerializer', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
             providers: [FluxSerializer],
         });
 
