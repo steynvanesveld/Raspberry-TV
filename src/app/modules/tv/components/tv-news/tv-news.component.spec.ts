@@ -2,8 +2,8 @@ import { Rss } from 'src/app/data/models/rss.model';
 import { TvNewsComponent } from './tv-news.component';
 import { provideHttpClient } from '@angular/common/http';
 import { NewsService } from 'src/app/data/services/news.service';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NewsServiceMock, newsItem } from 'src/app/data/services/mocks/news.service.mock';
 
 describe('TvNewsComponent', () => {
@@ -11,8 +11,8 @@ describe('TvNewsComponent', () => {
     let newsService: NewsService;
     let fixture: ComponentFixture<TvNewsComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
             providers: [
                 provideHttpClient(),
                 provideHttpClientTesting(),
@@ -20,7 +20,7 @@ describe('TvNewsComponent', () => {
             ],
             declarations: [TvNewsComponent],
         }).compileComponents();
-    });
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TvNewsComponent);

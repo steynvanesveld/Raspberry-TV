@@ -2,9 +2,9 @@ import { Subject } from 'rxjs';
 import { TvComponent } from './tv.component';
 import { Component, Input } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 @Component({ selector: 'app-tv-news', template: '' })
 class TvNewsComponent {
@@ -34,8 +34,8 @@ describe('TvComponent', () => {
     let component: TvComponent;
     let fixture: ComponentFixture<TvComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
             providers: [provideHttpClient(), provideHttpClientTesting()],
             declarations: [
                 TvComponent,
@@ -46,7 +46,7 @@ describe('TvComponent', () => {
                 TvWallpaperComponent,
             ],
         }).compileComponents();
-    });
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TvComponent);

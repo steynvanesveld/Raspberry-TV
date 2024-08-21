@@ -1,8 +1,8 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TvWallpaperComponent } from './tv-wallpaper.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PexelsService } from 'src/app/data/services/pexels.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PexelsServiceMock } from 'src/app/data/services/mocks/pexels.service.mock';
 
 describe('TvWallpaperComponent', () => {
@@ -10,8 +10,8 @@ describe('TvWallpaperComponent', () => {
     let fixture: ComponentFixture<TvWallpaperComponent>;
     let pexelsService: PexelsService;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
             providers: [
                 provideHttpClient(),
                 provideHttpClientTesting(),
@@ -19,7 +19,7 @@ describe('TvWallpaperComponent', () => {
             ],
             declarations: [TvWallpaperComponent],
         }).compileComponents();
-    });
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TvWallpaperComponent);

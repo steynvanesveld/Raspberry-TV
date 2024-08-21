@@ -1,8 +1,8 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TvWeatherComponent } from './tv-weather.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { OpenWeatherService } from 'src/app/data/services/openweather.service';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OpenWeatherServiceMock } from 'src/app/data/services/mocks/openweather.service.mock';
 
 describe('TvWeatherComponent', () => {
@@ -10,8 +10,8 @@ describe('TvWeatherComponent', () => {
     let fixture: ComponentFixture<TvWeatherComponent>;
     let openWeatherService: OpenWeatherService;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
             providers: [
                 provideHttpClient(),
                 provideHttpClientTesting(),
@@ -22,7 +22,7 @@ describe('TvWeatherComponent', () => {
             ],
             declarations: [TvWeatherComponent],
         }).compileComponents();
-    });
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TvWeatherComponent);
