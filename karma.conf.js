@@ -38,7 +38,10 @@ module.exports = function (config) {
         customLaunchers: {
             ChromeWithFlags: {
                 base: 'Chrome',
-                flags: ['--disable-search-engine-choice-screen'],
+                flags: [
+                    '--disable-search-engine-choice-screen',
+                    '--autoplay-policy=no-user-gesture-required',
+                ],
             },
         },
         singleRun: false,

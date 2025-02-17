@@ -12,6 +12,7 @@ describe('TvWeatherComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
+            imports: [TvWeatherComponent],
             providers: [
                 provideHttpClient(),
                 provideHttpClientTesting(),
@@ -20,7 +21,6 @@ describe('TvWeatherComponent', () => {
                     useClass: OpenWeatherServiceMock,
                 },
             ],
-            declarations: [TvWeatherComponent],
         }).compileComponents();
     }));
 

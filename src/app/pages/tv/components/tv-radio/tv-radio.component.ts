@@ -2,17 +2,18 @@ import { Subject } from 'rxjs';
 import { DNB } from '@data/models/dnb.model';
 import { Kink } from '@data/models/kink.model';
 import { Flux } from '@data/models/flux.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
 import { RadioService } from '@data/services/radio.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RadioChannel } from '@data/models/radio-channel.model';
 import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
 import { Component, DestroyRef, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 
 @Component({
-    standalone: false,
     selector: 'app-tv-radio',
     templateUrl: './tv-radio.component.html',
     styleUrl: './tv-radio.component.scss',
+    imports: [CommonModule],
 })
 export class TvRadioComponent implements OnInit {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
@@ -71,7 +72,7 @@ export class TvRadioComponent implements OnInit {
             this.radioElement.nativeElement.src = this.nowPlayingChannel.file;
             this.radioElement.nativeElement.volume = 0.5;
             this.radioElement.nativeElement.play();
-        });
+        }, 1);
     }
 
     public getNowPlaying(): void {

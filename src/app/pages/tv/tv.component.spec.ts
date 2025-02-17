@@ -7,7 +7,6 @@ import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 @Component({
-    standalone: false,
     selector: 'app-tv-news',
     template: '',
 })
@@ -17,7 +16,6 @@ class TvNewsComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'app-tv-radio',
     template: '',
 })
@@ -27,21 +25,18 @@ class TvRadioComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'app-tv-clock',
     template: '',
 })
 class TvClockComponent {}
 
 @Component({
-    standalone: false,
     selector: 'app-tv-weather',
     template: '',
 })
 class TvWeatherComponent {}
 
 @Component({
-    standalone: false,
     selector: 'app-tv-wallpaper',
     template: '',
 })
@@ -56,8 +51,7 @@ describe('TvComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            providers: [provideHttpClient(), provideHttpClientTesting()],
-            declarations: [
+            imports: [
                 TvComponent,
                 TvNewsComponent,
                 TvRadioComponent,
@@ -65,6 +59,7 @@ describe('TvComponent', () => {
                 TvWeatherComponent,
                 TvWallpaperComponent,
             ],
+            providers: [provideHttpClient(), provideHttpClientTesting()],
         }).compileComponents();
     }));
 

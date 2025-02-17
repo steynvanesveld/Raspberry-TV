@@ -1,14 +1,13 @@
 import { map } from 'rxjs/operators';
-import { Subject, combineLatest } from 'rxjs';
 import { Rss } from '@data/models/rss.model';
+import { Subject, combineLatest } from 'rxjs';
 import { RssItem } from '@data/models/rss-item.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NewsService } from '@data/services/news.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
 import { Component, ElementRef, Input, OnInit, ViewChild, DestroyRef, inject } from '@angular/core';
 
 @Component({
-    standalone: false,
     selector: 'app-tv-news',
     templateUrl: './tv-news.component.html',
     styleUrl: './tv-news.component.scss',

@@ -8,8 +8,7 @@ describe('DefaultLayoutComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [RouterModule.forRoot([])],
-            declarations: [DefaultLayoutComponent],
+            imports: [RouterModule.forRoot([]), DefaultLayoutComponent],
         }).compileComponents();
     }));
 

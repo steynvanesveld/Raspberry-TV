@@ -1,9 +1,9 @@
 import { provideHttpClient } from '@angular/common/http';
-import { TvWallpaperComponent } from './tv-wallpaper.component';
 import { PexelsService } from '@data/services/pexels.service';
+import { TvWallpaperComponent } from './tv-wallpaper.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PexelsServiceMock } from '@data/services/mocks/pexels.service.mock';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 describe('TvWallpaperComponent', () => {
     let component: TvWallpaperComponent;
@@ -12,12 +12,12 @@ describe('TvWallpaperComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
+            imports: [TvWallpaperComponent],
             providers: [
                 provideHttpClient(),
                 provideHttpClientTesting(),
                 { provide: PexelsService, useClass: PexelsServiceMock },
             ],
-            declarations: [TvWallpaperComponent],
         }).compileComponents();
     }));
 

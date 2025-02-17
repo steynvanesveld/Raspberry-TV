@@ -1,13 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Photos } from '@data/models/photos.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PexelsService } from '@data/services/pexels.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 
 @Component({
-    standalone: false,
     selector: 'app-tv-wallpaper',
     templateUrl: './tv-wallpaper.component.html',
     styleUrl: './tv-wallpaper.component.scss',
+    imports: [CommonModule],
 })
 export class TvWallpaperComponent implements OnInit {
     @Input() public idle!: boolean;

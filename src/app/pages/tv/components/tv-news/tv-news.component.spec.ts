@@ -13,12 +13,12 @@ describe('TvNewsComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
+            imports: [TvNewsComponent],
             providers: [
                 provideHttpClient(),
                 provideHttpClientTesting(),
                 { provide: NewsService, useClass: NewsServiceMock },
             ],
-            declarations: [TvNewsComponent],
         }).compileComponents();
     }));
 

@@ -3,7 +3,6 @@ import tseslint from 'typescript-eslint';
 import angulareslint from 'angular-eslint';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 
-
 export default tseslint.config(
     {
         files: ['**/*.ts'],
@@ -17,7 +16,7 @@ export default tseslint.config(
             eslint.configs.recommended,
             angulareslint.configs.tsRecommended,
             tseslint.configs.recommended,
-            prettierRecommended
+            prettierRecommended,
         ],
         processor: angulareslint.processInlineTemplates,
         rules: {
@@ -60,11 +59,13 @@ export default tseslint.config(
             ],
             '@typescript-eslint/no-deprecated': 'warn',
             '@typescript-eslint/explicit-function-return-type': ['error'],
-            '@angular-eslint/prefer-standalone': ['off'],
         },
     },
     {
         files: ['**/*.html'],
-        extends: [...angulareslint.configs.templateRecommended, ...angulareslint.configs.templateAccessibility],
+        extends: [
+            ...angulareslint.configs.templateRecommended,
+            ...angulareslint.configs.templateAccessibility,
+        ],
     },
 );

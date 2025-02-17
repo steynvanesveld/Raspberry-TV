@@ -7,7 +7,7 @@ describe('TvClockComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [TvClockComponent],
+            imports: [TvClockComponent],
         }).compileComponents();
     }));
 

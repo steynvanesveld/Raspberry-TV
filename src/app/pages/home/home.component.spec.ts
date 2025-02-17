@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 @Component({
-    standalone: false,
     selector: 'app-camera',
     template: '',
 })
@@ -17,7 +16,7 @@ describe('HomeComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [HomeComponent, CameraComponent],
+            imports: [HomeComponent, CameraComponent],
         }).compileComponents();
     }));
 

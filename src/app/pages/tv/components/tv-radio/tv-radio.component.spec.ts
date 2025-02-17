@@ -3,11 +3,10 @@ import { TvRadioComponent } from './tv-radio.component';
 import { provideHttpClient } from '@angular/common/http';
 import { RadioService } from '@data/services/radio.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RadioServiceMock } from '@data/services/mocks/radio.service.mock';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 @Component({
-    standalone: false,
     selector: 'app-camera',
     template: '',
 })
@@ -23,13 +22,13 @@ describe('TvRadioComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
+            imports: [TvRadioComponent, CameraComponent],
             providers: [
                 provideHttpClient(),
                 provideHttpClientTesting(),
                 { provide: RadioService, useClass: RadioServiceMock },
                 RadioServiceMock,
             ],
-            declarations: [TvRadioComponent, CameraComponent],
         }).compileComponents();
     }));
 

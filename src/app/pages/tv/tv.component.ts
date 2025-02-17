@@ -1,12 +1,25 @@
 import { Subject } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Component, OnInit, DestroyRef, inject } from '@angular/core';
 import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
+import { TvNewsComponent } from '@pages/tv/components/tv-news/tv-news.component';
+import { TvRadioComponent } from '@pages/tv/components/tv-radio/tv-radio.component';
+import { TvClockComponent } from '@pages/tv/components/tv-clock/tv-clock.component';
+import { TvWeatherComponent } from '@pages/tv/components/tv-weather/tv-weather.component';
+import { TvWallpaperComponent } from '@pages/tv/components/tv-wallpaper/tv-wallpaper.component';
 @Component({
-    standalone: false,
     selector: 'app-tv',
     templateUrl: './tv.component.html',
     styleUrl: './tv.component.scss',
+    imports: [
+        CommonModule,
+        TvWallpaperComponent,
+        TvNewsComponent,
+        TvRadioComponent,
+        TvWeatherComponent,
+        TvClockComponent,
+    ],
 })
 export class TvComponent implements OnInit {
     private idleTimeout = 0;
