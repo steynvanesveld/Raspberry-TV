@@ -1,8 +1,9 @@
 import { Subject } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Component, OnInit, DestroyRef, inject } from '@angular/core';
-import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
+import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
 @Component({
+    standalone: false,
     selector: 'app-tv',
     templateUrl: './tv.component.html',
     styleUrl: './tv.component.scss',

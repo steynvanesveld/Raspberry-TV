@@ -1,10 +1,10 @@
-import { Rss } from 'src/app/data/models/rss.model';
+import { Rss } from '@data/models/rss.model';
 import { TvNewsComponent } from './tv-news.component';
 import { provideHttpClient } from '@angular/common/http';
-import { NewsService } from 'src/app/data/services/news.service';
+import { NewsService } from '@data/services/news.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NewsServiceMock, newsItem } from 'src/app/data/services/mocks/news.service.mock';
+import { NewsServiceMock, newsItem } from '@data/services/mocks/news.service.mock';
 
 describe('TvNewsComponent', () => {
     let component: TvNewsComponent;

@@ -1,4 +1,4 @@
-import { OpenWeather } from 'src/app/data/models/openweather.model';
+import { OpenWeather } from '@data/models/openweather.model';
 
 export class OpenWeatherSerializer {
     public fromJson(json: OpenWeather): OpenWeather {

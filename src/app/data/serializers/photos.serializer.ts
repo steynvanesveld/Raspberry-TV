@@ -1,4 +1,4 @@
-import { Photos } from 'src/app/data/models/photos.model';
+import { Photos } from '@data/models/photos.model';
 
 export class PhotosSerializer {
     public fromJson(json: Photos): Photos {

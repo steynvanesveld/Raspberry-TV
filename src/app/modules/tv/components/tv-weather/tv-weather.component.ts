@@ -1,9 +1,10 @@
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { OpenWeather } from 'src/app/data/models/openweather.model';
+import { OpenWeather } from '@data/models/openweather.model';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { OpenWeatherService } from 'src/app/data/services/openweather.service';
+import { OpenWeatherService } from '@data/services/openweather.service';
 
 @Component({
+    standalone: false,
     selector: 'app-tv-weather',
     templateUrl: './tv-weather.component.html',
     styleUrl: './tv-weather.component.scss',

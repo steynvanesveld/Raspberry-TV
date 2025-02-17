@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 import { OpenWeather } from '../models/openweather.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { OpenWeatherSerializer } from '../serializers/openweather.serializer';
 
 @Injectable({

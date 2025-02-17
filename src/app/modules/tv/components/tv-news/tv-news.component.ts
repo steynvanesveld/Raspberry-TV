@@ -1,13 +1,14 @@
 import { map } from 'rxjs/operators';
 import { Subject, combineLatest } from 'rxjs';
-import { Rss } from 'src/app/data/models/rss.model';
-import { RssItem } from 'src/app/data/models/rss-item.model';
+import { Rss } from '@data/models/rss.model';
+import { RssItem } from '@data/models/rss-item.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NewsService } from 'src/app/data/services/news.service';
-import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
+import { NewsService } from '@data/services/news.service';
+import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
 import { Component, ElementRef, Input, OnInit, ViewChild, DestroyRef, inject } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'app-tv-news',
     templateUrl: './tv-news.component.html',
     styleUrl: './tv-news.component.scss',
@@ -167,7 +168,7 @@ export class TvNewsComponent implements OnInit {
         });
     }
 
-    public setNextNewsItemTimeout() {
+    public setNextNewsItemTimeout(): void {
         clearTimeout(this.nextNewsItemTimeout);
 
         this.nextNewsItemTimeout = window.setTimeout(() => {

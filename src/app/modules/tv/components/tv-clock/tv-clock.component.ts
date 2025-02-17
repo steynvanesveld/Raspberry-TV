@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'app-tv-clock',
     templateUrl: './tv-clock.component.html',
     styleUrl: './tv-clock.component.scss',

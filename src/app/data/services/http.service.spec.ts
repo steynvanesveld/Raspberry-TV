@@ -48,11 +48,10 @@ describe('HttpService', () => {
     describe('read()', () => {
         it('should call catchError() on bad call', () => {
             spyOn(service, 'catchError').and.callThrough();
-            let errResponse: never;
 
             service.read().subscribe({
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                error: (err) => (err = errResponse),
+                error: (err) => (err = undefined),
             });
 
             httpMock.expectOne(service.baseUrl + service.resource).flush('', {

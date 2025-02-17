@@ -1,5 +1,5 @@
 import { RssItem } from '../models/rss-item.model';
-import { Rss } from 'src/app/data/models/rss.model';
+import { Rss } from '@data/models/rss.model';
 
 export class RssSerializer {
     public dateTime(date: Date): string {

@@ -33,7 +33,10 @@
                         "assets": ["src/favicon.png", "src/assets"],
                         "styles": ["src/styles.scss"],
                         "stylePreprocessorOptions": {
-                            "includePaths": ["src/styles/abstracts"]
+                            "includePaths": ["src/styles/abstracts"],
+                            "sass": {
+                                "silenceDeprecations": ["import"]
+                            }
                         },
                         "scripts": []
                     },
@@ -108,7 +111,7 @@
                 "lint": {
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
-                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+                        "lintFilePatterns": ["src/**"]
                     }
                 }
             }

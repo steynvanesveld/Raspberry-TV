@@ -15,6 +15,7 @@ export abstract class HttpService<T extends AbstractModel> {
               [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
           }
         | undefined;
+
     public baseUrl!: string;
     public resource!: string;
     public serializer!: Serializer;

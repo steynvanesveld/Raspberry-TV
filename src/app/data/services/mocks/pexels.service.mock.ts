@@ -25,7 +25,7 @@ const pexelsPhoto = new PhotosPhoto(
     'Photo alt',
 );
 
-const pexelsPhotoArray = () => {
+const pexelsPhotoArray = (): PhotosPhoto[] => {
     const maxDaysInMonth = 31;
     const array = [];
 

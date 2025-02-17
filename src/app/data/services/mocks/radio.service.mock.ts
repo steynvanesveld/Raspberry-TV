@@ -51,6 +51,7 @@ export class RadioServiceMock {
     public getNowPlayingFlux(channel: string): Observable<Kink | Flux | DNB> {
         return of(this.fluxResponse);
     }
+
     public getNowPlayingDNB(): Observable<Kink | Flux | DNB> {
         return of(this.dnbResponse);
     }

@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'app-default-layout',
     templateUrl: './default-layout.component.html',
     styleUrl: './default-layout.component.scss',

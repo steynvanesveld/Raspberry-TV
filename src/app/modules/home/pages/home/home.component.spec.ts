@@ -2,7 +2,11 @@ import { HomeComponent } from './home.component';
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-@Component({ selector: 'app-camera', template: '' })
+@Component({
+    standalone: false,
+    selector: 'app-camera',
+    template: '',
+})
 class CameraComponent {
     @Input() public cameraType!: 'IMG' | 'IFRAME';
 }

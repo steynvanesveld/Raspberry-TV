@@ -1,9 +1,9 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TvWeatherComponent } from './tv-weather.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { OpenWeatherService } from 'src/app/data/services/openweather.service';
+import { OpenWeatherService } from '@data/services/openweather.service';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { OpenWeatherServiceMock } from 'src/app/data/services/mocks/openweather.service.mock';
+import { OpenWeatherServiceMock } from '@data/services/mocks/openweather.service.mock';
 
 describe('TvWeatherComponent', () => {
     let component: TvWeatherComponent;

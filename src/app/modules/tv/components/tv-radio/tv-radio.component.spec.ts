@@ -1,12 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { TvRadioComponent } from './tv-radio.component';
 import { provideHttpClient } from '@angular/common/http';
-import { RadioService } from 'src/app/data/services/radio.service';
+import { RadioService } from '@data/services/radio.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RadioServiceMock } from 'src/app/data/services/mocks/radio.service.mock';
+import { RadioServiceMock } from '@data/services/mocks/radio.service.mock';
 
-@Component({ selector: 'app-camera', template: '' })
+@Component({
+    standalone: false,
+    selector: 'app-camera',
+    template: '',
+})
 class CameraComponent {
     @Input() public cameraType!: 'IMG' | 'IFRAME';
 }

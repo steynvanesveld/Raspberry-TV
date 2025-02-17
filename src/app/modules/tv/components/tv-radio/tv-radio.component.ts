@@ -1,14 +1,15 @@
 import { Subject } from 'rxjs';
-import { DNB } from 'src/app/data/models/dnb.model';
-import { Kink } from 'src/app/data/models/kink.model';
-import { Flux } from 'src/app/data/models/flux.model';
+import { DNB } from '@data/models/dnb.model';
+import { Kink } from '@data/models/kink.model';
+import { Flux } from '@data/models/flux.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RadioService } from 'src/app/data/services/radio.service';
-import { RadioChannel } from 'src/app/data/models/radio-channel.model';
-import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
+import { RadioService } from '@data/services/radio.service';
+import { RadioChannel } from '@data/models/radio-channel.model';
+import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
 import { Component, DestroyRef, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'app-tv-radio',
     templateUrl: './tv-radio.component.html',
     styleUrl: './tv-radio.component.scss',
@@ -73,7 +74,7 @@ export class TvRadioComponent implements OnInit {
         });
     }
 
-    public getNowPlaying() {
+    public getNowPlaying(): void {
         clearTimeout(this.getNowPlayingTimeout);
 
         this.radioService

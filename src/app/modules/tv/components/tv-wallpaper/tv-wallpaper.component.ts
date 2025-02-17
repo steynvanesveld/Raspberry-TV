@@ -1,9 +1,10 @@
-import { Photos } from 'src/app/data/models/photos.model';
+import { Photos } from '@data/models/photos.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PexelsService } from 'src/app/data/services/pexels.service';
+import { PexelsService } from '@data/services/pexels.service';
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'app-tv-wallpaper',
     templateUrl: './tv-wallpaper.component.html',
     styleUrl: './tv-wallpaper.component.scss',

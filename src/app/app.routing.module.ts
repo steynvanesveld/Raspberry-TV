@@ -7,7 +7,7 @@ const routes: Routes = [
         path: '',
         component: DefaultLayoutComponent,
         loadChildren: () =>
-            import('src/app/modules/home/home.module').then((m) => {
+            import('@modules/home/home.module').then((m) => {
                 return m.HomeModule;
             }),
     },
@@ -15,7 +15,7 @@ const routes: Routes = [
         path: 'tv',
         component: DefaultLayoutComponent,
         loadChildren: () =>
-            import('src/app/modules/tv/tv.module').then((m) => {
+            import('@modules/tv/tv.module').then((m) => {
                 return m.TvModule;
             }),
     },

@@ -3,28 +3,48 @@ import { TvComponent } from './tv.component';
 import { Component, Input } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { KeyboardEventKey } from 'src/app/data/models/keyboard-event-key.type';
+import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-@Component({ selector: 'app-tv-news', template: '' })
+@Component({
+    standalone: false,
+    selector: 'app-tv-news',
+    template: '',
+})
 class TvNewsComponent {
     @Input() public keyDownSubject!: Subject<KeyboardEventKey>;
     @Input() public overlay!: boolean;
 }
 
-@Component({ selector: 'app-tv-radio', template: '' })
+@Component({
+    standalone: false,
+    selector: 'app-tv-radio',
+    template: '',
+})
 class TvRadioComponent {
     @Input() public keyDownSubject!: Subject<KeyboardEventKey>;
     @Input() public overlay!: boolean;
 }
 
-@Component({ selector: 'app-tv-clock', template: '' })
+@Component({
+    standalone: false,
+    selector: 'app-tv-clock',
+    template: '',
+})
 class TvClockComponent {}
 
-@Component({ selector: 'app-tv-weather', template: '' })
+@Component({
+    standalone: false,
+    selector: 'app-tv-weather',
+    template: '',
+})
 class TvWeatherComponent {}
 
-@Component({ selector: 'app-tv-wallpaper', template: '' })
+@Component({
+    standalone: false,
+    selector: 'app-tv-wallpaper',
+    template: '',
+})
 class TvWallpaperComponent {
     @Input() public idle!: boolean;
     @Input() public overlay!: boolean;

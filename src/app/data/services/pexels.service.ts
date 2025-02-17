@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Photos } from '../models/photos.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PhotosSerializer } from '../serializers/photos.serializer';
 

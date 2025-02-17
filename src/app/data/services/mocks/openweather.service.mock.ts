@@ -27,7 +27,7 @@ const openweatherDaily = new OpenWeatherDaily(
     16,
 );
 
-const openweatherDailyArray = () => {
+const openweatherDailyArray = (): OpenWeatherDaily[] => {
     const daysInWeek = 7;
     const array = [];
 
