@@ -19,7 +19,7 @@
         "module": "ES2022",
         "paths": {
             "@data/*": ["./src/app/data/*"],
-            "@pages/*": ["./src/app/pages/*"],
+            "@features/*": ["./src/app/features/*"],
             "@shared/*": ["./src/app/shared/*"]
         }
     },

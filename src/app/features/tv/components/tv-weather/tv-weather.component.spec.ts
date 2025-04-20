@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TvWeatherComponent } from './tv-weather.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { OpenWeatherService } from '@data/services/openweather.service';
+import { OpenWeatherService } from '@data/services/openmeteo.service';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OpenWeatherServiceMock } from '@data/services/mocks/openweather.service.mock';
 

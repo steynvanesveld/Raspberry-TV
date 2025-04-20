@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { OpenWeather } from '../../models/openweather.model';
+import { OpenWeather } from '../../models/openmeteo-forecast.model';
 import { OpenWeatherTemp } from '../../models/openweather-temp.model';
 import { OpenWeatherDaily } from '../../models/openweather-daily.model';
 import { OpenWeatherCurrent } from '../../models/openweather-current.model';

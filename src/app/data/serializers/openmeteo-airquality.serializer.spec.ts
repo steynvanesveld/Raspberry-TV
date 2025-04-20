@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { OpenWeather } from '../models/openweather.model';
-import { OpenWeatherSerializer } from './openweather.serializer';
+import { OpenWeather } from '../models/openmeteo-forecast.model';
+import { OpenWeatherSerializer } from './openmeteo-forecast.serializer';
 import { OpenWeatherServiceMock } from '../services/mocks/openweather.service.mock';
 
 describe('OpenWeatherSerializer', () => {

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { OpenWeatherService } from './openweather.service';
+import { OpenWeatherService } from './openmeteo.service';
 import { environment } from '../../../environments/environment';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 

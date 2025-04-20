@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Component, OnInit, DestroyRef, inject } from '@angular/core';
 import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
-import { TvNewsComponent } from '@pages/tv/components/tv-news/tv-news.component';
-import { TvRadioComponent } from '@pages/tv/components/tv-radio/tv-radio.component';
-import { TvClockComponent } from '@pages/tv/components/tv-clock/tv-clock.component';
-import { TvWeatherComponent } from '@pages/tv/components/tv-weather/tv-weather.component';
-import { TvWallpaperComponent } from '@pages/tv/components/tv-wallpaper/tv-wallpaper.component';
+import { TvNewsComponent } from '@features/tv/components/tv-news/tv-news.component';
+import { TvRadioComponent } from '@features/tv/components/tv-radio/tv-radio.component';
+import { TvClockComponent } from '@features/tv/components/tv-clock/tv-clock.component';
+import { TvWeatherComponent } from '@features/tv/components/tv-weather/tv-weather.component';
+import { TvWallpaperComponent } from '@features/tv/components/tv-wallpaper/tv-wallpaper.component';
 @Component({
     selector: 'app-tv',
     templateUrl: './tv.component.html',

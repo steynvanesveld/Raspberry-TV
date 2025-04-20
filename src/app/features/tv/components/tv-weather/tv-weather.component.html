@@ -1,0 +1,48 @@
+<div class="weather">
+    @if (forecast) {
+        <section>
+            <span> {{ forecast.current_weather.temperature.toFixed() }} °C </span>
+            <figure>
+                <img [src]="weatherIcon" alt="weather icon" />
+            </figure>
+        </section>
+    }
+    @if (airQuality) {
+        @if (pollenGroupScore('tree')) {
+            <section>
+                <span>{{ pollenGroupScore('tree') }}/10</span>
+                <figure>
+                    <img
+                        src="/assets/images/streamline/forest.svg"
+                        class="custom"
+                        alt="tree pollen icon"
+                    />
+                </figure>
+            </section>
+        }
+        @if (pollenGroupScore('grass')) {
+            <section>
+                <span>{{ pollenGroupScore('grass') }}/10</span>
+                <figure>
+                    <img
+                        src="/assets/images/streamline/grass.svg"
+                        class="custom"
+                        alt="grass pollen icon"
+                    />
+                </figure>
+            </section>
+        }
+        @if (pollenGroupScore('weed')) {
+            <section>
+                <span>{{ pollenGroupScore('weed') }}/10</span>
+                <figure>
+                    <img
+                        src="/assets/images/streamline/allergy.svg"
+                        class="custom"
+                        alt="weed pollen icon"
+                    />
+                </figure>
+            </section>
+        }
+    }
+</div>
