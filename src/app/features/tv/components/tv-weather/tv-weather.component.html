@@ -7,6 +7,16 @@
             </figure>
         </section>
     }
+    @if (sun.time) {
+        <section>
+            <span>
+                {{ sun.time }}
+            </span>
+            <figure>
+                <img src="/assets/images/feather/{{ sun.type }}.svg" class="custom" alt="sun" />
+            </figure>
+        </section>
+    }
     @if (airQuality) {
         @if (pollenGroupScore('tree')) {
             <section>

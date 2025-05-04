@@ -24,6 +24,8 @@ export class OpenMeteoService extends HttpService<OpenMeteoForecast> {
             latitude: environment.open_meteo_lat,
             longitude: environment.open_meteo_lon,
             current_weather: true,
+            daily: 'sunrise,sunset',
+            timezone: 'Europe/Amsterdam',
         };
 
         this.setParams(httpParams);

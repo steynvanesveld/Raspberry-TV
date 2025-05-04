@@ -25,6 +25,7 @@ type PollenGroup = 'tree' | 'grass' | 'weed';
 export class TvWeatherComponent implements OnInit {
     public forecast: OpenMeteoForecast | undefined;
     public airQuality: OpenMeteoAirQuality | undefined;
+    public sun: { time?: string; type?: 'sunrise' | 'sunset' } = {};
 
     public pollenGroups: Record<PollenGroup, PollenType[]> = {
         tree: ['alder_pollen', 'birch_pollen', 'olive_pollen'],
@@ -83,5 +84,35 @@ export class TvWeatherComponent implements OnInit {
 
     public ngOnInit(): void {
         this.getWeather();
+        this.setSun();
+    }
+
+    public setSun(): void {
+        if (!this.forecast) {
+            setTimeout(() => this.setSun(), 100);
+            return;
+        }
+
+        const now = new Date().getTime();
+        const { daily } = this.forecast;
+
+        this.sun.type = 'sunrise';
+        let time = daily.sunRiseTomorrow;
+
+        if (now <= daily.sunRiseToday.getTime()) {
+            time = daily.sunRiseToday;
+        }
+
+        if (now <= daily.sunSetToday.getTime()) {
+            this.sun.type = 'sunset';
+            time = daily.sunSetToday;
+        }
+
+        this.sun.time = time.toLocaleString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+
+        setTimeout(() => this.setSun(), 1000 * 60); // 1 minute
     }
 }
