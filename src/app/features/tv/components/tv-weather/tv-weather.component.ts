@@ -96,22 +96,24 @@ export class TvWeatherComponent implements OnInit {
         const now = new Date().getTime();
         const { daily } = this.forecast;
 
-        this.sun.type = 'sunrise';
-        let time = daily.sunRiseTomorrow;
+        this.sun = {
+            type: 'sunrise',
+            time: daily.sunriseTomorrow,
+        };
 
-        if (now <= daily.sunRiseToday.getTime()) {
-            time = daily.sunRiseToday;
+        if (now <= daily.sunriseTodayTimestamp) {
+            this.sun = {
+                type: 'sunrise',
+                time: daily.sunriseToday,
+            };
         }
 
-        if (now <= daily.sunSetToday.getTime()) {
-            this.sun.type = 'sunset';
-            time = daily.sunSetToday;
+        if (now <= daily.sunsetTodayTimestamp) {
+            this.sun = {
+                type: 'sunset',
+                time: daily.sunsetToday,
+            };
         }
-
-        this.sun.time = time.toLocaleString('nl-NL', {
-            hour: '2-digit',
-            minute: '2-digit',
-        });
 
         setTimeout(() => this.setSun(), 1000 * 60); // 1 minute
     }
