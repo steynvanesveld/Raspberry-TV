@@ -1,3 +1,4 @@
+import { interval } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Photos } from '@data/models/photos.model';
 import { PexelsService } from '@data/services/pexels.service';
@@ -46,29 +47,23 @@ export class TvWallpaperComponent implements OnInit {
             .subscribe((result) => {
                 this.photos = result;
             });
-
-        setTimeout(
-            () => {
-                this.getPhotos();
-            },
-            1000 * 60 * 24 * 7,
-        ); // 1 week
     }
 
     public setCurrentDay(): void {
         const today = new Date();
         this.dayIndex = today.getDate();
-
-        setTimeout(
-            () => {
-                this.setCurrentDay();
-            },
-            1000 * 60 * 6,
-        ); // 6 hours
     }
 
     public ngOnInit(): void {
         this.getPhotos();
         this.setCurrentDay();
+
+        interval(1000 * 60 * 60 * 24 * 7) // 1 week
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.getPhotos());
+
+        interval(1000 * 60 * 60 * 6) // 6 hours
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.setCurrentDay());
     }
 }

@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { interval, Subject } from 'rxjs';
 import { DNB } from '@data/models/dnb.model';
 import { Kink } from '@data/models/kink.model';
 import { Flux } from '@data/models/flux.model';
@@ -7,13 +7,14 @@ import { RadioService } from '@data/services/radio.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RadioChannel } from '@data/models/radio-channel.model';
 import { KeyboardEventKey } from '@data/models/keyboard-event-key.type';
+import { TvNpmfeedComponent } from '../tv-npmfeed/tv-npmfeed.component';
 import { Component, DestroyRef, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 
 @Component({
     selector: 'app-tv-radio',
     templateUrl: './tv-radio.component.html',
     styleUrl: './tv-radio.component.scss',
-    imports: [CommonModule],
+    imports: [CommonModule, TvNpmfeedComponent],
 })
 export class TvRadioComponent implements OnInit {
     @Input() public keyDownSubject = new Subject<KeyboardEventKey>();
@@ -25,7 +26,6 @@ export class TvRadioComponent implements OnInit {
     public destroyRef = inject(DestroyRef);
     public nowPlaying: Kink | Flux | DNB | undefined = undefined;
     public nowPlayingChannelIndex = 0;
-    public getNowPlayingTimeout!: number;
     public selectedChannelIndex = 0;
 
     constructor(public radioService: RadioService) {}
@@ -76,18 +76,12 @@ export class TvRadioComponent implements OnInit {
     }
 
     public getNowPlaying(): void {
-        clearTimeout(this.getNowPlayingTimeout);
-
         this.radioService
             .getNowPlaying(this.nowPlayingChannel)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((response) => {
                 this.nowPlaying = response;
             });
-
-        this.getNowPlayingTimeout = window.setTimeout(() => {
-            this.getNowPlaying();
-        }, 1000 * 30); // 30 seconds
     }
 
     public setSelectedChannel(selectedChannelIndex: number): void {
@@ -138,5 +132,9 @@ export class TvRadioComponent implements OnInit {
         this.startRadio();
         this.getNowPlaying();
         this.listenForKeyDown();
+
+        interval(1000 * 30) // 30 seconds
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.getNowPlaying());
     }
 }

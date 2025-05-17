@@ -1,4 +1,4 @@
-import { forkJoin } from 'rxjs';
+import { forkJoin, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WEATHER_ICON_MAP } from '@data/constants/weather-icons';
 import { OpenMeteoService } from '@data/services/openmeteo.service';
@@ -33,13 +33,13 @@ export class TvWeatherComponent implements OnInit {
         weed: ['mugwort_pollen', 'ragweed_pollen'],
     };
 
-    public pollenThresholds: Record<PollenType, number> = {
-        alder_pollen: 150,
-        birch_pollen: 300,
-        olive_pollen: 100,
-        grass_pollen: 100,
-        mugwort_pollen: 80,
-        ragweed_pollen: 20,
+    public pollenThresholds: Record<PollenType, number[]> = {
+        alder_pollen: [0, 2, 5, 10, 20, 35, 60, 90, 120, 140, 150],
+        birch_pollen: [0, 2, 5, 10, 20, 35, 60, 90, 150, 200, 250],
+        olive_pollen: [0, 1, 3, 5, 10, 17, 30, 40, 60, 80, 100],
+        grass_pollen: [0, 1, 3, 5, 10, 20, 40, 60, 80, 90, 100],
+        mugwort_pollen: [0, 0.5, 1, 2, 3, 5, 10, 20, 40, 60, 80],
+        ragweed_pollen: [0, 0.2, 0.5, 1, 2, 3, 5, 10, 20, 40, 50],
     };
 
     public destroyRef = inject(DestroyRef);
@@ -58,14 +58,16 @@ export class TvWeatherComponent implements OnInit {
     }
 
     public pollenGroupScore(group: PollenGroup): number {
-        const types = this.pollenGroups[group];
-        const scores = types.map((type) => {
-            const value = this.airQuality?.current[type] ?? 0;
-            const max = this.pollenThresholds[type];
-            return value <= 0 ? 0 : value >= max ? 10 : Math.ceil((value / max) * 10);
-        });
+        return Math.max(
+            ...this.pollenGroups[group].map((pollenType) => {
+                const value = this.airQuality!.current[pollenType];
+                const thresholds = this.pollenThresholds[pollenType];
 
-        return Math.max(...scores);
+                return value > thresholds[thresholds.length - 1]
+                    ? 10
+                    : thresholds.findLastIndex((threshold) => value >= threshold);
+            }),
+        );
     }
 
     public getWeather(): void {
@@ -77,24 +79,21 @@ export class TvWeatherComponent implements OnInit {
             .subscribe(({ forecast, airQuality }) => {
                 this.forecast = forecast;
                 this.airQuality = airQuality;
+                this.setSun();
             });
-
-        setTimeout(() => this.getWeather(), 1000 * 60 * 5); // 5 minutes
     }
 
     public ngOnInit(): void {
         this.getWeather();
-        this.setSun();
+
+        interval(1000 * 60 * 5) // 5 minutes
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.getWeather());
     }
 
     public setSun(): void {
-        if (!this.forecast) {
-            setTimeout(() => this.setSun(), 100);
-            return;
-        }
-
         const now = new Date().getTime();
-        const { daily } = this.forecast;
+        const { daily } = this.forecast!;
 
         this.sun = {
             type: 'sunrise',
@@ -114,7 +113,5 @@ export class TvWeatherComponent implements OnInit {
                 time: daily.sunsetToday,
             };
         }
-
-        setTimeout(() => this.setSun(), 1000 * 60); // 1 minute
     }
 }

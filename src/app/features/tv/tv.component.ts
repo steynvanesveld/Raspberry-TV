@@ -14,11 +14,11 @@ import { TvWallpaperComponent } from '@features/tv/components/tv-wallpaper/tv-wa
     styleUrl: './tv.component.scss',
     imports: [
         CommonModule,
-        TvWallpaperComponent,
         TvNewsComponent,
         TvRadioComponent,
-        TvWeatherComponent,
         TvClockComponent,
+        TvWeatherComponent,
+        TvWallpaperComponent,
     ],
 })
 export class TvComponent implements OnInit {

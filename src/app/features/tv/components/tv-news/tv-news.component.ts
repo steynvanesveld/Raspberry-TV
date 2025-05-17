@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Rss } from '@data/models/rss.model';
-import { Subject, combineLatest } from 'rxjs';
+import { Subject, Subscription, combineLatest, interval } from 'rxjs';
 import { RssItem } from '@data/models/rss-item.model';
 import { NewsService } from '@data/services/news.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -23,7 +23,7 @@ export class TvNewsComponent implements OnInit {
     public newsLoading = new Rss([]);
     public currentNewsArticleIndex = 0;
     public destroyRef = inject(DestroyRef);
-    public nextNewsItemTimeout!: number;
+    private nextNewsItemSubscription: Subscription | undefined;
 
     constructor(private newsService: NewsService) {}
 
@@ -54,13 +54,6 @@ export class TvNewsComponent implements OnInit {
             .subscribe((response) => {
                 this.setNewsItems(response);
             });
-
-        setTimeout(
-            () => {
-                this.getNews();
-            },
-            1000 * 60 * 60,
-        ); // 60 minutes
     }
 
     public setNewsItems(
@@ -168,11 +161,15 @@ export class TvNewsComponent implements OnInit {
     }
 
     public setNextNewsItemTimeout(): void {
-        clearTimeout(this.nextNewsItemTimeout);
+        if (this.nextNewsItemSubscription) {
+            this.nextNewsItemSubscription.unsubscribe();
+        }
 
-        this.nextNewsItemTimeout = window.setTimeout(() => {
-            this.setCurrentNewsArticle('next');
-        }, 1000 * 60); // 1 minute;
+        this.nextNewsItemSubscription = interval(1000 * 60) // 1 minute
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => {
+                this.setCurrentNewsArticle('next');
+            });
     }
 
     public listenForKeyDown(): void {
@@ -204,5 +201,9 @@ export class TvNewsComponent implements OnInit {
     public ngOnInit(): void {
         this.getNews();
         this.listenForKeyDown();
+
+        interval(1000 * 60 * 60) // 60 minutes
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(() => this.getNews());
     }
 }
